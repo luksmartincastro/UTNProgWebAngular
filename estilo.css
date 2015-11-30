@@ -1,0 +1,52 @@
+.imgMar 
+{
+	width: 240px;
+    height: 60px !important; 
+}
+/*------------------------*/
+.imgMod 
+{
+	width: 240px;
+    height: 395px !important; 
+}
+/*------------------------*/
+div#fallaScroll 
+{    
+    width: auto;
+    height: 400px;
+    overflow: auto;
+}
+/*------------------------*/
+div#descripGamaScroll
+{    
+    width: auto;
+    height: 75px;
+    overflow: auto;
+}
+/*------------------------*/
+div#servicioScroll
+{    
+    width: auto;
+    height: 145px;
+    overflow: auto;
+}
+/*------------------------*/
+div#repuestoScroll
+{    
+    width: auto;
+    height: 160px;
+    overflow: auto;
+}
+/*------------------------*/
+/*------------------------*/
+.full button span {
+background-color: limegreen;
+border-radius: 32px;
+color: black;
+}
+/*------------------------*/
+.partially button span {
+background-color: orange;
+border-radius: 32px;
+color: black;
+}

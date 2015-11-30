@@ -1,0 +1,440 @@
+<div ng-controller="presupCtrl">
+  
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+          <div ng-include="'views/menus/menuAtP.html'"></div>          
+          <img id="imgSEL-Logo" ng-src="img/AdminSEL-logo-transp.png" alt="Marca" class="imgSEL img-thumbnail"> 
+
+        </div>
+         <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+         <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+         <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+          <div class="row">
+            <div class="col-xs-8 col-sm-8 placeholder"><!-- ////////////////////COLUMNA CLIENTE/////////////////////// -->
+
+              <div class="row"><!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
+                <div class="col-md-7">
+               
+                  <h1 class="page-header">Datos del cliente</h1>
+                  <div class="panel panel-default">
+                        <div class="panel-heading"></div>
+                        <div class="panel-body">
+
+                          <div class="row"><!-- ************************************************ -->
+                            <div class="col-md-8">
+                            
+                              <div class="form-group">
+                                  
+                                  <input type="text" class="form-control" id="exampleInputName2" placeholder="Apellido y nombre del cliente">
+                              </div>
+
+                            </div>
+                            <!-- *************************************************************** -->
+                            <div class="col-md-2">
+                            
+                              <!-- Button trigger modal -->
+                              <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#ModalTelefono">
+                              <i class="glyphicon glyphicon-phone-alt"></i>
+                                
+                              </button>
+
+                            </div>
+                            <div class="col-md-2">
+                                                                    
+                              <!-- Button trigger modal -->
+                              <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#ModalDomicilio">
+                              <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                              </button>
+
+                            </div>
+                          </div><!-- *********************************************************** -->
+                          <div class="form-group">                                        
+                              <textarea class="form-control" rows="2"placeholder="Urgencia o situacion especial"></textarea>
+                          </div>
+
+                        </div>
+                  </div>
+
+                </div>
+                <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                <div class="col-md-5">
+                          
+                  <h1 class="page-header">Presupuesto</h1>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      Basic panel example
+                    </div>
+                  </div>
+
+                </div>
+              </div><!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            
+              <h1 class="sub-header">Detalle del trabajo
+                <!-- Large modal -->
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                </button>           
+              </h1>
+
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Marca modelo</th>
+                      <th>Gama</th>
+                      <th>IMEI</th>
+                      <th>Presup Estimado</th>
+                      <th>Fecha Estimada</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
+                      <td>Motorola MotoG</td> 
+                      <td>Alta</td>
+                      <td>15-321654-9875</td>
+                      <td>$ 94</td>
+                      <td>5/12/2015</td>
+                      <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <i class="glyphicon glyphicon-list-alt"></i>                          
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-xs btn-block">
+                        <b>X</b>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
+                      <td>Motorola X</td> 
+                      <td>Alta</td>
+                      <td>15-321654-9875</td>
+                      <td>$ 215</td>
+                      <td>5/12/2015</td>
+                      <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#DetalleModal">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-xs btn-block">
+                        <b>X</b>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
+                      <td>Motorola MotoG</td> 
+                      <td>Alta</td>
+                      <td>15-321654-9875</td>
+                      <td>$ 94</td>
+                      <td>5/12/2015</td>
+                      <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#DetalleModal">
+                        <i class="glyphicon glyphicon-list-alt"></i>                          
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" ng-disabled="true" class="btn btn-danger btn-xs btn-block">
+                        <b>X</b>
+                        </button>
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  Basic panel example
+                </div>
+              </div>
+
+
+            </div><!-- /////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <div class="col-xs-4 col-sm-4 placeholder"><!-- ////////////////////COLUMNA USUARIO/////////////////////// -->
+
+              <div ng-include="'views/panels/panelUsuario.html'"></div>
+
+            </div><!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->            
+          </div>
+          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+          
+        </div>
+    </div>
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- /////////////////////////////////  MODAL PRESUPUESTO  ////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">PRESUPUESTO</h4>
+          </div>
+          <div class="modal-body">
+            
+            <div class="row">
+                <div class="col-md-6">
+                
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"></h3>
+                      </div>
+                      <div class="panel-body"><!-- ////////////////////////////////////// -->
+                            <div class="row">
+                              <div class="col-md-5">                                  
+                                
+                                <select class="form-control" ng-change="mostrarModelos()" ng-model="SelMarca" ng-options="marca.nombreMarca for marca in marcas track by marca.id">      
+                                    <option value="" disabled selected>Marca</option>
+                                </select>
+                                <p></p>
+                                
+                                <select class="form-control" ng-disabled="!modelos" ng-change="mostrarRep()" ng-model="SelModelo" ng-options="modelo.nombreModelo for modelo in modelos track by modelo.id">
+                                    <option value="" disabled selected>Modelo</option>
+                                </select>
+                                <p></p>
+                                
+                                <select class="form-control" ng-change="mostrarDescripGama()" ng-model="SelGama" ng-options="gama.nombreGama for gama in gamas track by gama.id">
+                                    <option value="" disabled selected>Gama</option>
+                                </select>
+
+                              </div>
+                              <div class="col-md-7">
+
+                                <!-- //////////////////imagen marca////////////////////// -->
+                                <img id="imgMarcaId" ng-src="img/{{imgMarca}}" alt="Marca" class="imgMar img-thumbnail"> 
+                                <!-- /////////////////imagen modelos///////////////////// -->  
+                                <p></p>
+                                <img id="imgModeloId" ng-src="img/{{imgModelo}}" alt="Modelo" class="img-thumbnail imgMod">                              
+
+                              </div>
+                            </div>
+
+                      </div>
+                    </div>
+
+                </div>                
+                            
+                <div class="col-md-6">
+                
+                    <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title"></h3>
+                          </div>
+                          <div class="panel-body">
+                            
+                            <div class="row">
+                              <div class="col-md-6">
+
+                                <div class="panel panel-default"><!-- ////////////////////fallas genericas///////////////////// -->    
+                                  <div class="panel-heading">Fallas genericas</div>
+                                  <div id="fallaScroll" class="panel-body">
+
+                                    <div class="checkbox" ng-repeat="falla in fallas">
+                                      <label><input type="checkbox" ng-click="updateSelection($event, falla.id)" />{{falla.descripcionFallaGen}}</label>                                       
+                                    </div>                                    
+
+                                  </div>
+                                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->    
+
+                              </div>
+
+                              <div class="col-md-6">
+
+                                <div class="panel panel-default"><!-- ////////////////////Servicios genericos///////////////////// -->    
+                                  <div class="panel-heading">Servicios</div>
+                                  <div id="servicioScroll" class="panel-body">
+                                    
+                                    <div class="checkbox" ng-repeat="serv in servicios">
+                                      <label><input type="checkbox" ng-click="updateSelectionServ($event, serv.id)" />{{serv.nombreServicio}}</label>                                       
+                                    </div>
+
+                                  </div>
+                                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->    
+                                
+                                <p></p>
+                                
+                                <div class="panel panel-default">
+                                  <div class="panel-body">
+                                    
+                                    <select class="form-control" ng-change="agregarTablaRep()" ng-model="SelRep" ng-options="rep.nombreRep for rep in repuestos track by rep.id">      
+                                        <option value="" disabled selected>Repuesto</option>
+                                    </select>
+                                    <p></p>
+                                    <div id="repuestoScroll">
+
+                                      <table class="table table-hover" id="tablaRep">
+                                        
+                                        <tr ng-repeat="fila in arrayTablaRep">
+                                          <td>#</td>
+                                          <td style="display:none;">{{fila.id}}</td>
+                                          <td>{{fila.nombreRep}}</td>  
+                                          <td>
+                                            <button type="button"  disabled="" class="btn btn-danger btn-xs btn-block">
+                                            <b>X</b>
+                                            </button>
+                                          </td>
+                                        </tr>                                                                                    
+
+                                      </table>
+                                      
+                                    </div>
+
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- /////////////////REFERENCIA A LA GAMA///////////////////// -->                    
+            <div class="alert alert-info" id="descripGamaScroll" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              {{DescripGama}}
+            </div>
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
+            <div class="panel panel-default">
+              <div class="panel-heading"></div>
+              <div class="panel-body">
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="panel panel-default" ng-controller="DatepickerDemoCtrl">                    
+                      <div class="panel-body">
+                        Fecha de posible entrega
+                         <p class="input-group">
+                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      Basic panel example
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="col-md-4">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      Basic panel example
+                    </div>
+                  </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
+          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar cambios</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ////////////////////////////////////  MODAL TELEFONO  ////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- Modal -->
+    <div class="modal fade" id="ModalTelefono" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">TELEFONO DEL USUARIO</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////  MODAL DOMICILIO  ////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- Modal -->
+    <div class="modal fade" id="ModalDomicilio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">DOMICILIO DEL USUARIO</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ////////////////////////////////////  MODAL DETALLES  ////////////////////////////////////////////////// -->
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- Modal -->
+    <div class="modal fade" id="ModalDetalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">DETALLE DE EQUIPO</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
