@@ -279,18 +279,18 @@
                                     <p></p>
                                     <div id="repuestoScroll">
 
-                                      <table class="table table-hover" id="tablaRep">
+                                      <table class="table table-hover" name="tablaRep">                                        
                                         
-                                        <tr ng-repeat="fila in arrayTablaRep">
+                                        <tr ng-repeat="fila in arrayTablaRep" directbtntablarep>
                                           <td>#</td>
-                                          <td style="display:none;">{{fila.id}}</td>
-                                          <td>{{fila.nombreRep}}</td>  
+                                          <td style="display:none;" class="valorId">{{fila.id}}</td>
+                                          <td>{{fila.nombreRep}}</td>                                            
                                           <td>
-                                            <button type="button"  disabled="" class="btn btn-danger btn-xs btn-block">
+                                            <button type="button" ng-click="elimFilaRep()"  class="btn btn-danger btn-xs btn-block">
                                             <b>X</b>
                                             </button>
                                           </td>
-                                        </tr>                                                                                    
+                                        </tr> 
 
                                       </table>
                                       

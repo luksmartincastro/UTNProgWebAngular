@@ -14,7 +14,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 
 	$scope.arrayTablaRep = [ // vectore que contiene los elementos de la tabla repuestos
-								{id:'',nombreRep:'-'},
+								{id:'',nombreRep:'-',boton: ' <button type="button" class="btn btn-primary">Default button</button>'},
 								{id:'',nombreRep:'-'},
 								{id:'',nombreRep:'-'}
 							]; 
@@ -100,15 +100,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  if (action === 'remove' && $scope.arrayServ.indexOf(id) !== -1)
 	  {
 	    $scope.arrayServ.splice($scope.arrayServ.indexOf(id), 1);
+	    //splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar
 	  }
-	};	
-	//---------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------
-	$scope.activarBtn = function($event1)
-	{
-		var boton = $event1.target;
-
-	};
+	};		
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	$scope.agregarTablaRep = function()
