@@ -10,9 +10,22 @@ app.directive('directbtntablarep', function()
 				scope.elimFilaRep = function()
 				{
 					var id = iElement.find('td.valorId').text();
-					if (scope.arrayRep.indexOf(id) !== -1)
+					id = parseInt(id); // convertimos a entero para que pueda encontrar el elemento en el array
+					var posArrayRep = scope.arrayRep.indexOf(id);
+					if ( posArrayRep !== -1) 
 					{
-						scope.arrayRep.splice(scope.arrayRep.indexOf(id), 1);	
+						scope.arrayRep.splice(posArrayRep, 1);	
+						scope.arrayTablaRep.splice(posArrayRep, 1);
+						if (scope.filaRepBlanca !=0)
+						{
+							var nuevaFila = "<tr>"+
+					                          "<td>#</td>"+                                        
+					                          "<td>-</td>"+                                            
+					                          "<td>-</td>"+
+					                        "</tr>";
+            				$("#tablaRep").append(nuevaFila);
+            				scope.filaRepBlanca = scope.filaRepBlanca -1;
+						};						
 					};
 				};
 			}
