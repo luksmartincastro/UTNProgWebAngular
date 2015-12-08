@@ -7,7 +7,7 @@
 .imgMod 
 {
 	width: 240px;
-    height: 395px !important; 
+    height: 320px !important; 
 }
 /*------------------------*/
 div#fallaScroll 
@@ -20,7 +20,7 @@ div#fallaScroll
 div#descripGamaScroll
 {    
     width: auto;
-    height: 75px;
+    height: 55px;
     overflow: auto;
 }
 /*------------------------*/

@@ -6,7 +6,7 @@
           <div ng-include="'views/menus/menuAtP.html'"></div>          
           <img id="imgSEL-Logo" ng-src="img/AdminSEL-logo-transp.png" alt="Marca" class="imgSEL img-thumbnail"> 
 
-        </div>
+        </div> 
          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -75,12 +75,12 @@
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">
-                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-plus-sign"></span>
                 </button>           
               </h1>
 
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" name="tablaEq" id="tablaEq">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -93,13 +93,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
-                      <td>Motorola MotoG</td> 
-                      <td>Alta</td>
-                      <td>15-321654-9875</td>
-                      <td>$ 94</td>
-                      <td>5/12/2015</td>
+                    <tr ng-repeat="fila in arrayTablaEq" directbtntablarep>
+                      <td>#</td>
+                      <td>{{fila.marcaModelo}}</td>
+                      <td>{{fila.gama}}</td>                                            
+                      <td>{{fila.imei}}</td>
+                      <td>{{fila.presupEst}}</td>
+                      <td>{{fila.fechaEst}}</td>
                       <td>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
@@ -112,43 +112,86 @@
                         </button>
                       </td>
                     </tr>
+                    <!-- /////////////////////////////////////////////// -->
                     <tr>
-                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
-                      <td>Motorola X</td> 
-                      <td>Alta</td>
-                      <td>15-321654-9875</td>
-                      <td>$ 215</td>
-                      <td>5/12/2015</td>
-                      <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#DetalleModal">
-                        <i class="glyphicon glyphicon-list-alt"></i>
-                        </button>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-xs btn-block">
-                        <b>X</b>
-                        </button>
-                      </td>
+                      <td class="btn-primary"><i class="glyphicon glyphicon-th"></i></td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
                     </tr>
                     <tr>
-                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
-                      <td>Motorola MotoG</td> 
-                      <td>Alta</td>
-                      <td>15-321654-9875</td>
-                      <td>$ 94</td>
-                      <td>5/12/2015</td>
-                      <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#DetalleModal">
-                        <i class="glyphicon glyphicon-list-alt"></i>                          
-                        </button>
-                      </td>
-                      <td>
-                        <button type="button" ng-disabled="true" class="btn btn-danger btn-xs btn-block">
-                        <b>X</b>
-                        </button>
-                      </td>
+                      <td class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td class="btn-success"><i class="glyphicon glyphicon-ok"></i></td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
                     </tr>
                     
                   </tbody>
@@ -157,7 +200,9 @@
 
               <div class="panel panel-default">
                 <div class="panel-body">
-                  Basic panel example
+                  
+                  <div class="alert alert-info" role="alert">...</div>
+
                 </div>
               </div>
 
@@ -190,9 +235,9 @@
           <div class="modal-body">
             
             <div class="row">
-                <div class="col-md-6">
-                
-                    <div class="panel panel-default">
+              <div class="col-md-6"><!-- //////////////////////columna marca y modelo//////////////////////////////// -->
+              
+                <div class="panel panel-default">
                       <div class="panel-heading">
                         <h3 class="panel-title"></h3>
                       </div>
@@ -229,139 +274,191 @@
                       </div>
                     </div>
 
-                </div>                
-                            
-                <div class="col-md-6">
-                
-                    <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"></h3>
-                          </div>
-                          <div class="panel-body">
-                            
-                            <div class="row">
-                              <div class="col-md-6">
+              </div><!-- //////////////////////////////////////////////////////////////////////////////////////////// -->
+              <div class="col-md-3"><!-- /////////////////////////////columna falla generica///////////////////////// -->
+              
+                <div class="panel panel-default"><!-- ////////////////////fallas genericas///////////////////// -->    
+                    <div class="panel-heading">Fallas genericas</div>
+                    <div id="fallaScroll" class="panel-body">
 
-                                <div class="panel panel-default"><!-- ////////////////////fallas genericas///////////////////// -->    
-                                  <div class="panel-heading">Fallas genericas</div>
-                                  <div id="fallaScroll" class="panel-body">
+                      <div class="checkbox" ng-repeat="falla in fallas">
+                        <label><input type="checkbox" ng-click="updateSelection($event, falla.id)" />{{falla.descripcionFallaGen}}</label>                                       
+                      </div>                                    
 
-                                    <div class="checkbox" ng-repeat="falla in fallas">
-                                      <label><input type="checkbox" ng-click="updateSelection($event, falla.id)" />{{falla.descripcionFallaGen}}</label>                                       
-                                    </div>                                    
+                    </div>
+                  </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->  
 
-                                  </div>
-                                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->    
-
-                              </div>
-
-                              <div class="col-md-6">
-
-                                <div class="panel panel-default"><!-- ////////////////////Servicios genericos///////////////////// -->    
-                                  <div class="panel-heading">Servicios</div>
-                                  <div id="servicioScroll" class="panel-body">
-                                    
-                                    <div class="checkbox" ng-repeat="serv in servicios">
-                                      <label><input type="checkbox" ng-click="updateSelectionServ($event, serv.id)" />{{serv.nombreServicio}}</label>                                       
-                                    </div>
-
-                                  </div>
-                                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->    
-                                
-                                <p></p>
-                                
-                                <div class="panel panel-default">
-                                  <div class="panel-body">
-                                    
-                                    <select class="form-control" ng-change="agregarTablaRep()" ng-model="SelRep" ng-options="rep.nombreRep for rep in repuestos track by rep.id">      
-                                        <option value="" disabled selected>Repuesto</option>
-                                    </select>
-                                    <p></p>
-                                    <div id="repuestoScroll">
-
-                                      <table class="table table-hover" name="tablaRep">                                        
-                                        
-                                        <tr ng-repeat="fila in arrayTablaRep" directbtntablarep>
-                                          <td>#</td>
-                                          <td style="display:none;" class="valorId">{{fila.id}}</td>
-                                          <td>{{fila.nombreRep}}</td>                                            
-                                          <td>
-                                            <button type="button" ng-click="elimFilaRep()"  class="btn btn-danger btn-xs btn-block">
-                                            <b>X</b>
-                                            </button>
-                                          </td>
-                                        </tr> 
-
-                                      </table>
-                                      
-                                    </div>
-
-                                  </div>
-                                </div>
-
-                              </div>
-                            </div>
-
-                          </div>
+              </div><!-- //////////////////////////////////////////////////////////////////////////////////////////// -->
+              <div class="col-md-3"><!-- /////////////////////columna servicios y repuestos////////////////////////// -->
+              
+                <div class="panel panel-default"><!-- ////////////////////Servicios genericos///////////////////// -->    
+                  <div class="panel-heading">Servicios</div>
+                  <div id="servicioScroll" class="panel-body">
+                    
+                    <div class="checkbox" ng-repeat="serv in servicios">
+                      <label><input type="checkbox" ng-click="updateSelectionServ($event, serv.id)" />{{serv.nombreServicio}}</label>                                       
                     </div>
 
-                </div>
-            </div>
+                  </div>
+                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->   
+
+                <p></p>
+                                
+                <div class="panel panel-default"><!-- ///////////////////////////tabla repuestos///////////////////////////////////// -->   
+                  <div class="panel-body">
+                    
+                    <select class="form-control" ng-change="agregarTablaRep()" ng-model="SelRep" ng-options="rep.nombreRep for rep in repuestos track by rep.id">      
+                        <option value="" disabled selected>Repuesto</option>
+                    </select>
+                    <p></p>
+                    <div id="repuestoScroll">
+
+                      <table class="table table-hover" name="tablaRep" id="tablaRep">                                        
+                        
+                        <tr ng-repeat="fila in arrayTablaRep" directbtntablarep>
+                          <td>#</td>
+                          <td style="display:none" class="valorId">{{fila.id}}</td>
+                          <td>{{fila.nombreRep}}</td>                                            
+                          <td>
+                            <button type="button" ng-click="elimFilaRep()"  class="btn btn-danger btn-xs btn-block">
+                            <b>X</b>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>                                        
+                          <td>-</td>                                            
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>#</td>                                        
+                          <td>-</td>                                            
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>#</td>                                        
+                          <td>-</td>                                            
+                          <td>-</td>
+                        </tr>
+
+                      </table>
+                      
+                    </div>
+
+                  </div>
+                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->   
+
+              </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->   
+            </div>            
             
-            <!-- /////////////////REFERENCIA A LA GAMA///////////////////// -->                    
-            <div class="alert alert-info" id="descripGamaScroll" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span>
-              {{DescripGama}}
-            </div>
-            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
-            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
+          <!-- /////////////////REFERENCIA A LA GAMA///////////////////// -->                    
+          <div class="alert alert-info" id="descripGamaScroll" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{DescripGama}}
+          </div>
+          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
+          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
             <div class="panel panel-default">
-              <div class="panel-heading"></div>
+              <div class="panel-heading">Detalle del presupuesto</div>
               <div class="panel-body">
                 
                 <div class="row">
-                  <div class="col-md-4">
-                    <div class="panel panel-default" ng-controller="DatepickerDemoCtrl">                    
-                      <div class="panel-body">
-                        Fecha de posible entrega
-                         <p class="input-group">
-                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                          </span>
+                  <div class="col-md-8">
+                  
+                  <!-- ++++++++++++ng-controller="DatepickerDemoCtrl"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+                  <div class="row" >
+                    <div class="col-md-6">
+                      <label class="control-label">Fecha de entrega estimada:</label>            
+                    </div>
+
+                    <div class="col-md-6">                        
+
+                        <!-- +++++++++++++++++++++++++++++++date picker+++++++++++++++++++++++++++++++++++++++++++++++ -->
+                        <p class="input-group">
+                          <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />                          
                         </p>
 
+                    </div>
+                  </div>
+                  <div class="row"><!-- ++++++++++++++++++++++++++++++++++++ -->
+                    <div class="col-md-6">
+                      <label class="control-label">Monto repuestos :</label>            
+                    </div>
+
+                    <div class="col-md-6">                        
+                      <label id="idMontoRep" class="control-label">$ {{MontoRep}}</label>
+                    </div>
+                  </div>
+                  <div class="row"><!-- ++++++++++++++++++++++++++++++++++++ -->          
+                    <div class="col-md-6">
+                      <label class="control-label">Monto servicio :</label>           
+                    </div>
+
+                    <div class="col-md-6">                        
+                      <label id="idMontoServ" class="control-label">$ {{MontoServ}}</label>
+                    </div>
+                  </div>
+                  <div class="row"><!-- ++++++++++++++++++++++++++++++++++++ -->          
+                    <div class="col-md-6">
+                      <label class="control-label">Mano de obra :</label>           
+                    </div>
+                    <div class="col-md-6">                        
+                      <label id="idMontoMO" class="control-label">$ {{MontoMO}}</label>
+                    </div>
+                  </div>
+                  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+                  </div>
+                  <div class="col-md-4">
+                  
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        
+                        <center><h1 id="idTotal">$ {{totalPresup}}</h1></center>
+
                       </div>
-                    </div>
-                  </div>
+                    </div>                   
 
-                  <div class="col-md-4">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-                      Basic panel example
-                    </div>
                   </div>
-                  </div>
-
-                  <div class="col-md-4">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-                      Basic panel example
-                    </div>
-                  </div>
-                  </div>
-
                 </div>
+                <!-- /////////////////////////BOTONES DEL PRESUPUESTO////////////////////////////////////// -->          
+                <P></P>
+                <div class="row">
+                  <div class="col-md-2"></div>
 
+                  <div class="col-md-8">
+                    <p></p>        
+                    <!-- **************botonera de panel presupuesto************************* -->
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+                      <div class="btn-group" role="group">
+                        <button name="btnReset" type="button" ng-click="resetPresupuesto()" class="btn btn-default">Reset</button>
+                      </div>
+                      
+                      <div class="btn-group" role="group">
+                        <button name="btnCalc" ng-disabled="!btnCalcularDisable" ng-click="getPresupuesto()" type="button" ng-class="{true:'btn-success', false:''}[btnSucces==true]" class="btn btn-default">
+                          Calcular presupuesto
+                        </button>
+                      </div>      
+                      
+                    </div>
+
+                  </div>
+                  
+                  <!-- **************botonera de panel presupuesto************************* -->
+                  <div class="col-md-2"></div> 
+              </div>
+              <!-- /////////////////////////BOTONES DEL PRESUPUESTO////////////////////////////////////// -->            
               </div>
             </div>
+                       
           <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
           <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" ng-disabled="!btnAceptarDisable" ng-click="aceptarPresup()" class="btn btn-primary">Aceptar presupuesto</button>
           </div>
 
         </div>

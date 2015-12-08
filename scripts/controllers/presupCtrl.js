@@ -1,23 +1,28 @@
 "use strict";
-
+ 
 app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope, PresupServ, $route)
 {
 	var bandera = 0; // variable global para la 1ra carga en la tabla repuesto
+	$scope.filaRepBlanca = 0;
+	$scope.filaEqBlanca = 0;
 	$scope.SelMarca = {id:'',nombreMarca:''};
 	$scope.SelModelo = {id:'',nombreModelo:'Marcas-Modelos'};
+	$scope.SelGama = {id:'',nombreGama:'Gama', DescripGama:''};
 	$scope.imgMarca = 'Marcas_logo.gif';
-	$scope.imgModelo = 'Marcas-Modelos.jpg';
-	$scope.btnTablaRepDisabled = "false"; //disabled
+	$scope.imgModelo = 'Marcas-Modelos.jpg';	
 	$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
 	$scope.arrayFallaGen = [];
 	$scope.arrayServ = [];
+	$scope.btnAceptarDisable = false;
+	$scope.btnCalcularDisable = false;
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
-
-	$scope.arrayTablaRep = [ // vectore que contiene los elementos de la tabla repuestos
-								{id:'',nombreRep:'-',boton: ' <button type="button" class="btn btn-primary">Default button</button>'},
-								{id:'',nombreRep:'-'},
-								{id:'',nombreRep:'-'}
-							]; 
+	$scope.arrayTablaRep = []; 
+	$scope.arrayTablaEq = []; 
+	$scope.btnSucces = false; // btn-success 
+	$scope.MontoRep = 0;
+	$scope.MontoServ = 0;
+	$scope.MontoMO = 0;
+	$scope.totalPresup = 0;
 	
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
@@ -28,8 +33,30 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.gamas = data.gamas;
 	        $scope.fallas = data.fallas;
 	        $scope.servicios = data.servicios;
-
+	        $scope.accesorios = data.accesorios;
 	    });
+	//---------------------------------------------------------------------------------------
+	// funcion que retorna true si ocurre q marca, modelo, gama, falla y servicio tienen 
+	// algun valor seleccionado
+	//---------------------------------------------------------------------------------------
+	function habilitarBtnPresup()
+	{
+		var B = false;
+		var isMarca = $scope.SelMarca.nombreMarca != "Marca";
+		var isModelo = $scope.SelModelo.nombreModelo != "Modelo";
+		var isGama = $scope.SelGama.nombreGama != "Gama";
+		var isFalla = $scope.arrayFallaGen.length != 0;
+		var isSevicio = $scope.arrayServ.length != 0;
+
+		if (isMarca && isModelo && isGama)
+		{
+			if (isFalla || isSevicio)
+			{
+				B= true;
+			};
+		};
+		return B;
+	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	$scope.mostrarModelos = function()
@@ -60,11 +87,17 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				if (data.msg)
 				{
 					$scope.repuestos = data.repuestos;
-					$scope.arrayTablaRep = [ // si cargo repuestos nuevos => debo borrar 
-								{id:'',nombreRep:'-'},
-								{id:'',nombreRep:'-'},
-								{id:'',nombreRep:'-'}
-							];
+					$scope.arrayTablaRep = [];
+					if (habilitarBtnPresup())
+					{
+						$scope.btnCalcularDisable = true;
+						$scope.btnSucces = true;
+					}
+					else
+					{
+						$scope.btnCalcularDisable = false;
+						$scope.btnSucces = false;	
+					};
 				};
 			});		 
 	};
@@ -72,59 +105,71 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	//---------------------------------------------------------------------------------------
 	$scope.mostrarDescripGama = function()
 	{
-		$scope.DescripGama = $scope.SelGama.descripcion;		
+		$scope.DescripGama = $scope.SelGama.descripcion;
+		if (habilitarBtnPresup())
+		{
+			$scope.btnCalcularDisable = true;
+			$scope.btnSucces = true;
+		}
+		else
+		{
+			$scope.btnCalcularDisable = false;
+			$scope.btnSucces = false;	
+		};		
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
-	$scope.updateSelection = function($event, id) {
-	  var checkbox = $event.target;
-	  var action = (checkbox.checked ? 'add' : 'remove');	  
-	  if (action === 'add' && $scope.arrayFallaGen.indexOf(id) === -1)
-	  {
-	    $scope.arrayFallaGen.push(id);
-	  }
-	  if (action === 'remove' && $scope.arrayFallaGen.indexOf(id) !== -1)
-	  {
-	    $scope.arrayFallaGen.splice($scope.arrayFallaGen.indexOf(id), 1);
-	  }
+	$scope.updateSelection = function($event, id)
+	{
+	  	var checkbox = $event.target;
+	  	var action = (checkbox.checked ? 'add' : 'remove');	  
+	  	if (action === 'add' && $scope.arrayFallaGen.indexOf(id) === -1)
+	  	{
+	   		$scope.arrayFallaGen.push(id);
+	  	}
+	  	if (action === 'remove' && $scope.arrayFallaGen.indexOf(id) !== -1)
+	  	{
+	   		$scope.arrayFallaGen.splice($scope.arrayFallaGen.indexOf(id), 1);
+	  	}
+	  	if (habilitarBtnPresup())
+		{
+			$scope.btnCalcularDisable = true;
+			$scope.btnSucces = true;
+		}
+		else
+		{
+			$scope.btnCalcularDisable = false;
+			$scope.btnSucces = false;	
+		};
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
-	$scope.updateSelectionServ = function($event, id) {
-	  var checkbox = $event.target;
-	  var action = (checkbox.checked ? 'add' : 'remove');	  
-	  if (action === 'add' && $scope.arrayServ.indexOf(id) === -1)
-	  {
-	    $scope.arrayServ.push(id);
-	  }
-	  if (action === 'remove' && $scope.arrayServ.indexOf(id) !== -1)
-	  {
-	    $scope.arrayServ.splice($scope.arrayServ.indexOf(id), 1);
-	    //splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar
-	  }
+	$scope.updateSelectionServ = function($event, id)
+	{
+	  	var checkbox = $event.target;
+	  	var action = (checkbox.checked ? 'add' : 'remove');	  
+	  	if (action === 'add' && $scope.arrayServ.indexOf(id) === -1)
+	  	{
+	    	$scope.arrayServ.push(id);
+	  	}
+	  	if (action === 'remove' && $scope.arrayServ.indexOf(id) !== -1)
+	  	{
+	    	$scope.arrayServ.splice($scope.arrayServ.indexOf(id), 1);
+	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar 
+	  	}
+	  	if (habilitarBtnPresup())
+		{
+			$scope.btnCalcularDisable = true;
+			$scope.btnSucces = true;
+		}
+		else
+		{
+			$scope.btnCalcularDisable = false;
+			$scope.btnSucces = false;	
+		};
 	};		
 	//---------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------
-	$scope.agregarTablaRep = function()
-	{
-		if (bandera == 0) // bandera es una variable q me indica si es el mismo modelo, si no es borra la tabla
-		{
-			$scope.arrayTablaRep = [];
-			bandera = 1;
-		};				 
-		var filaRep = {
-			id: $scope.SelRep.id,
-			nombreRep: $scope.SelRep.nombreRep
-		};		
-		var result = search(filaRep.nombreRep, $scope.arrayTablaRep);
-		if (result != 1)
-		{
-			$scope.arrayRep.push(filaRep.id);
-			$scope.arrayTablaRep.push(filaRep);
-			$scope.btnTablaRepDisabled = "true";
-		};		
-	};
-	//---------------------------------------------------------------------------------------
+	// funcion que compara elementos del un array y busca repetidos
 	//---------------------------------------------------------------------------------------
 	function search(nameKey, myArray)
 	{
@@ -139,8 +184,193 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
+	$scope.agregarTablaRep = function()
+	{
+		if (bandera == 0) // bandera es una variable q me indica si es el mismo modelo, si no es borra la tabla
+		{
+			$scope.arrayTablaRep = [];
+			bandera = 1;
+			$scope.filaRepBlanca = 0;
+		};				 
+		var filaRep = {
+			id: $scope.SelRep.id,
+			nombreRep: $scope.SelRep.nombreRep
+		};		
+		var result = search(filaRep.nombreRep, $scope.arrayTablaRep);
+		if (result != 1)
+		{
+			$scope.arrayRep.push(filaRep.id);
+			$scope.arrayTablaRep.push(filaRep);
+			 // Obtenemos el total de columnas (tr) del id "tabla"
+            var trs=$("#tablaRep tr").length;
+            if(trs>1 && $scope.filaRepBlanca < 3)
+            {
+                // Eliminamos la ultima columna
+                $("#tablaRep tr:last").remove();
+                $scope.filaRepBlanca = $scope.filaRepBlanca +1;
+            }			
+		};		
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.agregarTablaEq = function()
+	{						 
+		var filaEq = {
+			idModelo: $scope.SelModelo.id,
+			marcaModelo: $scope.SelMarca.nombreMarca+' - '+$scope.SelModelo.nombreModelo,
+			idGama: $scope.SelGama.id,
+			gama: $scope.SelGama.nombreGama,
+			imei: '',
+			presupEst: $scope.totalPresup,
+			fechaEst: $scope.fechaEst,
+			vectorFalla: $scope.arrayFallaGen,
+			vectorServ: $scope.arrayServ,
+			vectorRep: $scope.arrayRep,
+			vectorAcc:''
+		};		
 
+		$scope.arrayTablaEq.push(filaEq);
+		 // Obtenemos el total de columnas (tr) del id "tabla"
+        var trs=$("#tablaEq tr").length;
+        if(trs>1 && $scope.filaEqBlanca < 8)
+        {
+            // Eliminamos la ultima columna
+            $("#tablaEq tr:last").remove();
+            $scope.filaEqBlanca = $scope.filaEqBlanca +1;
+        };							
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	function fragmentarFecha(fecha)
+	{
+		var fechaFrac = 
+		{
+			anio: parseInt(fecha.substr(0,4)),
+			mes: parseInt(fecha.substr(5,2)),
+			dia: parseInt(fecha.substr(8))+2 			
+		};
 
+		return fechaFrac;
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.getPresupuesto = function()
+	{
+		var resource = 
+			{ idGama: $scope.SelGama.id,
+			  vectorRep: $scope.arrayRep,
+			  vectorServ: $scope.arrayServ
+		 	}; 	
 
+		PresupServ.getPresupuesto(resource).$promise.then(function(data)
+			{
+				if (data.msg)
+				{
+					$scope.MontoMO = data.costoMO;
+					$scope.MontoRep = data.totalRep;
+					$scope.MontoServ = data.totalServ;
+					var fecha = fragmentarFecha(data.fechaPres);
+					/*var fAnio = parseInt(fecha.anio);
+					var fMes = parseInt(fecha.mes);
+					var fDia = parseInt(fecha.dia)*/
+					$scope.dt = $scope.setDate(fecha.anio, fecha.mes, fecha.dia); //new Date(fecha.anio, fecha.mes, fecha.dia);
+					//$scope.fechaEst = data.fechaPres;
+					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;	
+					$scope.btnAceptarDisable = true;				
+				};
+			});		
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.resetPresupuesto = function()
+	{
+		$scope.MontoMO = 0;
+		$scope.MontoRep = 0;
+		$scope.MontoServ = 0;
+		$scope.totalPresup = 0;							
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.aceptarPresup = function()
+	{
 
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	//----------------------------------Datepicker-------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.maxDate = new Date(2020, 5, 22);
+	  $scope.dateOptions = {
+	    formatYear: 'yy',
+	    startingDay: 1
+	  };
+	  
+	  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+	  $scope.format = $scope.formats[0];
+
+	  $scope.status = {
+	    opened: false
+	  };
+
+	  var tomorrow = new Date();
+	  var afterTomorrow = new Date();
+
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------Metodos-----------------------------------------
+	  //--------------------------------------------------------------------------------
+	  $scope.today = function() {
+	    $scope.dt = new Date();
+	  };  
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------------------------------------------------------
+	  /*$scope.clear = function () {
+	    $scope.dt = null;
+	  };*/
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------------------------------------------------------
+	  // Disable weekend selection
+	  $scope.disabled = function(date, mode) {
+	    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+	  };
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------------------------------------------------------
+	  $scope.toggleMin = function() {
+	    $scope.minDate = $scope.minDate ? null : new Date();
+	  };  
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------------------------------------------------------
+	  /*$scope.open = function($event) {
+	    $scope.status.opened = true;
+	  };*/
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------------------------------------------------------
+	  $scope.setDate = function(year, month, day) {
+	    $scope.dt = new Date(year, month, day);
+	  };
+	  //--------------------------------------------------------------------------------
+	  //--------------------------------------------------------------------------------  
+	  /*$scope.getDayClass = function(date, mode)
+	  {
+	    if (mode === 'day') {
+	      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+	      for (var i=0;i<$scope.events.length;i++){
+	        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+	        if (dayToCheck === currentDay) {
+	          return $scope.events[i].status;
+	        }
+	      }
+	    }
+	    return '';
+	  };*/
+	//--------------------------------------------------------------------------------
+	//--------------------------ejecucion de la configuracion------------------------- 
+	//--------------------------------------------------------------------------------
+	  $scope.today();
+	  $scope.toggleMin();
+	  tomorrow.setDate(tomorrow.getDate() + 1);
+	  afterTomorrow.setDate(tomorrow.getDate() + 2);
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
 }]); 

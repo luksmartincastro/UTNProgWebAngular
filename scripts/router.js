@@ -20,5 +20,5 @@ app.config(['$routeProvider', function($routeProvider)
 			templateUrl: 'views/AtPublico/entrega.html',
 			controller: 'entregaCtrl'
 		})
-		.otherwise({redirecTo: '/'}); 
+		.otherwise({redirecTo: '/'});  
 	}]);  
