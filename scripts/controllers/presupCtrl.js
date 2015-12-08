@@ -203,7 +203,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.arrayTablaRep.push(filaRep);
 			 // Obtenemos el total de columnas (tr) del id "tabla"
             var trs=$("#tablaRep tr").length;
-            if(trs>1 && $scope.filaRepBlanca < 3)
+            if(trs>1 && $scope.filaRepBlanca <= 3)
             {
                 // Eliminamos la ultima columna
                 $("#tablaRep tr:last").remove();
@@ -246,7 +246,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		var fechaFrac = 
 		{
 			anio: parseInt(fecha.substr(0,4)),
-			mes: parseInt(fecha.substr(5,2)),
+			mes: parseInt(fecha.substr(5,2))-1,
 			dia: parseInt(fecha.substr(8))+2 			
 		};
 
@@ -269,11 +269,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					$scope.MontoMO = data.costoMO;
 					$scope.MontoRep = data.totalRep;
 					$scope.MontoServ = data.totalServ;
-					var fecha = fragmentarFecha(data.fechaPres);
-					/*var fAnio = parseInt(fecha.anio);
-					var fMes = parseInt(fecha.mes);
-					var fDia = parseInt(fecha.dia)*/
-					$scope.dt = $scope.setDate(fecha.anio, fecha.mes, fecha.dia); //new Date(fecha.anio, fecha.mes, fecha.dia);
+					var fecha = fragmentarFecha(data.fechaPres);					
+					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
+					$scope.dt = fecha; //new Date(fecha.anio, fecha.mes, fecha.dia);
 					//$scope.fechaEst = data.fechaPres;
 					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;	
 					$scope.btnAceptarDisable = true;				
