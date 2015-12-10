@@ -74,9 +74,9 @@
             
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">
-                <span class="glyphicon glyphicon-plus-sign"></span>
-                </button>           
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalPresupuesto">
+                  <span class="glyphicon glyphicon-plus-sign"></span>
+                </button>                   
               </h1>
 
               <div class="table-responsive">
@@ -201,7 +201,7 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   
-                  <div class="alert alert-info" role="alert">...</div>
+                  <div class="alert alert-info" role="alert">...</div>                  
 
                 </div>
               </div>
@@ -220,11 +220,12 @@
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
           
         </div>
-    </div>
+    </div>     
+
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <!-- /////////////////////////////////  MODAL PRESUPUESTO  ////////////////////////////////////////////////// -->
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade bs-example-modal-lg" id="modalPresupuesto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -458,7 +459,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" ng-disabled="!btnAceptarDisable" ng-click="aceptarPresup()" class="btn btn-primary">Aceptar presupuesto</button>
+            <button type="button" ng-disabled="!btnAceptarDisable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn btn-primary">Aceptar presupuesto</button>
           </div>
 
         </div>

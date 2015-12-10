@@ -22,11 +22,27 @@ app.factory('PresupServ', function($resource)
 				  params: {idGama: "@idModelo", vectorRep: "@vectorRep", vectorServ:"@vectorServ"},
 				  url: "http://localhost/ProgWeb2015/public/getPresupuesto"
 				}
+			//----------------------------------
 		});	 		 
 	
 }); 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
+
+app.factory('EntregaServ', function($resource)
+{ 
+	return $resource('http://localhost/ProgWeb2015/public/Entrega',{},
+		{
+			getOrdenApeNom: 
+				{ method:'POST',
+				  params: {term: "@term"},
+				  url: "http://localhost/ProgWeb2015/public/getOrdenApeNom"
+				}
+
+		});
+
+});
+
 
 
 

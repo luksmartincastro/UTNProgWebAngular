@@ -222,7 +222,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			gama: $scope.SelGama.nombreGama,
 			imei: '',
 			presupEst: $scope.totalPresup,
-			fechaEst: $scope.fechaEst,
+			fechaEst: $scope.dt,
 			vectorFalla: $scope.arrayFallaGen,
 			vectorServ: $scope.arrayServ,
 			vectorRep: $scope.arrayRep,
@@ -237,7 +237,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
             // Eliminamos la ultima columna
             $("#tablaEq tr:last").remove();
             $scope.filaEqBlanca = $scope.filaEqBlanca +1;
-        };							
+        };
+        $('#modalPresupuesto').modal('hide');							
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -271,8 +272,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					$scope.MontoServ = data.totalServ;
 					var fecha = fragmentarFecha(data.fechaPres);					
 					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
-					$scope.dt = fecha; //new Date(fecha.anio, fecha.mes, fecha.dia);
-					//$scope.fechaEst = data.fechaPres;
+					$scope.dt = fecha;					
 					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;	
 					$scope.btnAceptarDisable = true;				
 				};
