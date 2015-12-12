@@ -26,7 +26,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
-	//---------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------- 
 	PresupServ.get(function(data)
 		{
 	        $scope.marcas = data.marcas;
@@ -35,6 +35,20 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
 	    });
+	//--------------------------------------------------------------------------------------- 
+	//--------------------------------------------------------------------------------------- 
+	$scope.abrirModalPresup = function()
+	{
+		$scope.MontoMO = 0;
+		$scope.MontoRep = 0;
+		$scope.MontoServ = 0;
+		$scope.totalPresup = 0;				
+		$scope.btnAceptarDisable = false;
+		$scope.btnCalcularDisable = false;
+		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
+		$scope.arrayTablaRep = []; 
+		$('#modalPresupuesto').modal('show');							
+	};
 	//---------------------------------------------------------------------------------------
 	// funcion que retorna true si ocurre q marca, modelo, gama, falla y servicio tienen 
 	// algun valor seleccionado
@@ -216,13 +230,15 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.agregarTablaEq = function()
 	{						 
 		var filaEq = {
+			clase: 'btn-warning',
+			icono: 'glyphicon glyphicon-pencil',
 			idModelo: $scope.SelModelo.id,
 			marcaModelo: $scope.SelMarca.nombreMarca+' - '+$scope.SelModelo.nombreModelo,
 			idGama: $scope.SelGama.id,
 			gama: $scope.SelGama.nombreGama,
-			imei: '',
+			imei: '00000-00000-00000',
 			presupEst: $scope.totalPresup,
-			fechaEst: $scope.fechaEst,
+			fechaEst: document.getElementById("idDatePresup").value,
 			vectorFalla: $scope.arrayFallaGen,
 			vectorServ: $scope.arrayServ,
 			vectorRep: $scope.arrayRep,
@@ -237,7 +253,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
             // Eliminamos la ultima columna
             $("#tablaEq tr:last").remove();
             $scope.filaEqBlanca = $scope.filaEqBlanca +1;
-        };							
+        };
+        $('#modalPresupuesto').modal('hide');							
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -271,8 +288,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					$scope.MontoServ = data.totalServ;
 					var fecha = fragmentarFecha(data.fechaPres);					
 					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
-					$scope.dt = fecha; //new Date(fecha.anio, fecha.mes, fecha.dia);
-					//$scope.fechaEst = data.fechaPres;
+					$scope.dt = fecha;					
 					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;	
 					$scope.btnAceptarDisable = true;				
 				};
@@ -285,7 +301,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.MontoMO = 0;
 		$scope.MontoRep = 0;
 		$scope.MontoServ = 0;
-		$scope.totalPresup = 0;							
+		$scope.totalPresup = 0;			
+		$scope.btnAceptarDisable = false;
+		$scope.btnCalcularDisable = false;
+		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
+		$scope.arrayTablaRep = []; 						
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------

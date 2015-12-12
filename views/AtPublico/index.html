@@ -63,9 +63,26 @@
                 <div class="col-md-5">
                           
                   <h1 class="page-header">Presupuesto</h1>
+
                   <div class="panel panel-default">
+                    <div class="panel-heading"></div>
                     <div class="panel-body">
-                      Basic panel example
+                      
+                      <table class="table table-hover">
+                        <tr>
+                          <td><strong>Total a pagar: </strong></td>
+                          <td>$00.00</td>                          
+                        </tr>
+                        <tr>
+                          <td><strong>Total equipos: </strong></td>
+                          <td>0000</td>                          
+                        </tr>
+                        <tr>
+                          <td>total</td>
+                          <td>total</td>                          
+                        </tr>                        
+                      </table>
+
                     </div>
                   </div>
 
@@ -74,9 +91,9 @@
             
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">
-                <span class="glyphicon glyphicon-plus-sign"></span>
-                </button>           
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
+                  <span class="glyphicon glyphicon-plus-sign"></span>
+                </button>                   
               </h1>
 
               <div class="table-responsive">
@@ -94,7 +111,7 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="fila in arrayTablaEq" directbtntablarep>
-                      <td>#</td>
+                      <td class="{{fila.clase}}"><i class="{{fila.icono}}"></i></td>
                       <td>{{fila.marcaModelo}}</td>
                       <td>{{fila.gama}}</td>                                            
                       <td>{{fila.imei}}</td>
@@ -102,7 +119,7 @@
                       <td>{{fila.fechaEst}}</td>
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
@@ -114,7 +131,7 @@
                     </tr>
                     <!-- /////////////////////////////////////////////// -->
                     <tr>
-                      <td class="btn-primary"><i class="glyphicon glyphicon-th"></i></td>
+                      <td>1</td>
                       <td>-</td> 
                       <td>-</td>
                       <td>-</td>
@@ -124,7 +141,7 @@
                       <td>-</td>
                     </tr>
                     <tr>
-                      <td class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></td>
+                      <td>2</i></td>
                       <td>-</td> 
                       <td>-</td>
                       <td>-</td>
@@ -134,7 +151,7 @@
                       <td>-</td>
                     </tr>
                     <tr>
-                      <td class="btn-success"><i class="glyphicon glyphicon-ok"></i></td>
+                      <td>3</td>
                       <td>-</td> 
                       <td>-</td>
                       <td>-</td>
@@ -201,7 +218,7 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   
-                  <div class="alert alert-info" role="alert">...</div>
+                  <div class="alert alert-info" role="alert">...</div>                  
 
                 </div>
               </div>
@@ -220,11 +237,12 @@
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
           
         </div>
-    </div>
+    </div>     
+
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <!-- /////////////////////////////////  MODAL PRESUPUESTO  ////////////////////////////////////////////////// -->
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade bs-example-modal-lg" id="modalPresupuesto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -376,7 +394,10 @@
 
                         <!-- +++++++++++++++++++++++++++++++date picker+++++++++++++++++++++++++++++++++++++++++++++++ -->
                         <p class="input-group">
-                          <input type="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />                          
+                          <input id="idDatePresup" type="date" class="form-control" uib-datepicker-popup="{{format}}"
+                                 ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" 
+                                 datepicker-options="dateOptions" date-disabled="disabled(date, mode)" 
+                                 ng-required="true" close-text="Close" />                          
                         </p>
 
                     </div>
@@ -458,7 +479,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" ng-disabled="!btnAceptarDisable" ng-click="aceptarPresup()" class="btn btn-primary">Aceptar presupuesto</button>
+            <button type="button" ng-disabled="!btnAceptarDisable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn btn-primary">Aceptar presupuesto</button>
           </div>
 
         </div>

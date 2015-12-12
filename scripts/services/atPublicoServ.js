@@ -28,6 +28,7 @@ app.factory('PresupServ', function($resource)
 }); 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
+
 app.factory('EntregaServ', function($resource)
 { 
 	return $resource('http://localhost/ProgWeb2015/public/Entrega',{},
@@ -41,6 +42,7 @@ app.factory('EntregaServ', function($resource)
 		});
 
 });
+
 
 
 
