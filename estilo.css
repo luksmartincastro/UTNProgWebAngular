@@ -50,3 +50,17 @@ background-color: orange;
 border-radius: 32px;
 color: black;
 }
+/*------------------------*/
+div#scrollAccesorios
+{
+    width: auto;
+    height: 150px;
+    overflow: auto;
+}
+/*------------------------*/
+div#scrollTablaModal 
+{    
+    width: auto;
+    height: 190px;
+    overflow: auto;
+}

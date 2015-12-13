@@ -6,7 +6,7 @@ app.directive('directbtntablarep', function()
 			
 			link: function(scope, iElement, attrs)
 			{
-				iElement.disabled = '';
+				//iElement.disabled = '';
 				scope.elimFilaRep = function()
 				{
 					var id = iElement.find('td.valorId').text();
@@ -34,3 +34,29 @@ app.directive('directbtntablarep', function()
 	});
 //--------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------
+app.directive('directbtntablaeq', function()
+	{
+		var configBtn = {
+			link: function(scope, iElement, attrs)
+			{
+				scope.btnDetalleEq = function()
+				{
+					scope.imeiModal = iElement.find('clsImeiModal').text();
+					scope.descripFallaModal = iElement.find('clsDescripFallaModal').text(); 
+					
+					scope.imgMarcaModal = iElement.find('imgMar').text();
+					scope.imgModeloModal = iElement.find('imgMod').text();
+					$scope.arraAccModal = iElement.arraAcc;
+					$scope.arrayServModal = iElement.arrayServ;
+					$scope.arrayFallaGenModal = iElement.arrayFallaGen;
+					$('#ModalDetalle').modal('show');
+				};
+				//-----------------------------------------------------
+				scope.btnElimEq = function()
+				{
+
+				};
+			}
+		};
+		return configBtn;
+	});

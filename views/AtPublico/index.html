@@ -117,6 +117,7 @@
                       <td>{{fila.imei}}</td>
                       <td>{{fila.presupEst}}</td>
                       <td>{{fila.fechaEst}}</td>
+                      <td style="display:none" class="valorId">{{fila.idGama}}</td>
                       <td>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
@@ -137,8 +138,17 @@
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
+                      <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <i class="glyphicon glyphicon-list-alt"></i>                          
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-xs btn-block">
+                        <b>X</b>
+                        </button>
+                      </td>
                     </tr>
                     <tr>
                       <td>2</i></td>
@@ -532,14 +542,155 @@
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <!-- Modal -->
     <div class="modal fade" id="ModalDetalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">DETALLE DE EQUIPO</h4>
           </div>
           <div class="modal-body">
-            ...
+
+            <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <div class="row"><!-- Fila que contiene IMEI, Descripcion, Imagen de marca y de modelo -->
+              <div class="col-md-8">
+                
+                <div class="panel panel-default"><!-- ********* Panel datos de equipo e IMEI ********* -->
+                  <div class="panel-body">
+                  
+                  <div class="form-group">
+                      <label > Numero de IMEI:</label>
+                      <input type="text" class="form-control clsImeiModal" ng-model="imeiModal" placeholder="Numero de IMEI">                      
+                  </div>
+
+                  </div>
+                </div>
+                <p></p>
+                <div class="panel panel-default"><!-- ********* Panel textArea descripcion de falla********* -->
+                  <div class="panel-heading">Descripcion de fallas y servicios</div>
+                  <div class="panel-body">
+                    <textarea id="textAreaModal" name="textAreaModal" class="form-control clsDescripFallaModal" rows="7"></textarea>                  
+                  </div>
+                </div>
+                <p></p>
+
+                <div class="panel panel-default"><!-- ********* Panel detalle de fallas y servicios ********* -->
+                <div class="panel-heading">Detalle de fallas y servicos</div>
+                <div class="panel-body">
+                  
+                  <div class="row">
+                    <div class="col-md-6">
+
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+
+                          <div id="scrollTablaModal">
+                          <table class="table table-striped" id="tablaFallaModal" name='tablaFallaModal'>
+                              <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Fallas</th>                                       
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                    <td class="filterable-cell">1</td>
+                                    <td class="filterable-cell">----</td>                         
+                                </tr>
+                                <tr>
+                                    <td class="filterable-cell">2</td>
+                                    <td class="filterable-cell">----</td>                         
+                                </tr>
+                                <tr>
+                                    <td class="filterable-cell">3</td>
+                                    <td class="filterable-cell">----</td>                         
+                                </tr>
+                                                     
+                              </tbody>
+                          </table>
+                        </div>
+
+                        </div>
+                      </div>              
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                      
+                          <div id="scrollTablaModal">
+                            <table class="table table-striped" id="tablaServModal" name='tableServModal'>
+                                <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Servicios</th>                                        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                      <td class="filterable-cell">1</td>
+                                      <td class="filterable-cell">----</td>                         
+                                  </tr>
+                                  <tr>
+                                      <td class="filterable-cell">2</td>
+                                      <td class="filterable-cell">----</td>                         
+                                  </tr>
+                                  <tr>
+                                      <td class="filterable-cell">3</td>
+                                      <td class="filterable-cell">----</td>                         
+                                  </tr>
+                                                       
+                                </tbody>
+                            </table>
+                          </div>
+
+                        </div>
+                      </div>              
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              </div>
+              <div class="col-md-4"><!-- ********* panel de accesorios, marca y modelo********* -->
+                <div class="panel panel-default"><!-- ////////////////////Accesorios de equipo///////////////////// -->    
+                    <div class="panel-heading">Accesorios</div>
+                    <div class="panel-body">
+
+                      <div class="panel panel-default">
+                        <div id="scrollAccesorios" class="panel-body">
+                          
+                        <div class="checkbox" ng-repeat="acc in accesorios">
+                          <label><input type="checkbox" ng-click="updateSelection($event, acc.id)" />{{acc.nombreAccesorio}}</label>                                       
+                        </div>                                                              
+
+                        </div>
+                      </div>
+
+                    </div>
+                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->                  
+                <p></p>
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                   
+                    <center>                      
+                      <img id="imgMarcaId" ng-src="img/{{imgMarcaModal}}" alt="Marca" class="imgMar img-thumbnail">  
+                    </center>           
+                    <p></p>
+                    <center>                      
+                      <img id="imgModeloId" ng-src="img/{{imgModeloModal}}" alt="Modelo" class="img-thumbnail imgMod">                              
+                    </center>         
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

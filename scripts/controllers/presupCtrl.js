@@ -23,6 +23,14 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.MontoServ = 0;
 	$scope.MontoMO = 0;
 	$scope.totalPresup = 0;
+
+	$scope.imeiModal = '00000-00000-000008888';
+	$scope.descripFallaModal = '';
+	$scope.imgMarcaModal = 'Marcas_logo.gif';
+	$scope.imgModeloModal = 'Marcas-Modelos.jpg';
+	$scope.arraAccModal = [];
+	$scope.arrayServModal = [];
+	$scope.arrayFallaGenModal = [];
 	
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
@@ -236,13 +244,14 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			marcaModelo: $scope.SelMarca.nombreMarca+' - '+$scope.SelModelo.nombreModelo,
 			idGama: $scope.SelGama.id,
 			gama: $scope.SelGama.nombreGama,
-			imei: '00000-00000-00000',
+			imei: '',
 			presupEst: $scope.totalPresup,
 			fechaEst: document.getElementById("idDatePresup").value,
+			descripFalla: '',
 			vectorFalla: $scope.arrayFallaGen,
 			vectorServ: $scope.arrayServ,
 			vectorRep: $scope.arrayRep,
-			vectorAcc:''
+			vectorAcc: []
 		};		
 
 		$scope.arrayTablaEq.push(filaEq);
@@ -307,12 +316,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = []; 						
 	};
-	//---------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------
-	$scope.aceptarPresup = function()
-	{
-
-	};
+	
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	//----------------------------------Datepicker-------------------------------------------
