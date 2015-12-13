@@ -21,17 +21,25 @@
 
                     <div class="row">
 
-                     <div class="col-md-6">
-                        <input ng-model="ApeNom" ng-change="getOrdenApeNom()" placeholder="Nombre de Cliente"/>
+                      <div class="col-md-5">
+                        <input type="text" class="form-control" ng-model="ApeNom" ng-change="getOrdenApeNom()" placeholder="Nombre de Cliente"/>
                         <ul>
                           <li ng-repeat="orden in ordenes">
-                            <a ng-click="actualizarApeNom(orden.apeNom)">{{orden.apeNom}}</a>
+                            <a ng-click="actualizarApeNom(orden.apeNom, orden.id)">{{orden.apeNom}}</a>
                           </li>
                         </ul>
                      </div>
 
-                     <div class="col-md-6">
-                         
+                     <div class="col-md-5">
+                         <input type="text" class="form-control" ng-model="OrdenNum" ng-change="getOrdenNum()" placeholder="Numero de Orden"/>
+                        <ul>
+                          <li ng-repeat="orden in ordenes">
+                            <a ng-click="actualizarApeNom(orden.apeNom, orden.id)">{{orden.id}}</a>
+                          </li>
+                        </ul>
+                     </div>
+                     <div class="col-md-2">
+                       <button type="button" ng-disabled="!btnTraerOrden" class="btn btn-primary">Traer Orden</button>
                      </div>
 
                     </div>
@@ -43,35 +51,20 @@
                 <div class="col-md-6">             
                   <h1 class="page-header">Datos del cliente</h1>
                   
-                          <div class="row"><!-- ************************************************ -->
-                                <table class="table table-hover">
-                                <tr>
-                                  <td><strong>Numero de Orden:</strong></td>
-                                  <td>xxxxx</td>                                  
-                                </tr>
-                                <tr>
-                                  <td><strong>Nombre y Apellido:</strong> </td>
-                                  <td>Lucasss </td>                                  
-                                </tr>
-                                 <tr>
-                                  <td><strong>Numero de Telefono:</strong> </td>
-                                  <td>3885788593</td>                                  
-                                </tr>
-                                <tr>
-                                  <td><strong>Domicilio:</strong> </td>
-                                  <td>Mendoza </td>                                  
-                                </tr>
-                                <tr>
-                                  <td><strong>Observacion:</strong> </td>
-                                  <td>laravel</td>                                  
-                                </tr>
-                              </table>
-                            <div class="col-md-10">
-
-                            </div>
-                            <!-- *************************************************************** -->
-
-                          </div><!-- *********************************************************** -->
+                    <table class="table table-hover">
+                      <tr>
+                        <td><strong>Numero de Orden:</strong></td>
+                        <td>xxxxx</td>                                  
+                      </tr>
+                      <tr>
+                        <td><strong>Nombre y Apellido:</strong> </td>
+                        <td>Lucasss </td>                                  
+                      </tr>
+                       <tr>
+                        <td><strong>Numero de Telefono:</strong> </td>
+                        <td>3885788593</td>                                  
+                      </tr>
+                    </table>
 
                 </div>
                 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -82,18 +75,6 @@
                       <td><strong>Cantidad de Equipos:</strong></td>
                       <td>ssssss </td>                                  
                     </tr>
-                     <tr>
-                      <td><strong>Monto por Servicios:</strong></td>
-                      <td>38857885</td>                                  
-                    </tr>
-                    <tr>
-                      <td><strong>Monto por Repuestos:</strong></td>
-                      <td>$$$$ </td>                                  
-                    </tr>
-                    <tr>
-                      <td><strong>Monto por Mano de obra:</strong></td>
-                      <td>laravel</td>                                  
-                    </tr>
                     <tr>
                       <td><strong>Importe Total a Pagar:</strong></td>
                       <td>she wolf</td>                                  
@@ -103,6 +84,14 @@
                 </div>
               </div><!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
             
+              <div class="panel panel-default">
+                <div class="panel-body">
+                                    
+                  <strong>Observacion:</strong> 
+                  
+                </div>
+              </div>
+
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
                           

@@ -37,7 +37,14 @@ app.factory('EntregaServ', function($resource)
 				{ method:'POST',
 				  params: {term: "@term"},
 				  url: "http://localhost/ProgWeb2015/public/getOrdenApeNom"
+				},
+			//----------------------------------
+			getOrdenNum: 
+				{ method:'POST',
+				  params: {term: "@term"},
+				  url: "http://localhost/ProgWeb2015/public/getOrdenNumero"
 				}
+
 
 		});
 
