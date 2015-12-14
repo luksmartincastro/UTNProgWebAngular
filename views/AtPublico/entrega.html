@@ -39,7 +39,7 @@
                         </ul>
                      </div>
                      <div class="col-md-2">
-                       <button type="button" ng-disabled="!btnTraerOrden" class="btn btn-primary">Traer Orden</button>
+                       <button type="button" ng-disabled="!btnTraerOrden" ng-click="getTraerOrden()" class="btn btn-primary">Traer Orden</button>
                      </div>
 
                     </div>
@@ -54,15 +54,15 @@
                     <table class="table table-hover">
                       <tr>
                         <td><strong>Numero de Orden:</strong></td>
-                        <td>xxxxx</td>                                  
+                        <td>{{ordenEncontrada.id}}</td>                                  
                       </tr>
                       <tr>
                         <td><strong>Nombre y Apellido:</strong> </td>
-                        <td>Lucasss </td>                                  
+                        <td>{{ordenEncontrada.apeNom}} </td>                                  
                       </tr>
                        <tr>
                         <td><strong>Numero de Telefono:</strong> </td>
-                        <td>3885788593</td>                                  
+                        <td>{{ordenEncontrada.telefono}}</td>                                  
                       </tr>
                     </table>
 
@@ -73,7 +73,7 @@
                   <table class="table table-hover">
                     <tr>
                       <td><strong>Cantidad de Equipos:</strong></td>
-                      <td>ssssss </td>                                  
+                      <td>{{cantEquipo}}</td>                                  
                     </tr>
                     <tr>
                       <td><strong>Importe Total a Pagar:</strong></td>
@@ -87,7 +87,7 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                                     
-                  <strong>Observacion:</strong> 
+                  <strong>Observacion:</strong> {{ordenEncontrada.observacion}}
                   
                 </div>
               </div>
@@ -97,81 +97,132 @@
                           
               </h1>
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" name="tablaEq" id="tablaEq">
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Marca modelo</th>
+                      <th>Marca</th>
+                      <th>Modelo</th>
                       <th>Gama</th>
                       <th>IMEI</th>
-                      <th>Presup Estimado</th>
-                      <th>Fecha Estimada</th>
-                    
+                      <th>Presup Est</th>
+                      <th>Presup Final</th>
+                      <th>Fecha Entrega</th>
+                      <td>-</td>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
-                      <td>Motorola MotoG</td> 
-                      <td>Alta</td>
-                      <td>15-321654-9875</td>
-                      <td>$ 94</td>
-                      <td>5/12/2015</td>
+                    <tr ng-repeat="equipo in equipos" directbtntablarep>
+                      <td class="{{equipo.clase}}"><i class="{{equipo.icono}}"></i></td>
+                      <td>{{equipo.marca}}</td>
+                      <td>{{equipo.modelo}}</td>
+                      <td>{{equipo.gama}}</td>                                            
+                      <td>{{equipo.imei}}</td>
+                      <td>{{equipo.presupEstimado}}</td>
+                      <td>{{equipo.presupFinal}}</td>
+                      <td>{{equipo.fechaEntrega}}</td>                      
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-xs btn-block">
-                        <b>X</b>
-                        </button>
-                      </td>
+                      
+                    </tr>
+                    <!-- /////////////////////////////////////////////// -->
+                    <tr>
+                      <td>1</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
                     </tr>
                     <tr>
-                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
-                      <td>Motorola X</td> 
-                      <td>Alta</td>
-                      <td>15-321654-9875</td>
-                      <td>$ 215</td>
-                      <td>5/12/2015</td>
-                      <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#DetalleModal">
-                        <i class="glyphicon glyphicon-list-alt"></i>
-                        </button>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-xs btn-block">
-                        <b>X</b>
-                        </button>
-                      </td>
+                      <td>2</i></td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
                     </tr>
                     <tr>
-                      <td> <i class="glyphicon glyphicon-ok"></i> </td>
-                      <td>Motorola MotoG</td> 
-                      <td>Alta</td>
-                      <td>15-321654-9875</td>
-                      <td>$ 94</td>
-                      <td>5/12/2015</td>
-                      <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#DetalleModal">
-                        <i class="glyphicon glyphicon-list-alt"></i>                          
-                        </button>
-                      </td>
-                      <td>
-                        <button type="button" ng-disabled="true" class="btn btn-danger btn-xs btn-block">
-                        <b>X</b>
-                        </button>
-                      </td>
+                      <td>3</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
                     </tr>
                     
                   </tbody>
                 </table>
               </div>
-
+              
               <div class="panel panel-default">
                 <div class="panel-body">
                   Basic panel example guuyhjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
