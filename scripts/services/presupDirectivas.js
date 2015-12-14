@@ -51,7 +51,7 @@ app.directive('directbtntablaeq', function()
 					$scope.arrayFallaGenModal = iElement.arrayFallaGen;
 					$('#ModalDetalle').modal('show');
 				};
-				//-----------------------------------------------------
+				//----------------------------------------------------- 
 				scope.btnElimEq = function()
 				{
 

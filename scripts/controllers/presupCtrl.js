@@ -18,13 +18,14 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 	$scope.arrayTablaRep = []; 
 	$scope.arrayTablaEq = []; 
+	$scope.arrayAcc = [];
 	$scope.btnSucces = false; // btn-success 
 	$scope.MontoRep = 0;
 	$scope.MontoServ = 0;
 	$scope.MontoMO = 0;
 	$scope.totalPresup = 0;
 
-	$scope.imeiModal = '00000-00000-000008888';
+	$scope.imeiModal = '00000-00000-000008888'; 
 	$scope.descripFallaModal = '';
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg';
@@ -189,6 +190,32 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.btnCalcularDisable = false;
 			$scope.btnSucces = false;	
 		};
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.updateSelectionAcc = function($event, id)
+	{
+	  	var checkbox = $event.target;
+	  	var action = (checkbox.checked ? 'add' : 'remove');	  
+	  	if (action === 'add' && $scope.arrayAcc.indexOf(id) === -1)
+	  	{
+	    	$scope.arrayAcc.push(id);
+	  	}
+	  	if (action === 'remove' && $scope.arrayAcc.indexOf(id) !== -1)
+	  	{
+	    	$scope.arrayAcc.splice($scope.arrayAcc.indexOf(id), 1);
+	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar 
+	  	}
+	  	/*if (habilitarBtnPresup())
+		{
+			$scope.btnCalcularDisable = true;
+			$scope.btnSucces = true;
+		}
+		else
+		{
+			$scope.btnCalcularDisable = false;
+			$scope.btnSucces = false;	
+		};*/
 	};		
 	//---------------------------------------------------------------------------------------
 	// funcion que compara elementos del un array y busca repetidos
@@ -213,11 +240,13 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.arrayTablaRep = [];
 			bandera = 1;
 			$scope.filaRepBlanca = 0;
-		};				 
+		};
+
 		var filaRep = {
 			id: $scope.SelRep.id,
 			nombreRep: $scope.SelRep.nombreRep
-		};		
+		};	
+
 		var result = search(filaRep.nombreRep, $scope.arrayTablaRep);
 		if (result != 1)
 		{
@@ -314,7 +343,10 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.btnAceptarDisable = false;
 		$scope.btnCalcularDisable = false;
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
-		$scope.arrayTablaRep = []; 						
+		$scope.arrayTablaRep = []; 	
+		/*angular.forEach($scope.Items, function (item) {
+            item.Selected = $scope.selectedAll;
+        });*/					
 	};
 	
 	//---------------------------------------------------------------------------------------
