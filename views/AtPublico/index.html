@@ -26,7 +26,7 @@
                           <div class="row"><!-- ************************************************ -->
                             <div class="col-md-8">
                             
-                              <div class="form-group">
+                              <div class="form-group"> 
                                   
                                   <input type="text" class="form-control" id="exampleInputName2" placeholder="Apellido y nombre del cliente">
                               </div>
@@ -101,7 +101,8 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Marca modelo</th>
+                      <th>Marca</th>
+                      <th>Modelo</th>
                       <th>Gama</th>
                       <th>IMEI</th>
                       <th>Presup Estimado</th>
@@ -110,17 +111,27 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="fila in arrayTablaEq" directbtntablarep>
+                    
+                    <tr ng-repeat="fila in arrayTablaEq" directbtntablaeq>
                       <td class="{{fila.clase}}"><i class="{{fila.icono}}"></i></td>
-                      <td>{{fila.marcaModelo}}</td>
-                      <td>{{fila.gama}}</td>                                            
-                      <td>{{fila.imei}}</td>
-                      <td>{{fila.presupEst}}</td>
-                      <td>{{fila.fechaEst}}</td>
-                      <td style="display:none" class="valorId">{{fila.idGama}}</td>
+                      <td style="display:none" class="clsIdModelo">1</td>
+                      <td class="clsTEMarca">{{fila.marca}}</td> 
+                      <td class="clsTEModelo">{{fila.modelo}}</td>
+                      <td style="display:none" class="clsIdGama">{{fila.idGama}}</td>
+                      <td class="clsTEGama">{{fila.gama}}</td>
+                      <td class="clsTEImei">{{fila.imei}}</td>
+                      <td class="clsTEPresupEst">{{fila.presupEst}}</td>
+                      <td class="clsTEFechaEst">{{fila.fechaEst}}</td>
+                      <td style="display:none" class="clsTEDescripFalla">{{fila.descripFalla}}</td>
+
+                      <td ng-repeat="falla in fila.vectorFalla" style="display:none" class="clsIdFalla">{{falla}}</td>
+                      <td ng-repeat="serv in fila.vectorServ" style="display:none" class="clsIdServ">{{serv}}</td>
+                      <td ng-repeat="rep in fila.vectorRep" style="display:none" class="clsIdRep">{{rep}}</td>
+                      <td ng-repeat="acc in fila.vectorAcc" style="display:none" class="clsIdFalla">{{falla}}</td>
+
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" ng-click="btnDetalleEq()">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
@@ -131,16 +142,26 @@
                       </td>
                     </tr>
                     <!-- /////////////////////////////////////////////// -->
-                    <tr>
-                      <td>1</td>
-                      <td>-</td> 
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
+
+                    <tr directbtntablaeq>
+                      <td class="btn-warning"><i class="glyphicon glyphicon-pencil"></i></td>
+                      <td style="display:none" class="clsIdModelo">1</td>
+                      <td class="clsTEMarca">Nokia</td> 
+                      <td class="clsTEModelo">6131</td>
+                      <td style="display:none" class="clsIdGama">4</td>
+                      <td class="clsTEGama">Baja</td>
+                      <td class="clsTEImei">00000-00000-00000</td>
+                      <td class="clsTEPresupEst">00000</td>
+                      <td class="clsTEFechaEst">0000/00/00</td>
+                      <td style="display:none" class="clsTEDescripFalla">golpe + esta mojado</td>
+
+                      <td style="display:none" class="clsVectorFalla">4</td>
+                      <td style="display:none" class="clsVectorServ">4</td>
+                      <td style="display:none" class="clsVectorRep">4</td>
+                      <td style="display:none" class="clsVectorAcc">4</td>                      
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" ng-click="btnDetalleEq()">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
@@ -310,7 +331,7 @@
                     <div id="fallaScroll" class="panel-body">
 
                       <div class="checkbox" ng-repeat="falla in fallas">
-                        <label><input type="checkbox" ng-click="updateSelection($event, falla.id)" />{{falla.descripcionFallaGen}}</label>                                       
+                        <label><input type="checkbox" class="clsCheckFalla {{falla.id}}" ng-click="updateSelection($event, falla.id)" />{{falla.descripcionFallaGen}}</label>                                       
                       </div>                                    
 
                     </div>
@@ -324,7 +345,7 @@
                   <div id="servicioScroll" class="panel-body">
                     
                     <div class="checkbox" ng-repeat="serv in servicios">
-                      <label><input type="checkbox" ng-click="updateSelectionServ($event, serv.id)" />{{serv.nombreServicio}}</label>                                       
+                      <label><input type="checkbox" class="clsCheckServ {{serv.id}}" ng-click="updateSelectionServ($event, serv.id)" />{{serv.nombreServicio}}</label>                                       
                     </div>
 
                   </div>
@@ -584,7 +605,7 @@
                         <div class="panel-body">
 
                           <div id="scrollTablaModal">
-                          <table class="table table-striped" id="tablaFallaModal" name='tablaFallaModal'>
+                          <table class="table table-striped" id="tablaFallaModalDet" name='tablaFallaModalDet'>
                               <thead>
                                 <tr>
                                     <th>#</th>
@@ -592,16 +613,20 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                <tr ng-repeat="fallaG in arrayFallaGenModal">
+                                    <td>#</td>
+                                    <td>{{fallaG}}</td>                         
+                                </tr>
                                 <tr>
-                                    <td class="filterable-cell">1</td>
+                                    <td class="filterable-cell">-</td>
                                     <td class="filterable-cell">----</td>                         
                                 </tr>
                                 <tr>
-                                    <td class="filterable-cell">2</td>
+                                    <td class="filterable-cell">-</td>
                                     <td class="filterable-cell">----</td>                         
                                 </tr>
                                 <tr>
-                                    <td class="filterable-cell">3</td>
+                                    <td class="filterable-cell">-</td>
                                     <td class="filterable-cell">----</td>                         
                                 </tr>
                                                      
@@ -620,7 +645,7 @@
                         <div class="panel-body">
                       
                           <div id="scrollTablaModal">
-                            <table class="table table-striped" id="tablaServModal" name='tableServModal'>
+                            <table class="table table-striped" id="tablaServModalDet" name='tableServModalDet'>
                                 <thead>
                                   <tr>
                                       <th>#</th>
@@ -628,16 +653,20 @@
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  <tr ng-repeat="serv in arrayServModal">
+                                      <td>#</td>
+                                      <td>{{serv}}</td>                         
+                                  </tr>
                                   <tr>
-                                      <td class="filterable-cell">1</td>
+                                      <td class="filterable-cell">-</td>
                                       <td class="filterable-cell">----</td>                         
                                   </tr>
                                   <tr>
-                                      <td class="filterable-cell">2</td>
+                                      <td class="filterable-cell">-</td>
                                       <td class="filterable-cell">----</td>                         
                                   </tr>
                                   <tr>
-                                      <td class="filterable-cell">3</td>
+                                      <td class="filterable-cell">-</td>
                                       <td class="filterable-cell">----</td>                         
                                   </tr>
                                                        
@@ -664,7 +693,7 @@
                         <div id="scrollAccesorios" class="panel-body">
                           
                         <div class="checkbox" ng-repeat="acc in accesorios">
-                          <label><input type="checkbox" ng-click="updateSelection($event, acc.id)" />{{acc.nombreAccesorio}}</label>                                       
+                          <label><input type="checkbox" class="checkAccesorio {{acc.id}}" ng-click="updateSelectionAcc($event, acc.id)" />{{acc.nombreAccesorio}}</label>                                       
                         </div>                                                              
 
                         </div>

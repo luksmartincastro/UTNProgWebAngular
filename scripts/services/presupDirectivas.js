@@ -36,27 +36,111 @@ app.directive('directbtntablarep', function()
 //--------------------------------------------------------------------------------------------------------------------------
 app.directive('directbtntablaeq', function()
 	{
-		var configBtn = {
+		var configBtnDetalle = {
+
 			link: function(scope, iElement, attrs)
 			{
 				scope.btnDetalleEq = function()
 				{
-					scope.imeiModal = iElement.find('clsImeiModal').text();
-					scope.descripFallaModal = iElement.find('clsDescripFallaModal').text(); 
-					
-					scope.imgMarcaModal = iElement.find('imgMar').text();
-					scope.imgModeloModal = iElement.find('imgMod').text();
-					$scope.arraAccModal = iElement.arraAcc;
-					$scope.arrayServModal = iElement.arrayServ;
-					$scope.arrayFallaGenModal = iElement.arrayFallaGen;
+					scope.imeiModal = iElement.find('td.clsTEImei').text();
+					scope.descripFallaModal = iElement.find('td.clsTEDescripFalla').text(); 					
+					scope.imgMarcaModal = iElement.find('td.clsTEMarca').text()+'_logo.gif';
+					scope.imgModeloModal = iElement.find('td.clsTEMarca').text()+'-'+iElement.find('td.clsTEModelo').text()+'.jpg';						
+					// cargar fallas del equipo --------------------------
+					var cantFalla = iElement.find('td.clsIdFalla').length; 
+					var i = 0;
+					while( i < cantFalla )
+					{						
+						var idFalla = iElement.find('td.clsIdFalla').eq(i).text();						
+						angular.forEach(scope.fallas, function (item)
+						{
+							if (item.id == idFalla)
+							{
+								scope.arrayFallaGenModal.push(item.descripcionFallaGen);
+								var b1 = 0;
+								if (b1 < 4)
+								{
+									$("#tablaFallaModalDet tr:last").remove();
+									b1++;
+								};
+							};				            
+				        });					        					
+				        i++; 
+					};
+					// cargar servicios del equipo -------------------------- 
+					var cantServ = iElement.find('td.clsIdServ').length; 
+					var i = 0;
+					while( i < cantServ )
+					{						
+						var idServ = iElement.find('td.clsIdServ').eq(i).text();						
+						angular.forEach(scope.servicios, function (item)
+						{
+							if (item.id == idServ)
+							{
+								scope.arrayServModal.push(item.nombreServicio);
+								var b1 = 0;
+								if (b1 < 4)
+								{
+									$("#tablaServModalDet tr:last").remove();
+									b1++;
+								};
+							};				            
+				        });					        					
+				        i++; 
+					};
+					// cargar accesorios del equipo --------------------------
+					var cantAcc = iElement.find('td.clsIdAcc').length; 
+					//var elementosAcc = iElement.find('td.clsIdAcc'); 
+					var elementCheck = $('.checkAccesorio');
+					var i = 0;
+					while( i < cantAcc )
+					{						
+						var idAcc = iElement.find('td.clsIdAcc').eq(i).text();						
+						angular.forEach(scope.servicios, function (item)
+						{
+							if (item.id == idServ)
+							{
+								scope.arrayServModal.push(item.nombreServicio);
+								var b1 = 0;
+								if (b1 < 4)
+								{
+									$("#tablaServModalDet tr:last").remove();
+									b1++;
+								};
+							};				            
+				        });					        					
+				        i++; 
+					};
+
+
+					//---Recuperamos dato de accesorios------
+				    var elementTD = $(objFilaTablaEq).find('td.clsIdAcc');
+		    		var elementCheck = $('.checkAccesorio');
+		    		var sizeTD = elementTD.size();
+		    		var sizeCheck = elementCheck.size();
+		    		for (var i=0; i<sizeTD; i++) {
+
+		    			for (var j=0; j<sizeCheck; j++) {
+		    			
+						    if ($(elementTD[i]).text() == $(elementCheck[j]).val())// pregunto x los ids y habilito los checks 
+		    				{
+		    					$(elementCheck[j]).prop("checked","true");
+		    				};
+						}
+					}*/
+
+					//scope.arrayFallaGenModal = iElement.arrayFallaGen;
+					//$scope.arraAccModal = iElement.arraAcc;
+					//$scope.arrayServModal = iElement.arrayServ;
+
 					$('#ModalDetalle').modal('show');
 				};
 				//----------------------------------------------------- 
-				scope.btnElimEq = function()
+				/*scope.btnElimEq = function()
 				{
 
-				};
+				};*/
 			}
 		};
-		return configBtn;
+		return configBtnDetalle;
 	});

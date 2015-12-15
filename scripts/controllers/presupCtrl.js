@@ -31,7 +31,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg';
 	$scope.arraAccModal = [];
 	$scope.arrayServModal = [];
-	$scope.arrayFallaGenModal = [];
+	$scope.arrayFallaGenModal = [];  
 	
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
@@ -44,6 +44,43 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
 	    });
+	
+	//---------------------------------------------------------------------------------------
+	//-------------------------------MODAL DETALLE DE EQUIPO---------------------------------
+	//---------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------- 
+	$scope.updateSelectionAcc = function($event, id)
+	{
+	  	var checkbox = $event.target;
+	  	var action = (checkbox.checked ? 'add' : 'remove');	  
+	  	if (action === 'add' && $scope.arrayAcc.indexOf(id) === -1)
+	  	{
+	    	$scope.arrayAcc.push(id);
+	  	}
+	  	if (action === 'remove' && $scope.arrayAcc.indexOf(id) !== -1)
+	  	{
+	    	$scope.arrayAcc.splice($scope.arrayAcc.indexOf(id), 1);
+	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y 
+	    	//arg2: la cantidad de elementos a eliminar 
+	  	}
+	  	/*if (habilitarBtnPresup())
+		{
+			$scope.btnCalcularDisable = true;
+			$scope.btnSucces = true;
+		}
+		else
+		{
+			$scope.btnCalcularDisable = false;
+			$scope.btnSucces = false;	
+		};*/
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+
+
+
+	//--------------------------------------------------------------------------------------- 
+	//-----------------------------MODAL PRESUPUESTO----------------------------------------- 
 	//--------------------------------------------------------------------------------------- 
 	//--------------------------------------------------------------------------------------- 
 	$scope.abrirModalPresup = function()
@@ -147,7 +184,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  	var checkbox = $event.target;
 	  	var action = (checkbox.checked ? 'add' : 'remove');	  
 	  	if (action === 'add' && $scope.arrayFallaGen.indexOf(id) === -1)
-	  	{
+	  	{	  		
 	   		$scope.arrayFallaGen.push(id);
 	  	}
 	  	if (action === 'remove' && $scope.arrayFallaGen.indexOf(id) !== -1)
@@ -190,33 +227,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.btnCalcularDisable = false;
 			$scope.btnSucces = false;	
 		};
-	};
-	//---------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------
-	$scope.updateSelectionAcc = function($event, id)
-	{
-	  	var checkbox = $event.target;
-	  	var action = (checkbox.checked ? 'add' : 'remove');	  
-	  	if (action === 'add' && $scope.arrayAcc.indexOf(id) === -1)
-	  	{
-	    	$scope.arrayAcc.push(id);
-	  	}
-	  	if (action === 'remove' && $scope.arrayAcc.indexOf(id) !== -1)
-	  	{
-	    	$scope.arrayAcc.splice($scope.arrayAcc.indexOf(id), 1);
-	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar 
-	  	}
-	  	/*if (habilitarBtnPresup())
-		{
-			$scope.btnCalcularDisable = true;
-			$scope.btnSucces = true;
-		}
-		else
-		{
-			$scope.btnCalcularDisable = false;
-			$scope.btnSucces = false;	
-		};*/
-	};		
+	};			
 	//---------------------------------------------------------------------------------------
 	// funcion que compara elementos del un array y busca repetidos
 	//---------------------------------------------------------------------------------------
@@ -261,38 +272,6 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
                 $scope.filaRepBlanca = $scope.filaRepBlanca +1;
             }			
 		};		
-	};
-	//---------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------
-	$scope.agregarTablaEq = function()
-	{						 
-		var filaEq = {
-			clase: 'btn-warning',
-			icono: 'glyphicon glyphicon-pencil',
-			idModelo: $scope.SelModelo.id,
-			marcaModelo: $scope.SelMarca.nombreMarca+' - '+$scope.SelModelo.nombreModelo,
-			idGama: $scope.SelGama.id,
-			gama: $scope.SelGama.nombreGama,
-			imei: '',
-			presupEst: $scope.totalPresup,
-			fechaEst: document.getElementById("idDatePresup").value,
-			descripFalla: '',
-			vectorFalla: $scope.arrayFallaGen,
-			vectorServ: $scope.arrayServ,
-			vectorRep: $scope.arrayRep,
-			vectorAcc: []
-		};		
-
-		$scope.arrayTablaEq.push(filaEq);
-		 // Obtenemos el total de columnas (tr) del id "tabla"
-        var trs=$("#tablaEq tr").length;
-        if(trs>1 && $scope.filaEqBlanca < 8)
-        {
-            // Eliminamos la ultima columna
-            $("#tablaEq tr:last").remove();
-            $scope.filaEqBlanca = $scope.filaEqBlanca +1;
-        };
-        $('#modalPresupuesto').modal('hide');							
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -343,12 +322,54 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.btnAceptarDisable = false;
 		$scope.btnCalcularDisable = false;
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
-		$scope.arrayTablaRep = []; 	
-		/*angular.forEach($scope.Items, function (item) {
-            item.Selected = $scope.selectedAll;
-        });*/					
+		$scope.arrayTablaRep = [];
+		// ---- reset de los checks de fallas
+		var checksFallas = $('.clsCheckFalla');
+		angular.forEach(checksFallas, function (item) {
+            item.checked = false;
+        });
+        $scope.arrayFallaGen = [];
+        // ---- reset de los checkd e servicios
+        var checksServ = $('.clsCheckServ');
+        angular.forEach(checksServ, function (item) {
+            item.checked = false;
+        });
+        $scope.arrayServ = [];
+
 	};
-	
+	//--------------------------------------------------------------------------------------- 
+	//--------------------------------------------------------------------------------------- 
+	$scope.agregarTablaEq = function()
+	{						 
+		var filaEq = {
+			clase: 'btn-warning',
+			icono: 'glyphicon glyphicon-pencil',
+			marca: $scope.SelMarca.nombreMarca,
+			idModelo: $scope.SelModelo.id,
+			modelo: $scope.SelModelo.nombreModelo,
+			idGama: $scope.SelGama.id,
+			gama: $scope.SelGama.nombreGama,
+			imei: '---------------',
+			presupEst: $scope.totalPresup,
+			fechaEst: document.getElementById("idDatePresup").value,
+			descripFalla: '',
+			vectorFalla: $scope.arrayFallaGen,
+			vectorServ: $scope.arrayServ,
+			vectorRep: $scope.arrayRep,
+			vectorAcc: []
+		};		
+
+		$scope.arrayTablaEq.push(filaEq);
+		 // Obtenemos el total de columnas (tr) del id "tabla"
+        var trs=$("#tablaEq tr").length;
+        if(trs>1 && $scope.filaEqBlanca < 8)
+        {
+            // Eliminamos la ultima columna
+            $("#tablaEq tr:last").remove();
+            $scope.filaEqBlanca = $scope.filaEqBlanca +1;
+        };
+        $('#modalPresupuesto').modal('hide');							
+	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	//----------------------------------Datepicker-------------------------------------------
