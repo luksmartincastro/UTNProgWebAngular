@@ -23,12 +23,13 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.MontoRep = 0;
 	$scope.MontoServ = 0;
 	$scope.MontoMO = 0;
-	$scope.totalPresup = 0;
+	$scope.totalPresup = 0; 
+	$scope.detalleEQ = null;
 
 	$scope.imeiModal = '00000-00000-000008888'; 
 	$scope.descripFallaModal = '';
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
-	$scope.imgModeloModal = 'Marcas-Modelos.jpg';
+	$scope.imgModeloModal = 'Marcas-Modelos.jpg'; 
 	$scope.arraAccModal = [];
 	$scope.arrayServModal = [];
 	$scope.arrayFallaGenModal = [];  
@@ -369,6 +370,15 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
             $scope.filaEqBlanca = $scope.filaEqBlanca +1;
         };
         $('#modalPresupuesto').modal('hide');							
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.btnDetalleEq = function(indice)
+	{
+		$scope.detalleEQ = $scope.arrayTablaEq[indice];
+		console.log($scope.arrayTablaEq[indice]);
+		console.log($scope.btnAceptarDisable);
+		$('#ModalDetalle').modal('show');
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------

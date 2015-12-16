@@ -40,9 +40,20 @@ app.directive('directbtntablaeq', function()
 
 			link: function(scope, iElement, attrs)
 			{
-				scope.btnDetalleEq = function()
+				
+				scope.btnDetalleEq2 = function(indice)
 				{
-					scope.imeiModal = iElement.find('td.clsTEImei').text();
+					//scope.arrayFallaGenModal = []; // vaciamos las fallas
+					//scope.arrayServModal = [];     // // vaciamos los servicios     
+					// vaciamos los accesorios
+					/*var checksAcc = $('.clsCheckFalla'); 
+					angular.forEach(checksAcc, function (item) {
+			            item.checked = false;
+			        });*/
+					//------------------------
+					scope.detalleEQ = scope.arrayTablaEq[indice];
+					console.log(scope.arrayTablaEq[indice]);
+					//scope.imeiModal = iElement.find('td.clsTEImei').text();
 					scope.descripFallaModal = iElement.find('td.clsTEDescripFalla').text(); 					
 					scope.imgMarcaModal = iElement.find('td.clsTEMarca').text()+'_logo.gif';
 					scope.imgModeloModal = iElement.find('td.clsTEMarca').text()+'-'+iElement.find('td.clsTEModelo').text()+'.jpg';						
@@ -51,7 +62,7 @@ app.directive('directbtntablaeq', function()
 					var i = 0;
 					while( i < cantFalla )
 					{						
-						var idFalla = iElement.find('td.clsIdFalla').eq(i).text();						
+						var idFalla = iElement.find('td.clsIdFalla').eq(i).text(); 						
 						angular.forEach(scope.fallas, function (item)
 						{
 							if (item.id == idFalla)
@@ -95,8 +106,12 @@ app.directive('directbtntablaeq', function()
 					var i = 0;
 					while( i < cantAcc )
 					{						
-						var idAcc = iElement.find('td.clsIdAcc').eq(i).text();						
-						angular.forEach(scope.servicios, function (item)
+						var idAcc = iElement.find('td.clsIdAcc').eq(i).text();
+						// buscar el check que tiene en la clase idAcc y activarlo
+						var check = elementCheck.find(idAcc);
+						check.checked = true; 
+
+						/*angular.forEach(elementCheck, function (item)
 						{
 							if (item.id == idServ)
 							{
@@ -108,30 +123,10 @@ app.directive('directbtntablaeq', function()
 									b1++;
 								};
 							};				            
-				        });					        					
+				        });*/	
+
 				        i++; 
 					};
-
-
-					//---Recuperamos dato de accesorios------
-				    var elementTD = $(objFilaTablaEq).find('td.clsIdAcc');
-		    		var elementCheck = $('.checkAccesorio');
-		    		var sizeTD = elementTD.size();
-		    		var sizeCheck = elementCheck.size();
-		    		for (var i=0; i<sizeTD; i++) {
-
-		    			for (var j=0; j<sizeCheck; j++) {
-		    			
-						    if ($(elementTD[i]).text() == $(elementCheck[j]).val())// pregunto x los ids y habilito los checks 
-		    				{
-		    					$(elementCheck[j]).prop("checked","true");
-		    				};
-						}
-					}*/
-
-					//scope.arrayFallaGenModal = iElement.arrayFallaGen;
-					//$scope.arraAccModal = iElement.arraAcc;
-					//$scope.arrayServModal = iElement.arrayServ;
 
 					$('#ModalDetalle').modal('show');
 				};
