@@ -112,7 +112,7 @@
                   </thead>
                   <tbody>
                     
-                    <tr ng-repeat="fila in arrayTablaEq" directbtntablaeq>
+                    <tr ng-repeat="fila in arrayTablaEq">
                       <td class="{{fila.clase}}"><i class="{{fila.icono}}"></i></td>
                       <td style="display:none" class="clsIdModelo">1</td>
                       <td class="clsTEMarca">{{fila.marca}}</td> 
@@ -143,7 +143,7 @@
                     </tr>
                     <!-- /////////////////////////////////////////////// -->
 
-                    <tr directbtntablaeq>
+                    <tr>
                       <td class="btn-warning"><i class="glyphicon glyphicon-pencil"></i></td>
                       <td style="display:none" class="clsIdModelo">1</td>
                       <td class="clsTEMarca">Nokia</td> 
@@ -364,12 +364,12 @@
 
                       <table class="table table-hover" name="tablaRep" id="tablaRep">                                        
                         
-                        <tr ng-repeat="fila in arrayTablaRep" directbtntablarep>
+                        <tr ng-repeat="fila in arrayTablaRep">
                           <td>#</td>
                           <td style="display:none" class="valorId">{{fila.id}}</td>
                           <td>{{fila.nombreRep}}</td>                                            
                           <td>
-                            <button type="button" ng-click="elimFilaRep()"  class="btn btn-danger btn-xs btn-block">
+                            <button type="button" ng-click="elimFilaRep($index)"  class="btn btn-danger btn-xs btn-block">
                             <b>X</b>
                             </button>
                           </td>
@@ -613,23 +613,10 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr ng-repeat="fallaG in arrayFallaGenModal track by $index">
-                                    <td>#</td>
-                                    <td>{{fallaG}}</td>                         
-                                </tr>
-                                <tr>
-                                    <td class="filterable-cell">-</td>
-                                    <td class="filterable-cell">----</td>                         
-                                </tr>
-                                <tr>
-                                    <td class="filterable-cell">-</td>
-                                    <td class="filterable-cell">----</td>                         
-                                </tr>
-                                <tr>
-                                    <td class="filterable-cell">-</td>
-                                    <td class="filterable-cell">----</td>                         
-                                </tr>
-                                                     
+                                  <tr ng-repeat="fallaG in arrayFallaGenModal">
+                                      <td>#</td>
+                                      <td>{{fallaG}}</td>                         
+                                  </tr>                
                               </tbody>
                           </table>
                         </div>
@@ -653,23 +640,10 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr ng-repeat="serv in arrayServModal track by $index">
-                                      <td>#</td>
-                                      <td>{{serv}}</td>                         
-                                  </tr>
-                                  <tr>
-                                      <td class="filterable-cell">-</td>
-                                      <td class="filterable-cell">----</td>                         
-                                  </tr>
-                                  <tr>
-                                      <td class="filterable-cell">-</td>
-                                      <td class="filterable-cell">----</td>                         
-                                  </tr>
-                                  <tr>
-                                      <td class="filterable-cell">-</td>
-                                      <td class="filterable-cell">----</td>                         
-                                  </tr>
-                                                       
+                                    <tr ng-repeat="serv in arrayServModal">
+                                        <td>#</td>
+                                        <td>{{serv}}</td>                         
+                                    </tr>                                                       
                                 </tbody>
                             </table>
                           </div>

@@ -25,6 +25,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.MontoMO = 0;
 	$scope.totalPresup = 0; 
 	$scope.detalleEQ = null;
+	$scope.filaTablaRep = null;
 
 	$scope.imeiModal = '00000-00000-000008888'; 
 	$scope.descripFallaModal = '';
@@ -276,6 +277,30 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
+	$scope.elimFilaRep = function(indice)
+	{
+		$scope.filaTablaRep = $scope.arrayTablaRep[indice];
+		var id = $scope.filaTablaRep.id;
+		id = parseInt(id); // convertimos a entero para que pueda encontrar el elemento en el array
+		var posArrayRep = $scope.arrayRep.indexOf(id);
+		if ( posArrayRep !== -1) 
+		{
+			$scope.arrayRep.splice(posArrayRep, 1);	
+			$scope.arrayTablaRep.splice(posArrayRep, 1);
+			if ($scope.filaRepBlanca !=0)
+			{
+				var nuevaFila = "<tr>"+
+		                          "<td>#</td>"+                                        
+		                          "<td>-</td>"+                                            
+		                          "<td>-</td>"+
+		                        "</tr>";
+				$("#tablaRep").append(nuevaFila);
+				$scope.filaRepBlanca = $scope.filaRepBlanca -1;
+			};						
+		};
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
 	function fragmentarFecha(fecha)
 	{
 		var fechaFrac = 
@@ -375,10 +400,39 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	//---------------------------------------------------------------------------------------
 	$scope.btnDetalleEq = function(indice)
 	{
-		$scope.detalleEQ = $scope.arrayTablaEq[indice];
-		console.log($scope.arrayTablaEq[indice]);
-		console.log($scope.btnAceptarDisable);
-		$('#ModalDetalle').modal('show');
+		$scope.arrayServModal = [];
+		$scope.arrayFallaGenModal = [];		
+		//$("#tablaFallaModalDet").find("tr:gt(0)").remove();
+		//$("#tablaServModalDet").find("tr:gt(0)").remove();		
+
+		$scope.detalleEQ = $scope.arrayTablaEq[indice];		
+		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
+		$scope.imgModeloModal = $scope.detalleEQ.marca+'-'+$scope.detalleEQ.modelo+'.jpg';								
+		// cargar fallas del equipo --------------------------
+		angular.forEach($scope.detalleEQ.vectorFalla, function (vf)
+		{
+            angular.forEach($scope.fallas, function (item)
+			{
+				if (item.id == vf)
+				{
+					$scope.arrayFallaGenModal.push(item.descripcionFallaGen);					
+				};				            
+	        });
+        });
+		// cargar servicios del equipo --------------------------		
+		angular.forEach($scope.detalleEQ.vectorServ, function (vs)
+		{
+            angular.forEach($scope.servicios, function (item)
+			{
+				if (item.id == vs)
+				{
+					$scope.arrayServModal.push(item.nombreServicio);					
+				};				            
+	        });
+        });
+
+
+		$('#ModalDetalle').modal('show'); 
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------

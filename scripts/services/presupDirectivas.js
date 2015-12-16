@@ -1,13 +1,13 @@
 "use strict";
 
-app.directive('directbtntablarep', function()
+app.directive('directbtntablarep2', function()
 	{
 		var configBtn = {
 			
 			link: function(scope, iElement, attrs)
 			{
 				//iElement.disabled = '';
-				scope.elimFilaRep = function()
+				scope.elimFilaRep2 = function()
 				{
 					var id = iElement.find('td.valorId').text();
 					id = parseInt(id); // convertimos a entero para que pueda encontrar el elemento en el array
@@ -30,11 +30,11 @@ app.directive('directbtntablarep', function()
 				};
 			}
 		};
-		return configBtn;
+		return configBtn; 
 	});
 //--------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------
-app.directive('directbtntablaeq', function()
+app.directive('directbtntablaeq2', function()
 	{
 		var configBtnDetalle = {
 
