@@ -78,7 +78,43 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
+	$scope.btnDetalleEq = function(indice)
+	{
+		$scope.arrayServModal = [];
+		$scope.arrayFallaGenModal = [];		
+		//$("#tablaFallaModalDet").find("tr:gt(0)").remove(); 
+		//$("#tablaServModalDet").find("tr:gt(0)").remove();		
 
+		$scope.detalleEQ = $scope.arrayTablaEq[indice];		
+		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
+		$scope.imgModeloModal = $scope.detalleEQ.marca+'-'+$scope.detalleEQ.modelo+'.jpg';								
+		// cargar fallas del equipo --------------------------
+		angular.forEach($scope.detalleEQ.vectorFalla, function (vf)
+		{
+            angular.forEach($scope.fallas, function (item)
+			{
+				if (item.id == vf)
+				{
+					$scope.arrayFallaGenModal.push(item.descripcionFallaGen);					
+				};				            
+	        });
+        });
+		// cargar servicios del equipo --------------------------		
+		angular.forEach($scope.detalleEQ.vectorServ, function (vs)
+		{
+            angular.forEach($scope.servicios, function (item)
+			{
+				if (item.id == vs)
+				{
+					$scope.arrayServModal.push(item.nombreServicio);					
+				};				            
+	        });
+        });
+
+
+		$('#ModalDetalle').modal('show'); 
+	};
+	
 
 
 	//--------------------------------------------------------------------------------------- 
@@ -95,6 +131,19 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.btnCalcularDisable = false;
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = []; 
+		// ---- reset de los checks de fallas
+		var checksFallas = $('.clsCheckFalla');
+		angular.forEach(checksFallas, function (item) {
+            item.checked = false;
+        });
+        $scope.arrayFallaGen = [];
+        // ---- reset de los checkd e servicios
+        var checksServ = $('.clsCheckServ');
+        angular.forEach(checksServ, function (item) {
+            item.checked = false;
+        });
+        $scope.arrayServ = [];
+
 		$('#modalPresupuesto').modal('show');							
 	};
 	//---------------------------------------------------------------------------------------
@@ -366,7 +415,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	//--------------------------------------------------------------------------------------- 
 	//--------------------------------------------------------------------------------------- 
 	$scope.agregarTablaEq = function()
-	{						 
+	{	
+		var vectorFalla = $scope.arrayFallaGen;	
+		var vectorServ = $scope.arrayServ;	
+		var vectorRep = $scope.arrayRep;
+
 		var filaEq = {
 			clase: 'btn-warning',
 			icono: 'glyphicon glyphicon-pencil',
@@ -379,9 +432,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			presupEst: $scope.totalPresup,
 			fechaEst: document.getElementById("idDatePresup").value,
 			descripFalla: '',
-			vectorFalla: $scope.arrayFallaGen,
-			vectorServ: $scope.arrayServ,
-			vectorRep: $scope.arrayRep,
+			vectorFalla: vectorFalla,
+			vectorServ: vectorServ,
+			vectorRep: vectorRep,
 			vectorAcc: []
 		};		
 
@@ -398,42 +451,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
-	$scope.btnDetalleEq = function(indice)
-	{
-		$scope.arrayServModal = [];
-		$scope.arrayFallaGenModal = [];		
-		//$("#tablaFallaModalDet").find("tr:gt(0)").remove();
-		//$("#tablaServModalDet").find("tr:gt(0)").remove();		
+	
 
-		$scope.detalleEQ = $scope.arrayTablaEq[indice];		
-		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
-		$scope.imgModeloModal = $scope.detalleEQ.marca+'-'+$scope.detalleEQ.modelo+'.jpg';								
-		// cargar fallas del equipo --------------------------
-		angular.forEach($scope.detalleEQ.vectorFalla, function (vf)
-		{
-            angular.forEach($scope.fallas, function (item)
-			{
-				if (item.id == vf)
-				{
-					$scope.arrayFallaGenModal.push(item.descripcionFallaGen);					
-				};				            
-	        });
-        });
-		// cargar servicios del equipo --------------------------		
-		angular.forEach($scope.detalleEQ.vectorServ, function (vs)
-		{
-            angular.forEach($scope.servicios, function (item)
-			{
-				if (item.id == vs)
-				{
-					$scope.arrayServModal.push(item.nombreServicio);					
-				};				            
-	        });
-        });
-
-
-		$('#ModalDetalle').modal('show'); 
-	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	//----------------------------------Datepicker-------------------------------------------
