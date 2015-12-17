@@ -14,7 +14,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.arrayFallaGen = [];
 	$scope.arrayServ = [];
 	$scope.btnAceptarDisable = false;
-	$scope.btnCalcularDisable = false;
+	$scope.btnCalcularDisable = false;	
+	$scope.btnGuardarDetEnable = false;
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 	$scope.arrayTablaRep = []; 
 	$scope.arrayTablaEq = []; 
@@ -25,14 +26,14 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.MontoMO = 0;
 	$scope.totalPresup = 0; 
 	$scope.detalleEQ = null;
-	$scope.filaTablaRep = null;
+	$scope.filaTablaRep = null; 
 
 	$scope.imeiModal = '00000-00000-000008888'; 
 	$scope.descripFallaModal = '';
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg'; 
 	$scope.arraAccModal = [];
-	$scope.arrayServModal = [];
+	$scope.arrayServModal = []; 
 	$scope.arrayFallaGenModal = [];  
 	
 	//---------------------------------------------------------------------------------------
@@ -45,6 +46,26 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.fallas = data.fallas;
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
+	        //-------------------------------------
+	        var filaEq = {
+				clase: 'btn-warning',
+				icono: 'glyphicon glyphicon-pencil',
+				marca: 'Nokia',
+				idModelo: 1,
+				modelo: '6131',
+				idGama: 3,
+				gama: 'Baja',
+				imei: '0000-0000-0000',
+				presupEst: 300,
+				fechaEst: '2015/12/20',
+				descripFalla: '',
+				vectorFalla: [7,8,9],
+				vectorServ: [3,4],
+				vectorRep: {id:1,nombreRep:'Pin de carga'},
+				vectorAcc: [1,2]
+			};		
+
+			$scope.arrayTablaEq.push(filaEq);
 	    });
 	
 	//---------------------------------------------------------------------------------------
@@ -64,28 +85,22 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	    	$scope.arrayAcc.splice($scope.arrayAcc.indexOf(id), 1);
 	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y 
 	    	//arg2: la cantidad de elementos a eliminar 
-	  	}
-	  	/*if (habilitarBtnPresup())
-		{
-			$scope.btnCalcularDisable = true;
-			$scope.btnSucces = true;
-		}
-		else
-		{
-			$scope.btnCalcularDisable = false;
-			$scope.btnSucces = false;	
-		};*/
+	  	}	  
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	$scope.btnDetalleEq = function(indice)
 	{
+
 		$scope.arrayServModal = [];
 		$scope.arrayFallaGenModal = [];		
+		$scope.arrayRepModal = [];		
+		$scope.arrayAccModal = [];		
 		//$("#tablaFallaModalDet").find("tr:gt(0)").remove(); 
 		//$("#tablaServModalDet").find("tr:gt(0)").remove();		
 
-		$scope.detalleEQ = $scope.arrayTablaEq[indice];		
+		$scope.detalleEQ = $scope.arrayTablaEq[indice];
+
 		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
 		$scope.imgModeloModal = $scope.detalleEQ.marca+'-'+$scope.detalleEQ.modelo+'.jpg';								
 		// cargar fallas del equipo --------------------------
@@ -110,12 +125,35 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				};				            
 	        });
         });
+		// cargar repuestos del equipo --------------------------		
+		angular.forEach($scope.detalleEQ.vectorRep, function (r)
+		{
+			$scope.arrayRepModal.push(r.nombreRep);					            
+        });
+		// cargar accesorios del equipo --------------------------		
 
 
 		$('#ModalDetalle').modal('show'); 
 	};
-	
+	//--------------------------------------------------------------------------------------- 
+	//--------------------------------------------------------------------------------------- 
+	$scope.verificarDatosEq = function()
+	{
+		var isImei = $scope.detalleEQ.imei != '0000-0000-0000';
+		var isDescrip = $scope.detalleEQ.descripFalla != '';
 
+		if (isImei && isDescrip)
+		{
+			$scope.detalleEQ.icono = 'glyphicon glyphicon-ok';
+			$scope.detalleEQ.clase = 'btn-success';			
+		}
+		else
+		{
+			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
+			$scope.detalleEQ.clase = 'btn-warning';				
+		};
+		
+	};
 
 	//--------------------------------------------------------------------------------------- 
 	//-----------------------------MODAL PRESUPUESTO----------------------------------------- 
@@ -418,7 +456,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	{	
 		var vectorFalla = $scope.arrayFallaGen;	
 		var vectorServ = $scope.arrayServ;	
-		var vectorRep = $scope.arrayRep;
+		var vectorRep = $scope.arrayTablaRep;
 
 		var filaEq = {
 			clase: 'btn-warning',
@@ -428,7 +466,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			modelo: $scope.SelModelo.nombreModelo,
 			idGama: $scope.SelGama.id,
 			gama: $scope.SelGama.nombreGama,
-			imei: '---------------',
+			imei: '0000-0000-0000',
 			presupEst: $scope.totalPresup,
 			fechaEst: document.getElementById("idDatePresup").value,
 			descripFalla: '',

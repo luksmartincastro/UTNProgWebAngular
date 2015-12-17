@@ -7,7 +7,7 @@
 .imgMod 
 {
 	width: 240px;
-    height: 320px !important; 
+    height: 335px !important; 
 }
 /*------------------------*/
 div#fallaScroll 
@@ -54,13 +54,13 @@ color: black;
 div#scrollAccesorios
 {
     width: auto;
-    height: 150px;
+    height: 183px;
     overflow: auto;
 }
 /*------------------------*/
-div#scrollTablaModal 
+.scrollTablaModal 
 {    
     width: auto;
-    height: 190px;
+    height: 120px;
     overflow: auto;
 }
