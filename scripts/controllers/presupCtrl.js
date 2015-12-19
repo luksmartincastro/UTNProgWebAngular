@@ -5,6 +5,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	var bandera = 0; // variable global para la 1ra carga en la tabla repuesto
 	$scope.filaRepBlanca = 0;
 	$scope.filaEqBlanca = 0;
+
 	$scope.SelMarca = {id:'',nombreMarca:''};
 	$scope.SelModelo = {id:'',nombreModelo:'Marcas-Modelos'};
 	$scope.SelGama = {id:'',nombreGama:'Gama', DescripGama:''};
@@ -19,7 +20,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 	$scope.arrayTablaRep = []; 
 	$scope.arrayTablaEq = []; 
-	$scope.arrayAcc = [];
+	var arrayAcc = [];
 	$scope.btnSucces = false; // btn-success 
 	$scope.MontoRep = 0;
 	$scope.MontoServ = 0;
@@ -47,7 +48,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
 	        //-------------------------------------
-	        var filaEq = {
+	        /*var filaEq = {
 				clase: 'btn-warning',
 				icono: 'glyphicon glyphicon-pencil',
 				marca: 'Nokia',
@@ -61,31 +62,63 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				descripFalla: '',
 				vectorFalla: [7,8,9],
 				vectorServ: [3,4],
-				vectorRep: {id:1,nombreRep:'Pin de carga'},
-				vectorAcc: [1,2]
+				vectorRep: [],
+				vectorAcc: []
 			};		
 
-			$scope.arrayTablaEq.push(filaEq);
+			$scope.arrayTablaEq.push(filaEq);*/
 	    });
 	
 	//---------------------------------------------------------------------------------------
 	//-------------------------------MODAL DETALLE DE EQUIPO---------------------------------
 	//---------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------- 
-	$scope.updateSelectionAcc = function($event, id)
+	$scope.agregarTablaAcc = function()
 	{
-	  	var checkbox = $event.target;
-	  	var action = (checkbox.checked ? 'add' : 'remove');	  
-	  	if (action === 'add' && $scope.arrayAcc.indexOf(id) === -1)
-	  	{
-	    	$scope.arrayAcc.push(id);
-	  	}
-	  	if (action === 'remove' && $scope.arrayAcc.indexOf(id) !== -1)
-	  	{
-	    	$scope.arrayAcc.splice($scope.arrayAcc.indexOf(id), 1);
-	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y 
-	    	//arg2: la cantidad de elementos a eliminar 
-	  	}	  
+	  	var filaAcc = {
+			id: $scope.SelAcc.id,
+			nombreAccesorio: $scope.SelAcc.nombreAccesorio
+		};	
+		var result = search(filaAcc.nombreAccesorio, $scope.arrayAccModal);
+		if (result != 1)
+		{
+			arrayAcc.push(filaAcc.id);
+			$scope.arrayAccModal.push(filaAcc);
+			$scope.detalleEQ.vectorAcc = arrayAcc;
+			 // Obtenemos el total de columnas (tr) del id "tabla" 
+            var trs=$("#tablaAcc tr").length;
+            if(trs>1 && $scope.filaRepBlanca <= 3)
+            {
+                // Eliminamos la ultima columna
+                $("#tablaAcc tr:last").remove();
+                $scope.filaRepBlanca = $scope.filaRepBlanca +1;
+            }			
+		};	
+
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.elimFilaAcc = function(indice)
+	{
+		$scope.filaTablaAcc = $scope.arrayAccModal[indice];
+		var id = $scope.filaTablaAcc.id;
+		id = parseInt(id); // convertimos a entero para que pueda encontrar el elemento en el array
+		var posArrayAcc = $scope.detalleEQ.vectorAcc.indexOf(id);
+		if ( posArrayAcc !== -1) 
+		{
+			$scope.arrayRep.splice(posArrayAcc, 1);	
+			$scope.arrayAccModal.splice(posArrayAcc, 1);
+			if ($scope.filaRepBlanca !=0)
+			{
+				var nuevaFila = "<tr>"+
+		                          "<td>#</td>"+                                        
+		                          "<td>-</td>"+                                            
+		                          "<td>-</td>"+
+		                        "</tr>";
+				$("#tablaAcc").append(nuevaFila);
+				$scope.filaRepBlanca = $scope.filaRepBlanca -1;
+			};						
+		};
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -95,7 +128,14 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.arrayServModal = [];
 		$scope.arrayFallaGenModal = [];		
 		$scope.arrayRepModal = [];		
-		$scope.arrayAccModal = [];		
+		$scope.arrayAccModal = [];			
+		//---- reset del combo repuesto y su tabla----
+		$scope.SelAcc = {id:'',nombreAccesorio:''};			
+		$('#tablaAcc').find('tbody').empty();
+		var nuevaFila = "<tr><td>#</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>#</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>#</td><td>-</td><td>-</td></tr>";
+		$("#tablaAcc").append(nuevaFila);
 		//$("#tablaFallaModalDet").find("tr:gt(0)").remove(); 
 		//$("#tablaServModalDet").find("tr:gt(0)").remove();		
 
@@ -131,8 +171,16 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.arrayRepModal.push(r.nombreRep);					            
         });
 		// cargar accesorios del equipo --------------------------		
-
-
+		angular.forEach($scope.detalleEQ.vectorAcc, function (va)
+		{
+            angular.forEach($scope.accesorios, function (item)
+			{
+				if (item.id == va)
+				{					
+					$scope.arrayAccModal.push(item);					
+				};				            
+	        });
+        });
 		$('#ModalDetalle').modal('show'); 
 	};
 	//--------------------------------------------------------------------------------------- 
@@ -145,14 +193,15 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		if (isImei && isDescrip)
 		{
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-ok';
-			$scope.detalleEQ.clase = 'btn-success';			
+			$scope.detalleEQ.clase = 'btn-success';
+			$scope.btnOkDet = true;			
 		}
 		else
 		{
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
 			$scope.detalleEQ.clase = 'btn-warning';				
-		};
-		
+			$scope.btnOkDet = false;
+		};		
 	};
 
 	//--------------------------------------------------------------------------------------- 
@@ -169,6 +218,15 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.btnCalcularDisable = false;
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = []; 
+
+		$scope.SelMarca = {id:'',nombreMarca:''};
+		$scope.SelModelo = {id:'',nombreModelo:'Marcas-Modelos'};
+		$scope.SelGama = {id:'',nombreGama:'Gama', DescripGama:''};
+		$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
+		$scope.imgMarca = 'Marcas_logo.gif';
+		$scope.imgModelo = 'Marcas-Modelos.jpg';
+		$scope.SelRep = {id:'',nombreRep:''};	
+
 		// ---- reset de los checks de fallas
 		var checksFallas = $('.clsCheckFalla');
 		angular.forEach(checksFallas, function (item) {
@@ -436,6 +494,20 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.btnCalcularDisable = false;
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = [];
+
+		$scope.SelMarca = {id:'',nombreMarca:''};
+		$scope.SelModelo = {id:'',nombreModelo:'Marcas-Modelos'};
+		$scope.SelGama = {id:'',nombreGama:'Gama', DescripGama:''};
+		$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
+		$scope.imgMarca = 'Marcas_logo.gif';
+		$scope.imgModelo = 'Marcas-Modelos.jpg';
+		//---- reset del combo repuesto y su tabla----
+		$scope.SelRep = {id:'',nombreRep:''};			
+		$('#tablaRep').find('tbody').empty();
+		var nuevaFila = "<tr><td>#</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>#</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>#</td><td>-</td><td>-</td></tr>";
+		$("#tablaRep").append(nuevaFila);
 		// ---- reset de los checks de fallas
 		var checksFallas = $('.clsCheckFalla');
 		angular.forEach(checksFallas, function (item) {

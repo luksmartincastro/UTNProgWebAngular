@@ -76,11 +76,7 @@
                         <tr>
                           <td><strong>Total equipos: </strong></td>
                           <td>0000</td>                          
-                        </tr>
-                        <tr>
-                          <td>total</td>
-                          <td>total</td>                          
-                        </tr>                        
+                        </tr>                                                
                       </table>
 
                     </div>
@@ -342,7 +338,7 @@
                 </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->   
 
                 <p></p>
-                                
+
                 <div class="panel panel-default"><!-- ///////////////////////////tabla repuestos///////////////////////////////////// -->   
                   <div class="panel-body">
                     
@@ -605,22 +601,50 @@
 
                   </div>
                   <div class="col-md-5">
-                  
+
                     <div class="panel panel-default"><!-- ////////////////////Accesorios de equipo///////////////////// -->    
-                        <div class="panel-heading">Accesorios</div>
-                        <div class="panel-body">
+                    <div class="panel-heading">Accesorios que deja</div>
+                      <div class="panel-body">
 
-                          <div class="panel panel-default">
-                            <div id="scrollAccesorios" class="panel-body">
-                              
-                            <div class="checkbox" ng-repeat="acc in accesorios">
-                              <label><input type="checkbox" class="checkAccesorio {{acc.id}}" ng-click="updateSelectionAcc($event, acc.id)" />{{acc.nombreAccesorio}}</label>                                       
-                            </div>                                                              
+                        <select class="form-control" ng-change="agregarTablaAcc()" ng-model="SelAcc" ng-options="acc.nombreAccesorio for acc in accesorios track by acc.id">      
+                            <option value="" disabled selected>Accesorios</option>
+                        </select>
+                        <p></p>
+                        <div id="scrollAccesorios">
 
-                            </div>
-                          </div>
+                          <table class="table table-hover " name="tablaAcc" id="tablaAcc">                                        
+                            
+                            <tr ng-repeat="fila in arrayAccModal">
+                              <td>#</td>
+                              <td style="display:none" class="valorId">{{fila.id}}</td>
+                              <td>{{fila.nombreAccesorio}}</td>                                            
+                              <td>
+                                <button type="button" ng-click="elimFilaAcc($index)"  class="btn btn-danger btn-xs btn-block">
+                                <b>X</b>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>#</td>                                        
+                              <td>-</td>                                            
+                              <td>-</td>
+                            </tr>
+                            <tr>
+                              <td>#</td>                                        
+                              <td>-</td>                                            
+                              <td>-</td>
+                            </tr>
+                            <tr>
+                              <td>#</td>                                        
+                              <td>-</td>                                            
+                              <td>-</td>
+                            </tr>
 
+                          </table>
+                          
                         </div>
+
+                      </div>
                     </div><!-- //////////////////////////////////////////////////////////////////////////////////// --> 
 
                   </div>
@@ -754,7 +778,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">ok</button>            
+            <button type="button" class="btn btn-default" ng-class="{true:'btn-success', false:''}[btnOkDet==true]" data-dismiss="modal">ok</button>            
           </div>
         </div>
       </div>

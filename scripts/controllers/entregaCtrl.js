@@ -57,6 +57,18 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 	//---------------------------------------------------------------------
 	$scope.getTraerOrden = function()
 	{
+		//Borrar toda la tabla y volver a crearla...
+		$("#tablaEq").find("tr:gt(0)").remove();
+		var filaNuevas = "<tr><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>5</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>6</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>7</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
+						"<tr><td>8</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> ";
+		$("#tablaEq").append(filaNuevas);
+						
 		var resource = { idOrden: $scope.OrdenNum};
 		EntregaServ.getTraerOrden(resource).$promise.then(function(data)
 			{
@@ -64,48 +76,49 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 				{
 					$scope.ordenEncontrada = data.orden;
 					$scope.equipos = data.equipos;
-
-					angular.forEach($scope.equipos, function(equipo)
-					{
-						//equipo.estadoReparacion;
-						switch(equipo.estadoReparacion)
-						{
-						    case 'PENDIENTE':
-						        var color = {clase: 'btn-warning'};
-						        $scope.equipo.push(color);
-								var icono = {icono: 'glyphicon glyphicon-pencil'};
-								$scope.equipo.push(icono);
-						        break;
-						    case 'LISTO':
-						        var color = {clase: 'btn-succes'};
-						        $scope.equipo.push(color);
-								var icono = {icono: 'glyphicon glyphicon-ok'};
-								$scope.equipo.push(icono);
-						        break;
-						        case 'IRREPARABLE':
-						        var color = {clase: 'btn-danger'};
-						        $scope.equipo.push(color);
-								var icono = {icono: 'glyphicon glyphicon-remove'};
-								$scope.equipo.push(icono);
-						        break;
-						    default:
-						        var color = {clase: 'btn-primary'};
-						        $scope.equipo.push(color);
-								var icono = {icono: 'glyphicon glyphicon-th'};
-								$scope.equipo.push(icono);
-
-						}
-					})
 					// contar equipos para eliminar filas
 					// agregar 2 elementos a cada equipo clase para color e icono segu estado del equipo
 					var i = $scope.equipos.length;
 					$scope.cantEquipo = i;
 					while( i>0 )
 					{
-						$("#tablaEq tr:last").remove();
+						$("#tablaEq tr:last").remove();//reueve la fila ultima
 						i--;
-					}
+					};
+					angular.forEach($scope.equipos, function(equipo)
+					{
+						//equipo.estadoReparacion;
+						switch(equipo.estadoReparacion)
+						{
+						    case 'PENDIENTE':
+						        equipo['clase'] = 'btn-warning';
+						        equipo['icono'] = 'glyphicon glyphicon-pencil';
+						        break;
+						    case 'LISTO':
+						    	equipo['clase'] = 'btn-success';
+						        equipo['icono'] = 'glyphicon glyphicon-ok';
+						        break;
+						    case 'IRREPARABLE':
+						    	equipo['clase'] = 'btn-danger';
+						        equipo['icono'] = 'glyphicon glyphicon-remove';
+						        break;
+						    default:
+						    	equipo['clase'] = 'btn-primary';
+						        equipo['icono'] = 'glyphicon glyphicon-th';
+
+						}
+					});
+
+					
 				};
 			});
+	};
+	//---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	$scope.limpiarCampos = function()
+	{
+		$scope.ApeNom = "";
+		$scope.OrdenNum = "";
 	};
 }]);
