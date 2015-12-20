@@ -34,9 +34,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg'; 
 	$scope.arraAccModal = [];
-	$scope.arrayServModal = []; 
+	$scope.arrayServModal = [];  
 	$scope.arrayFallaGenModal = [];  
-	
+
+	$scope.btnOkDet = {activar:false,icono:'glyphicon glyphicon-pencil'};	
+
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
 	//--------------------------------------------------------------------------------------- 
@@ -48,7 +50,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
 	        //-------------------------------------
-	        /*var filaEq = {
+	        var filaEq = {
 				clase: 'btn-warning',
 				icono: 'glyphicon glyphicon-pencil',
 				marca: 'Nokia',
@@ -66,7 +68,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				vectorAcc: []
 			};		
 
-			$scope.arrayTablaEq.push(filaEq);*/
+			$scope.arrayTablaEq.push(filaEq);
 	    });
 	
 	//---------------------------------------------------------------------------------------
@@ -82,9 +84,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		var result = search(filaAcc.nombreAccesorio, $scope.arrayAccModal);
 		if (result != 1)
 		{
-			arrayAcc.push(filaAcc.id);
+			//arrayAcc.push(filaAcc.id);
 			$scope.arrayAccModal.push(filaAcc);
-			$scope.detalleEQ.vectorAcc = arrayAcc;
+			$scope.detalleEQ.vectorAcc.push(filaAcc.id);// = arrayAcc;
 			 // Obtenemos el total de columnas (tr) del id "tabla" 
             var trs=$("#tablaAcc tr").length;
             if(trs>1 && $scope.filaRepBlanca <= 3)
@@ -128,12 +130,14 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.arrayServModal = [];
 		$scope.arrayFallaGenModal = [];		
 		$scope.arrayRepModal = [];		
-		$scope.arrayAccModal = [];			
+		$scope.arrayAccModal = [];		
+		//--- reset el boton del modal de detalle-----
+
 		//---- reset del combo repuesto y su tabla----
 		$scope.SelAcc = {id:'',nombreAccesorio:''};			
-		$('#tablaAcc').find('tbody').empty();
-		var nuevaFila = "<tr><td>#</td><td>-</td><td>-</td></tr>"+
-						"<tr><td>#</td><td>-</td><td>-</td></tr>"+
+		//$('#tablaAcc').find('tbody').empty();
+		 $("#tablaAcc").find("tr:gt(0)").remove();
+		var nuevaFila = "<tr><td>#</td><td>-</td><td>-</td></tr>"+						
 						"<tr><td>#</td><td>-</td><td>-</td></tr>";
 		$("#tablaAcc").append(nuevaFila);
 		//$("#tablaFallaModalDet").find("tr:gt(0)").remove(); 
@@ -194,13 +198,15 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		{
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-ok';
 			$scope.detalleEQ.clase = 'btn-success';
-			$scope.btnOkDet = true;			
+			$scope.btnOkDet.activar = true;
+			$scope.btnOkDet.icono = 'glyphicon glyphicon-ok'
 		}
 		else
 		{
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
 			$scope.detalleEQ.clase = 'btn-warning';				
-			$scope.btnOkDet = false;
+			$scope.btnOkDet.activar = false;
+			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil';
 		};		
 	};
 

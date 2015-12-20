@@ -78,7 +78,13 @@
                           <td>0000</td>                          
                         </tr>                                                
                       </table>
+                      <p></p>
+                      <center>
+                        
+                        <input class="btn btn-danger" type="button" value="Borrar todo">
+                        <input class="btn btn-default" type="button" value="Imprimir Ordende reparacion">
 
+                      </center>
                     </div>
                   </div>
 
@@ -471,7 +477,7 @@
                     <div class="btn-group btn-group-justified" role="group" aria-label="...">
 
                       <div class="btn-group" role="group">
-                        <button name="btnReset" type="button" ng-click="resetPresupuesto()" class="btn btn-default">Reset</button>
+                        <button name="btnReset" type="button" ng-click="resetPresupuesto()" class="btn btn-danger">Reset</button>
                       </div>
                       
                       <div class="btn-group" role="group">
@@ -778,7 +784,17 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" ng-class="{true:'btn-success', false:''}[btnOkDet==true]" data-dismiss="modal">ok</button>            
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+              
+                <button type="button" class="btn btn-default btn-block" ng-class="{true:'btn-success', false:'btn-warning'}[btnOkDet.activar==true]" data-dismiss="modal">
+                  <span class="{{btnOkDet.icono}}"></span>
+                </button>            
+
+              </div>
+              <div class="col-md-4"></div>
+            </div>
           </div>
         </div>
       </div>
