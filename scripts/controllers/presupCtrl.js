@@ -50,7 +50,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
 	        //-------------------------------------
-	        var filaEq = {
+	        /*var filaEq = {
 				clase: 'btn-warning',
 				icono: 'glyphicon glyphicon-pencil',
 				marca: 'Nokia',
@@ -68,7 +68,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				vectorAcc: []
 			};		
 
-			$scope.arrayTablaEq.push(filaEq);
+			$scope.arrayTablaEq.push(filaEq);*/
 	    });
 	
 	//---------------------------------------------------------------------------------------

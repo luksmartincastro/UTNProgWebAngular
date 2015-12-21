@@ -121,7 +121,7 @@
                       <td>{{equipo.fechaEntrega}}</td>                      
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle" ng-click="btnDetalleEq($index)">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
@@ -242,234 +242,7 @@
           
         </div>
     </div>
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- /////////////////////////////////  MODAL PRESUPUESTO  ////////////////////////////////////////////////// -->
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">PRESUPUESTO</h4>
-          </div>
-          <div class="modal-body">
-            
-            <div class="row">
-                <div class="col-md-6">
-                
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title"></h3>
-                      </div>
-                      <div class="panel-body"><!-- ////////////////////////////////////// -->
-                            <div class="row">
-                              <div class="col-md-5">                                  
-                                
-                                <select class="form-control" ng-change="mostrarModelos()" ng-model="SelMarca" ng-options="marca.nombreMarca for marca in marcas track by marca.id">      
-                                    <option value="" disabled selected>Marca</option>
-                                </select>
-                                <p></p>
-                                
-                                <select class="form-control" ng-disabled="!modelos" ng-change="mostrarRep()" ng-model="SelModelo" ng-options="modelo.nombreModelo for modelo in modelos track by modelo.id">
-                                    <option value="" disabled selected>Modelo</option>
-                                </select>
-                                <p></p>
-                                
-                                <select class="form-control" ng-change="mostrarDescripGama()" ng-model="SelGama" ng-options="gama.nombreGama for gama in gamas track by gama.id">
-                                    <option value="" disabled selected>Gama</option>
-                                </select>
-
-                              </div>
-                              <div class="col-md-7">
-
-                                <!-- //////////////////imagen marca////////////////////// -->
-                                <img id="imgMarcaId" ng-src="img/{{imgMarca}}" alt="Marca" class="imgMar img-thumbnail"> 
-                                <!-- /////////////////imagen modelos///////////////////// -->  
-                                <p></p>
-                                <img id="imgModeloId" ng-src="img/{{imgModelo}}" alt="Modelo" class="img-thumbnail imgMod">                              
-
-                              </div>
-                            </div>
-
-                      </div>
-                    </div>
-
-                </div>                
-                            
-                <div class="col-md-6">
-                
-                    <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"></h3>
-                          </div>
-                          <div class="panel-body">
-                            
-                            <div class="row">
-                              <div class="col-md-6">
-
-                                <div class="panel panel-default"><!-- ////////////////////fallas genericas///////////////////// -->    
-                                  <div class="panel-heading">Fallas genericas</div>
-                                  <div id="fallaScroll" class="panel-body">
-
-                                    <div class="checkbox" ng-repeat="falla in fallas">
-                                      <label><input type="checkbox" ng-click="updateSelection($event, falla.id)" />{{falla.descripcionFallaGen}}</label>                                       
-                                    </div>                                    
-
-                                  </div>
-                                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->    
-
-                              </div>
-
-                              <div class="col-md-6">
-
-                                <div class="panel panel-default"><!-- ////////////////////Servicios genericos///////////////////// -->    
-                                  <div class="panel-heading">Servicios</div>
-                                  <div id="servicioScroll" class="panel-body">
-                                    
-                                    <div class="checkbox" ng-repeat="serv in servicios">
-                                      <label><input type="checkbox" ng-click="updateSelectionServ($event, serv.id)" />{{serv.nombreServicio}}</label>                                       
-                                    </div>
-
-                                  </div>
-                                </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->    
-                                
-                                <p></p>
-                                
-                                <div class="panel panel-default">
-                                  <div class="panel-body">
-                                    
-                                    <select class="form-control" ng-change="agregarTablaRep()" ng-model="SelRep" ng-options="rep.nombreRep for rep in repuestos track by rep.id">      
-                                        <option value="" disabled selected>Repuesto</option>
-                                    </select>
-                                    <p></p>
-                                    <div id="repuestoScroll">
-
-                                      <table class="table table-hover" name="tablaRep">                                        
-                                        
-                                        <tr ng-repeat="fila in arrayTablaRep" directbtntablarep>
-                                          <td>#</td>
-                                          <td style="display:none;" class="valorId">{{fila.id}}</td>
-                                          <td>{{fila.nombreRep}}</td>                                            
-                                          <td>
-                                            <button type="button" ng-click="elimFilaRep()"  class="btn btn-danger btn-xs btn-block">
-                                            <b>X</b>
-                                            </button>
-                                          </td>
-                                        </tr> 
-
-                                      </table>
-                                      
-                                    </div>
-
-                                  </div>
-                                </div>
-
-                              </div>
-                            </div>
-
-                          </div>
-                    </div>
-
-                </div>
-            </div>
-            
-            <!-- /////////////////REFERENCIA A LA GAMA///////////////////// -->                    
-            <div class="alert alert-info" id="descripGamaScroll" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span>
-              {{DescripGama}}
-            </div>
-            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
-            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
-            <div class="panel panel-default">
-              <div class="panel-heading"></div>
-              <div class="panel-body">
-                
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="panel panel-default" >                    
-                      <div class="panel-body">
-                        Fecha de posible entrega
-                         
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-                      Basic panel example
-                    </div>
-                  </div>
-                  </div>
-
-                  <div class="col-md-4">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-                      Basic panel example
-                    </div>
-                  </div>
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
-          <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ////////////////////////////////////  MODAL TELEFONO  ////////////////////////////////////////////////// -->
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- Modal -->
-    <div class="modal fade" id="ModalTelefono" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">TELEFONO DEL USUARIO</h4>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ///////////////////////////////////  MODAL DOMICILIO  ////////////////////////////////////////////////// -->
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- Modal -->
-    <div class="modal fade" id="ModalDomicilio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">DOMICILIO DEL USUARIO</h4>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
-          </div>
-        </div>
-      </div>
-    </div>
+ 
       <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <!-- ////////////////////////////////////  MODAL DETALLES  ////////////////////////////////////////////////// -->
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -487,91 +260,38 @@
             <div class="row"><!-- Fila que contiene IMEI, Descripcion, Imagen de marca y de modelo -->
               <div class="col-md-8">
 
-                <div class="row">
-                  <div class="col-md-7">
-                  
-                    <div class="panel panel-default">
+                <div class="panel panel-default">
                     <div class="panel-heading">Equipo</div>
-                    <div class="panel-body">
-                      
-                      <div class="scrollTablaDatoEqModal">
-                        <table class="table table-striped" id="tablaDatoEqModalDet" name='tablaDatoEqModalDet'>
-                            
-                          <tbody>
-                              <tr>
-                                  <td><strong>Marca :</strong></td>
-                                  <td>{{detalleEQ.marca}}</td>                         
-                              </tr>                    
-                              <tr>
-                                  <td><strong>Modelo :</strong></td>
-                                  <td>{{detalleEQ.modelo}}</td>                         
-                              </tr>                    
-                              <tr>
-                                  <td><strong>Gama :</strong></td>
-                                  <td>{{detalleEQ.gama}}</td>                         
-                              </tr>                                                
-                          </tbody>
-
-                        </table>
-                      </div>
-
-                      <div class="form-group">
-                          <label > Numero de IMEI: </label>
-                          <input type="text" class="form-control clsImeiModal" ng-change="verificarDatosEq()" ng-model="detalleEQ.imei" placeholder="Numero de IMEI">                      
-                      </div>
-
-                    </div>
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-
-                    <div class="panel panel-default"><!-- ////////////////////Accesorios de equipo///////////////////// -->    
-                    <div class="panel-heading">Accesorios que deja</div>
                       <div class="panel-body">
+                      
+                          <div class="scrollTablaDatoEqModal">
+                            <table class="table table-striped" id="tablaDatoEqModalDet" name='tablaDatoEqModalDet'>
+                                
+                              <tbody>
+                                  <tr>
+                                      <td><strong>Marca:</strong></td>
+                                      <td>{{detalleEQ.marca}}</td>                         
+                                  </tr>                    
+                                  <tr>
+                                      <td><strong>Modelo:</strong></td>
+                                      <td>{{detalleEQ.modelo}}</td>                         
+                                  </tr>                    
+                                  <tr>
+                                      <td><strong>Gama:</strong></td>
+                                      <td>{{detalleEQ.gama}}</td>                         
+                                  </tr>                                                
+                              </tbody>
 
-                        <select class="form-control" ng-change="agregarTablaAcc()" ng-model="SelAcc" ng-options="acc.nombreAccesorio for acc in accesorios track by acc.id">      
-                            <option value="" disabled selected>Accesorios</option>
-                        </select>
-                        <p></p>
-                        <div id="scrollAccesorios">
+                            </table>
+                          </div>
 
-                          <table class="table table-hover " name="tablaAcc" id="tablaAcc">                                        
-                            
-                            <tr ng-repeat="fila in arrayAccModal">
-                              <td>#</td>
-                              <td style="display:none" class="valorId">{{fila.id}}</td>
-                              <td>{{fila.nombreAccesorio}}</td>                                            
-                              <td>
-                                <button type="button" ng-click="elimFilaAcc($index)"  class="btn btn-danger btn-xs btn-block">
-                                <b>X</b>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>#</td>                                        
-                              <td>-</td>                                            
-                              <td>-</td>
-                            </tr>
-                            <tr>
-                              <td>#</td>                                        
-                              <td>-</td>                                            
-                              <td>-</td>
-                            </tr>
-                            <tr>
-                              <td>#</td>                                        
-                              <td>-</td>                                            
-                              <td>-</td>
-                            </tr>
-
-                          </table>
-                          
-                        </div>
+                          <div class="form-group">
+                              <label > Numero de IMEI: </label>
+                              <input type="text" class="form-control clsImeiModal" ng-change="verificarDatosEq()" ng-model="detalleEQ.imei" placeholder="Numero de IMEI">                      
+                          </div>
 
                       </div>
-                    </div><!-- //////////////////////////////////////////////////////////////////////////////////// --> 
-
-                  </div>
-                </div>
+                    </div>
                 
                 <p></p>
 
@@ -613,17 +333,15 @@
               <div class="panel-body">
                 
                 <div class="row">
-                  <div class="col-md-4">
+                     
+                  <div class="col-md-3">
 
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-
-                        <div class="scrollTablaModal">
+                    <div class="scrollTablaModal">
                         <table class="table table-striped" id="tablaFallaModalDet" name='tablaFallaModalDet'>
                             <thead>
                               <tr>
                                   <th>#</th>
-                                  <th>Fallas</th>                                       
+                                  <th>Fallas</th>                                      
                               </tr>
                             </thead>
                             <tbody>
@@ -633,19 +351,13 @@
                                 </tr>                                                
                             </tbody>
                         </table>
-                      </div>
-
-                      </div>
-                    </div>              
+                    </div>            
 
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-3">
 
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                    
-                        <div class="scrollTablaModal">
+                    <div class="scrollTablaModal">
                           <table class="table table-striped" id="tablaServModalDet" name='tableServModalDet'>
                               <thead>
                                 <tr>
@@ -660,19 +372,13 @@
                                   </tr>                                                       
                               </tbody>
                           </table>
-                        </div>
-
-                      </div>
-                    </div>              
+                        </div>             
 
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        
-                        <div class="scrollTablaModal">
+                    <div class="scrollTablaModal">
                           <table class="table table-striped" id="tablaRepModalDet" name='tableRepModalDet'>
                               <thead>
                                 <tr>
@@ -689,8 +395,25 @@
                           </table>
                         </div>
 
+                  </div>
+                    <div class="col-md-3">
+                    
+                      <div class="scrollTablaModal">
+                            <table class="table table-striped" id="tablaRepModalDet" name='tableRepModalDet'>
+                                <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Accesorios</th>                                        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="rep in arrayRepModal">
+                                        <td>#</td>
+                                        <td>{{rep}}</td>                       
+                                    </tr>                                                       
+                                </tbody>
+                            </table>
                       </div>
-                    </div>
 
                   </div>
                 </div>

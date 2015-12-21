@@ -121,4 +121,61 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 		$scope.ApeNom = "";
 		$scope.OrdenNum = "";
 	};
+
+	$scope.btnDetalleEq = function(indice)
+	{
+		$scope.arrayServModal = [];
+		$scope.arrayRepModal = [];
+		$scope.arrayAccModal = [];
+		$scope.arrarFallaGenModal = [];
+
+		$scope.detalleEQ = $scope.equipos[indice];
+		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
+		$scope.imgModeloModal = $scope.detalleEQ.marca +'-'+$scope.detalleEQ.modelo+'.jpg';
+
+		angular.forEach($scope.fallas, function(item)
+			{
+			if (item.id == vf)
+			{
+				$scope.arrarFallaGenModal.push(item.descripcionFallaGen);
+			};
+			// cargar servicios del equipo 
+		
+		});
+		
+
+	}
+/*	$scope.btnDetalleEq = function(indice)
+	{
+
+				
+		// cargar servicios del equipo --------------------------		
+		angular.forEach($scope.detalleEQ.vectorServ, function (vs)
+		{
+            angular.forEach($scope.servicios, function (item)
+			{
+				if (item.id == vs)
+				{
+					$scope.arrayServModal.push(item.nombreServicio);					
+				};				            
+	        });
+        });
+		// cargar repuestos del equipo --------------------------		
+		angular.forEach($scope.detalleEQ.vectorRep, function (r)
+		{
+			$scope.arrayRepModal.push(r.nombreRep);					            
+        });
+		// cargar accesorios del equipo --------------------------		
+		angular.forEach($scope.detalleEQ.vectorAcc, function (va)
+		{
+            angular.forEach($scope.accesorios, function (item)
+			{
+				if (item.id == va)
+				{					
+					$scope.arrayAccModal.push(item);					
+				};				            
+	        });
+        });
+		$('#ModalDetalle').modal('show'); 
+	};*/
 }]);
