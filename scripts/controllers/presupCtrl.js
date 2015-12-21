@@ -3,6 +3,7 @@
 app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope, PresupServ, $route)
 {
 	var bandera = 0; // variable global para la 1ra carga en la tabla repuesto
+	var arrayAcc = [];
 	$scope.filaRepBlanca = 0;
 	$scope.filaEqBlanca = 0;
 
@@ -20,7 +21,6 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 	$scope.arrayTablaRep = []; 
 	$scope.arrayTablaEq = []; 
-	var arrayAcc = [];
 	$scope.btnSucces = false; // btn-success 
 	$scope.MontoRep = 0;
 	$scope.MontoServ = 0;
@@ -68,9 +68,34 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				vectorAcc: []
 			};		
 
-			$scope.arrayTablaEq.push(filaEq);
+			$scope.arrayTablaEq.push(filaEq); 
 	    });
-	
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.verificarDatosOrden = function()
+	{
+		// verifica que el usuario haya ingresado los datos necesarios para poder mandar a 
+		// guardar la orden
+		/*var isImei = $scope.detalleEQ.imei != '0000-0000-0000';
+		var isDescrip = $scope.detalleEQ.descripFalla != '';
+
+		if (isImei && isDescrip)
+		{
+			$scope.detalleEQ.icono = 'glyphicon glyphicon-ok';
+			$scope.detalleEQ.clase = 'btn-success';
+			$scope.btnOkDet.activar = true;
+			$scope.btnOkDet.icono = 'glyphicon glyphicon-ok'
+		}
+		else
+		{
+			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
+			$scope.detalleEQ.clase = 'btn-warning';				
+			$scope.btnOkDet.activar = false;
+			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil';
+		};*/	
+	};
+
+
 	//---------------------------------------------------------------------------------------
 	//-------------------------------MODAL DETALLE DE EQUIPO---------------------------------
 	//---------------------------------------------------------------------------------------
