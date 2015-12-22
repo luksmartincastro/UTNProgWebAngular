@@ -50,27 +50,9 @@
 
                             </div>
                           </div><!-- *********************************************************** -->
-
-                          <div class="row">
-                            <div class="col-md-4">
-                                                            
-                              <div class="form-group">
-                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                              </div>
-
-                            </div>
-                            <div class="col-md-8">
-                            
-                              <div class="form-group">
-                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                              </div>
-
-                            </div>
-                          </div>
-                          <p></p>
-                          <!-- ***************************************************************** -->                          
+                          
                           <div class="form-group">                                        
-                              <textarea class="form-control" ng-model="datosOrden.observacion" rows="3"placeholder="Urgencia o situacion especial"></textarea>
+                              <textarea class="form-control" ng-model="datosOrden.observacion" rows="2"placeholder="Urgencia o situacion especial"></textarea>
                           </div>
 
                         </div>
@@ -85,44 +67,48 @@
                   <div class="panel panel-default">
                     <div class="panel-heading"></div>
                     <div class="panel-body">
-                      
+
                       <table class="table table-hover">
                         <tr>
                           <td><strong>Total a pagar: </strong></td>
                           <td>$00.00</td>                          
                         </tr>
                         <tr>
-                          <td><strong>Total equipos: </strong></td>
-                          <td>0000</td>                          
-                        </tr>                                                
+                          <td><strong>Anticipo: </strong></td>
+                          <td>
+                          
+                            <div class="form-group">                          
+                                <input type="text" class="form-control clsImeiModal" ng-change="verificarDatosEq()" ng-model="datosOrden.anticipo" placeholder="deja anticipo?">                      
+                            </div>    
+
+                          </td>                          
+                        </tr>                                                                                                  
                       </table>
-                      
-                      <div class="form-group">                          
-                          <input type="text" class="form-control clsImeiModal" ng-change="verificarDatosEq()" ng-model="datosOrden.anticipo" placeholder="deja anticipo?">                      
-                      </div>
+
                       
                     </div>
                   </div>
 
                 </div>
               </div><!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-            
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  
-                  <center>                        
-                    <input class="btn btn-danger" type="button" value="Borrar todo">
-                    <input class="btn btn-default" type="button" ng-class="guardarOrden()" value="Imprimir orden">
-                  </center>
-
-                </div>
-              </div>
 
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
-                  <span class="glyphicon glyphicon-plus-sign"></span>
-                </button>                   
+                <div class="pull-right">
+                  
+                  <button type="button" class="btn btn-danger" >
+                    <span class="glyphicon glyphicon-remove"></span> Borrar todo
+                  </button>                   
+
+                  <button type="button" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-print"></span> Orden reperacion
+                  </button>                   
+
+                  <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Equipo
+                  </button>                   
+
+                </div>
               </h1>
 
               <div class="table-responsive">
@@ -268,11 +254,19 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   
-                  <div class="alert alert-info" role="alert">...</div>                  
+                  <div class="alert alert-info" role="alert">
+                  
+                  
+                  <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-3"><strong>Total de equipos:</strong></div>
+                    <div class="col-md-1">0000</div>
+                  </div>
+                  
+                  </div>
 
                 </div>
               </div>
-
 
             </div><!-- /////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -547,7 +541,45 @@
             <h4 class="modal-title" id="myModalLabel">TELEFONO DEL USUARIO</h4>
           </div>
           <div class="modal-body">
-            ...
+                        
+            <div class="row">
+             
+              <div class="col-md-4">
+                
+                <div class="panel panel-default">
+                  <div class="panel-heading">Cod. de area</div>
+                  <div class="panel-body">
+                    
+                    <div class="row">
+                      <div class="col-md-3">0</div>
+                      <div class="col-md-9">
+                          <input type="text" class="form-control" placeholder="385">
+                      </div>
+                    </div>                                        
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-8">
+                
+                <div class="panel panel-default">
+                  <div class="panel-heading">Numero</div>
+                  <div class="panel-body">
+                     
+                    <div class="row">
+                      <div class="col-md-1">15</div>
+                      <div class="col-md-11">
+                          <input type="text" class="form-control" placeholder="0000000">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -565,10 +597,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">DOMICILIO DEL USUARIO</h4>
+            <h4 class="modal-title" id="myModalLabel">DOMICILIO DEL CLIENTE</h4>
           </div>
           <div class="modal-body">
-            ...
+            
+            <div class="form-group">                                        
+                <textarea class="form-control" ng-model="datosOrden.domicilio" rows="2"placeholder="Ingrese el domicilio del cliente"></textarea>
+            </div>
+
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

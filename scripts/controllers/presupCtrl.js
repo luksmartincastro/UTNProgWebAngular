@@ -29,7 +29,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.detalleEQ = null;
 	$scope.filaTablaRep = null; 
 
-	$scope.imeiModal = '00000-00000-000008888'; 
+	$scope.imeiModal = '00000-00000-000008888';  
 	$scope.descripFallaModal = '';
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg'; 
@@ -45,6 +45,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 						anticipo:'',
 						observacion:''
 					 };
+	$scope.empresas = [];
 
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
