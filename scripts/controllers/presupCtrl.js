@@ -45,7 +45,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 						anticipo:'',
 						observacion:''
 					 };
-	$scope.empresas = [];
+	$scope.telModal = {codArea:'',numero:''};
+	$scope.clsBtnImprimir = 'btn-default';
 
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
@@ -83,8 +84,18 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	//---------------------------------------------------------------------------------------
 	$scope.verificarDatosOrden = function()
 	{
-		// verifica que el usuario haya ingresado los datos necesarios para poder mandar a 
-		// guardar la orden
+		// verifica que el usuario haya ingresado los datos de apenom y telefono necesarios
+		// para poder mandar a guardar la orden
+		var isApeNom = $scope.datosOrden.apenom !='';
+		var isTel = $scope.datosOrden.telefono !='';
+		if (isApeNom && isTel)
+		{
+			$scope.clsBtnImprimir = 'btn-success';
+		}
+		else
+		{
+			$scope.clsBtnImprimir = 'btn-default';
+		};
 		/*var isImei = $scope.detalleEQ.imei != '0000-0000-0000';
 		var isDescrip = $scope.detalleEQ.descripFalla != '';
 
@@ -100,7 +111,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
 			$scope.detalleEQ.clase = 'btn-warning';				
 			$scope.btnOkDet.activar = false;
-			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil';
+			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil'; 
 		};*/	
 	};
 
