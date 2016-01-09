@@ -31,11 +31,11 @@
                               </div>
 
                             </div>
-                            <!-- *************************************************************** -->
+                            <!-- *************************************************************** --> 
                             <div class="col-md-2">
                             
                               <!-- Button trigger modal -->
-                              <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#ModalTelefono">
+                              <button type="button" class="btn {{telModal.btnTelModal}} btn-block" data-toggle="modal" data-target="#ModalTelefono">
                               <i class="glyphicon glyphicon-phone-alt"></i>
                                 
                               </button>
@@ -71,7 +71,7 @@
                       <table class="table table-hover">
                         <tr>
                           <td><strong>Total a pagar: </strong></td>
-                          <td>$00.00</td>                          
+                          <td>${{totalAPagar}}</td>                          
                         </tr>
                         <tr>
                           <td><strong>Anticipo: </strong></td>
@@ -96,12 +96,12 @@
                 <!-- Large modal -->
                 <div class="pull-right">
                   
-                  <button type="button" class="btn btn-danger" >
+                  <button type="button" class="btn btn-danger" ng-click="borrarTodo()">
                     <span class="glyphicon glyphicon-remove"></span> Borrar todo
                   </button>                   
 
-                  <button type="button" class="btn {{clsBtnImprimir}}" >
-                    <span class="glyphicon glyphicon-print"></span> Orden reperacion
+                  <button type="button" ng-disabled="!btnImprimir.enable" class="btn {{btnImprimir.cls}}" >
+                    <span class="glyphicon glyphicon-print"></span> Generar orden reperacion
                   </button>                   
 
                   <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
@@ -151,7 +151,7 @@
                         </button>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-danger btn-xs btn-block">
+                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="elimFilaEq($index)">
                         <b>X</b>
                         </button>
                       </td>
@@ -260,7 +260,7 @@
                   <div class="row">
                     <div class="col-md-8"></div>
                     <div class="col-md-3"><strong>Total de equipos:</strong></div>
-                    <div class="col-md-1">0000</div>
+                    <div class="col-md-1">{{totalEq}}</div>
                   </div>
                   
                   </div>
@@ -583,7 +583,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button" class="btn btn-primary" ng-click="$event.preventDefault(); guardarTelModal()">Guardar cambios</button>
           </div>
         </div>
       </div>
@@ -609,7 +609,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            
           </div>
         </div>
       </div>

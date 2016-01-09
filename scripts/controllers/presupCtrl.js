@@ -27,9 +27,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.MontoMO = 0;
 	$scope.totalPresup = 0; 
 	$scope.detalleEQ = null;
-	$scope.filaTablaRep = null; 
+	$scope.filaTablaRep = null;  
+	$scope.totalEq = 0;
+	$scope.totalAPagar = 0;
 
-	$scope.imeiModal = '00000-00000-000008888';  
+	$scope.imeiModal = '00000-00000-000008888';   
 	$scope.descripFallaModal = '';
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg'; 
@@ -45,8 +47,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 						anticipo:'',
 						observacion:''
 					 };
-	$scope.telModal = {codArea:'',numero:''};
-	$scope.clsBtnImprimir = 'btn-default';
+	$scope.telModal = {codArea:'',numero:'',btnTelModal:'btn-warning'};
+	//$scope.clsBtnImprimir = 'btn-default';
+	$scope.btnImprimir = {enable:false, cls:'btn-default'};
 
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
@@ -58,28 +61,21 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	        $scope.fallas = data.fallas;
 	        $scope.servicios = data.servicios;
 	        $scope.accesorios = data.accesorios;
-	        //-------------------------------------
-	        /*var filaEq = {
-				clase: 'btn-warning',
-				icono: 'glyphicon glyphicon-pencil',
-				marca: 'Nokia',
-				idModelo: 1,
-				modelo: '6131',
-				idGama: 3,
-				gama: 'Baja',
-				imei: '0000-0000-0000',
-				presupEst: 300,
-				fechaEst: '2015/12/20',
-				descripFalla: '',
-				vectorFalla: [7,8,9],
-				vectorServ: [3,4],
-				vectorRep: [],
-				vectorAcc: []
-			};		
-
-			$scope.arrayTablaEq.push(filaEq);*/
-
 	    });
+	//---------------------------------------------------------------------------------------
+	// funcion que compara elementos del un array y busca repetidos
+	//---------------------------------------------------------------------------------------
+	function searchArrayEq(nameKey)
+	{
+		var B = false;
+	    for (var i=0; i < $scope.arrayTablaEq.length; i++) {
+	        if ($scope.arrayTablaEq[i].clase === nameKey)
+	        {
+	        	B = true;
+	        }
+	    }
+	    return B;
+	};			
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	$scope.verificarDatosOrden = function()
@@ -88,34 +84,96 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		// para poder mandar a guardar la orden
 		var isApeNom = $scope.datosOrden.apenom !='';
 		var isTel = $scope.datosOrden.telefono !='';
-		if (isApeNom && isTel)
+		var isCantEq = $scope.arrayTablaEq.length != 0;
+		var isEq = !searchArrayEq('btn-warning'); // verificamos q todos los equipos esten completos
+		if (isApeNom && isTel && isEq && isCantEq)
 		{
-			$scope.clsBtnImprimir = 'btn-success';
+			$scope.btnImprimir.cls = 'btn-success';
+			$scope.btnImprimir.enable = true;			
 		}
 		else
 		{
-			$scope.clsBtnImprimir = 'btn-default';
-		};
-		/*var isImei = $scope.detalleEQ.imei != '0000-0000-0000';
-		var isDescrip = $scope.detalleEQ.descripFalla != '';
-
-		if (isImei && isDescrip)
-		{
-			$scope.detalleEQ.icono = 'glyphicon glyphicon-ok';
-			$scope.detalleEQ.clase = 'btn-success';
-			$scope.btnOkDet.activar = true;
-			$scope.btnOkDet.icono = 'glyphicon glyphicon-ok'
-		}
-		else
-		{
-			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
-			$scope.detalleEQ.clase = 'btn-warning';				
-			$scope.btnOkDet.activar = false;
-			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil'; 
-		};*/	
+			$scope.btnImprimir.cls = 'btn-default';
+			$scope.btnImprimir.enable = false;
+		};		
 	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.elimFilaEq = function(indice)
+	{
+        $scope.totalAPagar = $scope.totalAPagar - $scope.arrayTablaEq[indice].presupEst;
+		$scope.totalEq = $scope.totalEq -1;
+		$scope.arrayTablaEq.splice(indice, 1);
+		if ($scope.filaEqBlanca !=0)
+		{
+			var nuevaFila = "<tr>"+
+	                          "<td>#</td>"+                                        
+	                          "<td>-</td>"+                                            
+	                          "<td>-</td>"+
+	                          "<td>-</td>"+
+	                          "<td>-</td>"+
+	                          "<td>-</td>"+
+	                          "<td>-</td>"+
+	                          "<td>-</td>"+
+	                          "<td>-</td>"+
+	                        "</tr>";
+			$("#tablaEq").append(nuevaFila);
+			$scope.filaEqBlanca = $scope.filaEqBlanca -1;
+		};			
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.borrarTodo = function()
+	{
+		// borrar datos del cliente
+		$scope.datosOrden = {
+						apenom:'',
+						telefono:'',
+						domicilio:'',
+						anticipo:'',
+						observacion:''
+					 };
+		$scope.telModal = {codArea:'',numero:'',btnTelModal:'btn-warning'};
+		//-----------------------------
+		// borrar totales					 
+        $scope.totalAPagar = 0;
+		$scope.totalEq = 0;
+		//-----------------------------
+		// borrar tablaEq
+		$scope.arrayTablaEq = [];
+		$("#tablaEq").find("tr:gt(0)").remove();
+		var nuevaFila = "<tr><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>5</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>6</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>7</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"+
+						"<tr><td>8</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>";
 
-
+		$("#tablaEq").append(nuevaFila);
+		$scope.filaEqBlanca = 0;
+					
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
+	$scope.generarOrden = function()
+	{
+		var resource = 
+				{ datosOrden: $scope.datosOrden,				   
+				  arrayEq: $scope.arrayTablaEq
+			 	}; 	
+		PresupServ.GuardarPresupuesto(resource).$promise.then(function(data)
+			{
+				if (data.msg)
+				{
+					//$scope.modelos = data.modelos;
+					// mando a imprimir la oreden de reparacion  
+					
+				};
+			});
+		
+	};
 	//---------------------------------------------------------------------------------------
 	//-------------------------------MODAL DETALLE DE EQUIPO---------------------------------
 	//---------------------------------------------------------------------------------------
@@ -252,9 +310,19 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.detalleEQ.clase = 'btn-warning';				
 			$scope.btnOkDet.activar = false;
 			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil';
-		};		
+		};
+		$scope.verificarDatosOrden();		
 	};
-
+	//--------------------------------------------------------------------------------------- 
+	//-----------------------------MODAL TELEFONO CLIENTE------------------------------------ 
+	//--------------------------------------------------------------------------------------- 
+	//--------------------------------------------------------------------------------------- 
+	$scope.guardarTelModal = function()
+	{
+		$scope.datosOrden.telefono = $scope.telModal.codArea + $scope.telModal.numero;
+		$scope.telModal.btnTelModal = 'btn-success';
+		$('#ModalTelefono').modal('hide'); 
+	};
 	//--------------------------------------------------------------------------------------- 
 	//-----------------------------MODAL PRESUPUESTO----------------------------------------- 
 	//--------------------------------------------------------------------------------------- 
@@ -272,6 +340,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 
 		$scope.SelMarca = {id:'',nombreMarca:''};
 		$scope.SelModelo = {id:'',nombreModelo:'Marcas-Modelos'};
+		$scope.modelos = [];
 		$scope.SelGama = {id:'',nombreGama:'Gama', DescripGama:''};
 		$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
 		$scope.imgMarca = 'Marcas_logo.gif';
@@ -425,7 +494,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.btnCalcularDisable = false;
 			$scope.btnSucces = false;	
 		};
-	};			
+	};
+	
 	//---------------------------------------------------------------------------------------
 	// funcion que compara elementos del un array y busca repetidos
 	//---------------------------------------------------------------------------------------
@@ -608,6 +678,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
             $("#tablaEq tr:last").remove();
             $scope.filaEqBlanca = $scope.filaEqBlanca +1;
         };
+        $scope.totalEq = $scope.totalEq +1;
+        $scope.totalAPagar = $scope.totalAPagar + $scope.totalPresup;
         $('#modalPresupuesto').modal('hide');							
 	};
 	//---------------------------------------------------------------------------------------

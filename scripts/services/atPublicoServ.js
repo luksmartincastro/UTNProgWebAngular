@@ -22,7 +22,13 @@ app.factory('PresupServ', function($resource)
 				  params: {idGama: "@idModelo", vectorRep: "@vectorRep", vectorServ:"@vectorServ"},
 				  url: "http://localhost/ProgWeb2015/public/getPresupuesto"
 				}
-			//---------------------------------- 
+			//----------------------------------  
+			GuardarPresupuesto: 
+				{ method:'POST',
+				  params: {idGama: "@idModelo", vectorRep: "@vectorRep", vectorServ:"@vectorServ"},
+				  url: "http://localhost/ProgWeb2015/public/GuardarPresupuesto"
+				}
+			//----------------------------------  
 		});	 		 
 	
 }); 
