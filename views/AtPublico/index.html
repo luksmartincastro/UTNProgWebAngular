@@ -92,6 +92,11 @@
                 </div>
               </div><!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Informacion!</strong> {{msjOrden}}
+              </div>
+              <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->              
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
                 <div class="pull-right">
@@ -100,7 +105,7 @@
                     <span class="glyphicon glyphicon-remove"></span> Borrar todo
                   </button>                   
 
-                  <button type="button" ng-disabled="!btnImprimir.enable" class="btn {{btnImprimir.cls}}" >
+                  <button type="button" ng-disabled="!btnImprimir.enable" class="btn {{btnImprimir.cls}}" ng-click="generarOrden()">
                     <span class="glyphicon glyphicon-print"></span> Generar orden reperacion
                   </button>                   
 

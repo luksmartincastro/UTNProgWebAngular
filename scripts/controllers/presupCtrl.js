@@ -47,6 +47,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 						anticipo:'',
 						observacion:''
 					 };
+	$scope.msjOrden = '';
 	$scope.telModal = {codArea:'',numero:'',btnTelModal:'btn-warning'};
 	//$scope.clsBtnImprimir = 'btn-default';
 	$scope.btnImprimir = {enable:false, cls:'btn-default'};
@@ -159,6 +160,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	//---------------------------------------------------------------------------------------
 	$scope.generarOrden = function()
 	{
+		//----------------------------------------
+		//----------------------------------------
+		//----------------------------------------
 		var resource = 
 				{ datosOrden: $scope.datosOrden,				   
 				  arrayEq: $scope.arrayTablaEq
@@ -169,7 +173,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				{
 					//$scope.modelos = data.modelos;
 					// mando a imprimir la oreden de reparacion  
-					
+					$scope.msjOrden = 'Datos guardados correctamente';
+					// borrar todo...
+					// imprimir
 				};
 			});
 		
