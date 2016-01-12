@@ -94,7 +94,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		}
 		else
 		{
-			$scope.btnImprimir.cls = 'btn-default';
+			$scope.btnImprimir.cls = 'btn-default'; 
 			$scope.btnImprimir.enable = false;
 		};		
 	};
