@@ -107,17 +107,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.arrayTablaEq.splice(indice, 1);
 		if ($scope.filaEqBlanca !=0)
 		{
-			var nuevaFila = "<tr>"+
-	                          "<td>#</td>"+                                        
-	                          "<td>-</td>"+                                            
-	                          "<td>-</td>"+
-	                          "<td>-</td>"+
-	                          "<td>-</td>"+
-	                          "<td>-</td>"+
-	                          "<td>-</td>"+
-	                          "<td>-</td>"+
-	                          "<td>-</td>"+
-	                        "</tr>";
+			var nuevaFila = "<tr><td>#</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>";
 			$("#tablaEq").append(nuevaFila);
 			$scope.filaEqBlanca = $scope.filaEqBlanca -1;
 		};			
@@ -173,9 +163,12 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				{
 					//$scope.modelos = data.modelos;
 					// mando a imprimir la oreden de reparacion  
-					$scope.msjOrden = 'Datos guardados correctamente';
+					$scope.msjOrden = 'Datos guardados correctamente';					
+					// imprimir 
+					var resource = {idOrden: data.ultimoIdOrden};
+					PresupServ.imprimirOrden(resource).$promise.then(function(data){});
 					// borrar todo...
-					// imprimir
+					//$scope.borrarTodo();
 				};
 			});
 		
