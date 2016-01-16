@@ -105,12 +105,16 @@
                     <span class="glyphicon glyphicon-remove"></span> Borrar todo
                   </button>                   
 
-                  <button type="button" ng-disabled="!btnImprimir.enable" class="btn {{btnImprimir.cls}}" target="_blank" ng-click="generarOrden()">
-                    <span class="glyphicon glyphicon-print"></span> Generar orden reperacion
+                  <button type="button" ng-disabled="!btnConfirmar.enable" class="btn {{btnConfirmar.cls}}" ng-click="generarOrden()">
+                    <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
                   </button>                   
 
-                  <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
-                    <span class="glyphicon glyphicon-plus-sign"></span> Equipo
+                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
+                    <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
+                  </a>
+
+                  <button type="button" class="btn {{btnEquipo.cls}}" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
+                    <span class="{{btnEquipo.icono}}"></span> Equipo
                   </button>                   
 
                 </div>
@@ -151,12 +155,12 @@
 
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal"  ng-click="btnDetalleEq($index)">
-                        <i class="glyphicon glyphicon-list-alt"></i>                          
+                        <button type="button" ng-disabled="!btnDetEquipo.enable" class="btn {{btnDetEquipo.cls}} btn-xs btn-block" data-toggle="modal"  ng-click="btnDetalleEq($index)">
+                        <i class="{{btnDetEquipo.icono}}"></i>                          
                         </button>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-danger btn-xs btn-block" ng-click="elimFilaEq($index)">
+                        <button type="button" ng-disabled="!btnElimEquipo.enable" class="btn {{btnElimEquipo.cls}} btn-xs btn-block" ng-click="elimFilaEq($index)">
                         <b>X</b>
                         </button>
                       </td>
@@ -507,7 +511,7 @@
                       </div>
                       
                       <div class="btn-group" role="group">
-                        <button name="btnCalc" ng-disabled="!btnCalcularDisable" ng-click="getPresupuesto()" type="button" ng-class="{true:'btn-success', false:''}[btnSucces==true]" class="btn btn-default">
+                        <button name="btnCalc" ng-disabled="!btnCalcularPresup.enable" ng-click="getPresupuesto()" type="button" class="btn {{btnCalcularPresup.cls}}">
                           Calcular presupuesto
                         </button>
                       </div>      
@@ -528,7 +532,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" ng-disabled="!btnAceptarDisable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn btn-primary">Aceptar presupuesto</button>
+            <button type="button" ng-disabled="!btnAceptarPresup.enable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn {{btnAceptarPresup.cls}}">Aceptar presupuesto</button>
           </div>
 
         </div>
@@ -857,7 +861,7 @@
               <div class="col-md-4"></div>
               <div class="col-md-4">
               
-                <button type="button" class="btn btn-default btn-block" ng-class="{true:'btn-success', false:'btn-warning'}[btnOkDet.activar==true]" data-dismiss="modal">
+                <button type="button" class="btn btn-block {{btnOkDet.cls}}" data-dismiss="modal">
                   <span class="{{btnOkDet.icono}}"></span>
                 </button>            
 

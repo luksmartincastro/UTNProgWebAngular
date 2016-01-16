@@ -15,13 +15,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
 	$scope.arrayFallaGen = [];
 	$scope.arrayServ = [];
-	$scope.btnAceptarDisable = false;
-	$scope.btnCalcularDisable = false;	
-	$scope.btnGuardarDetEnable = false;
 	$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 	$scope.arrayTablaRep = []; 
 	$scope.arrayTablaEq = []; 
-	$scope.btnSucces = false; // btn-success 
 	$scope.MontoRep = 0;
 	$scope.MontoServ = 0;
 	$scope.MontoMO = 0;
@@ -38,8 +34,6 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.arraAccModal = [];
 	$scope.arrayServModal = [];  
 	$scope.arrayFallaGenModal = [];  
-
-	$scope.btnOkDet = {activar:false,icono:'glyphicon glyphicon-pencil'};	
 	$scope.datosOrden = {
 						apenom:'',
 						telefono:'',
@@ -49,8 +43,21 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					 };
 	$scope.msjOrden = '';
 	$scope.telModal = {codArea:'',numero:'',btnTelModal:'btn-warning'};
-	//$scope.clsBtnImprimir = 'btn-default';
-	$scope.btnImprimir = {enable:false, cls:'btn-default'};
+
+	//------DEFINICION DE BOTONES-------
+	// enable : para activar o desactivar el boton
+	// cls: para cambiar el color del boton
+	// icono: para cambiar el icono del boton
+	$scope.btnConfirmar = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-ok'};
+	$scope.btnImprimir = {enable:true, cls:'btn-default', icono:'glyphicon glyphicon-print'};
+	$scope.btnOkDet = {enable:false, cls:'btn-warning', icono:'glyphicon glyphicon-pencil'};	
+	$scope.btnAceptarPresup = {enable:false, cls:'btn-primary', icono:'glyphicon glyphicon-pencil'};		
+	$scope.btnCalcularPresup = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-pencil'};	
+	$scope.btnEquipo = {enable:false, cls:'btn-primary', icono:'glyphicon glyphicon-plus-sign'};	
+
+	$scope.btnDetEquipo = {enable:true, cls:'btn-primary', icono:'glyphicon glyphicon-list-alt'};	
+	$scope.btnElimEquipo = {enable:true, cls:'btn-danger', icono:'glyphicon glyphicon-plus-sign'};	
+	$scope.imprimirIdOrden = 3;
 
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
@@ -89,13 +96,13 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		var isEq = !searchArrayEq('btn-warning'); // verificamos q todos los equipos esten completos
 		if (isApeNom && isTel && isEq && isCantEq)
 		{
-			$scope.btnImprimir.cls = 'btn-success';
-			$scope.btnImprimir.enable = true;			
+			$scope.btnConfirmar.cls = 'btn-success';
+			$scope.btnConfirmar.enable = true;			
 		}
 		else
 		{
-			$scope.btnImprimir.cls = 'btn-default'; 
-			$scope.btnImprimir.enable = false;
+			$scope.btnConfirmar.cls = 'btn-default'; 
+			$scope.btnConfirmar.enable = false;
 		};		
 	};
 	//---------------------------------------------------------------------------------------
@@ -165,10 +172,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					// mando a imprimir la oreden de reparacion  
 					$scope.msjOrden = 'Datos guardados correctamente';					
 					// imprimir 
-					var resource = {idOrden: data.ultimoIdOrden};
-					PresupServ.imprimirOrden(resource).$promise.then(function(data){});
-					// borrar todo...
-					//$scope.borrarTodo();
+					$scope.btnConfirmar.enable = false;
+					$scope.imprimirIdOrden = data.ultimoIdOrden;					
+					$scope.btnImprimir.cls = 'btn-success';
+					$scope.btnImprimir.enable = true;		
+					
 				};
 			});
 		
@@ -236,17 +244,12 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		//--- reset el boton del modal de detalle-----
 
 		//---- reset del combo repuesto y su tabla----
-		$scope.SelAcc = {id:'',nombreAccesorio:''};			
-		//$('#tablaAcc').find('tbody').empty();
+		$scope.SelAcc = {id:'',nombreAccesorio:''};					
 		 $("#tablaAcc").find("tr:gt(0)").remove();
 		var nuevaFila = "<tr><td>#</td><td>-</td><td>-</td></tr>"+						
 						"<tr><td>#</td><td>-</td><td>-</td></tr>";
 		$("#tablaAcc").append(nuevaFila);
-		//$("#tablaFallaModalDet").find("tr:gt(0)").remove(); 
-		//$("#tablaServModalDet").find("tr:gt(0)").remove();		
-
 		$scope.detalleEQ = $scope.arrayTablaEq[indice];
-
 		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
 		$scope.imgModeloModal = $scope.detalleEQ.marca+'-'+$scope.detalleEQ.modelo+'.jpg';								
 		// cargar fallas del equipo --------------------------
@@ -300,14 +303,16 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		{
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-ok';
 			$scope.detalleEQ.clase = 'btn-success';
-			$scope.btnOkDet.activar = true;
-			$scope.btnOkDet.icono = 'glyphicon glyphicon-ok'
+			$scope.btnOkDet.enable = true;
+			$scope.btnOkDet.cls = 'btn-success';
+			$scope.btnOkDet.icono = 'glyphicon glyphicon-ok';
 		}
 		else
 		{
 			$scope.detalleEQ.icono = 'glyphicon glyphicon-pencil';
 			$scope.detalleEQ.clase = 'btn-warning';				
-			$scope.btnOkDet.activar = false;
+			$scope.btnOkDet.enable = false;
+			$scope.btnOkDet.cls = 'btn-warning';
 			$scope.btnOkDet.icono = 'glyphicon glyphicon-pencil';
 		};
 		$scope.verificarDatosOrden();		
@@ -331,9 +336,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.MontoMO = 0;
 		$scope.MontoRep = 0;
 		$scope.MontoServ = 0;
-		$scope.totalPresup = 0;				
-		$scope.btnAceptarDisable = false;
-		$scope.btnCalcularDisable = false;
+		$scope.totalPresup = 0;
+		$scope.btnAceptarPresup.enable = false;						
+		$scope.btnCalcularPresup.enable = false;		
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = []; 
 
@@ -416,13 +421,17 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					$scope.arrayTablaRep = [];
 					if (habilitarBtnPresup())
 					{
-						$scope.btnCalcularDisable = true;
-						$scope.btnSucces = true;
+						$scope.btnCalcularPresup.enable = true;
+						$scope.btnCalcularPresup.cls = 'btn-success';
+						//$scope.btnCalcularDisable = true;
+						//$scope.btnSucces = true;
 					}
 					else
 					{
-						$scope.btnCalcularDisable = false;
-						$scope.btnSucces = false;	
+						$scope.btnCalcularPresup.enable = false;
+						$scope.btnCalcularPresup.cls = 'btn-default';
+						//$scope.btnCalcularDisable = false;
+						//$scope.btnSucces = false;	
 					};
 				};
 			});		 
@@ -434,13 +443,17 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.DescripGama = $scope.SelGama.descripcion;
 		if (habilitarBtnPresup())
 		{
-			$scope.btnCalcularDisable = true;
-			$scope.btnSucces = true;
+			$scope.btnCalcularPresup.enable = true;
+			$scope.btnCalcularPresup.cls = 'btn-success';
+			//$scope.btnCalcularDisable = true;
+			//$scope.btnSucces = true;
 		}
 		else
 		{
-			$scope.btnCalcularDisable = false;
-			$scope.btnSucces = false;	
+			$scope.btnCalcularPresup.enable = false;
+			$scope.btnCalcularPresup.cls = 'btn-default';
+			//$scope.btnCalcularDisable = false;
+			//$scope.btnSucces = false;	
 		};		
 	};
 	//---------------------------------------------------------------------------------------
@@ -459,13 +472,17 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  	}
 	  	if (habilitarBtnPresup())
 		{
-			$scope.btnCalcularDisable = true;
-			$scope.btnSucces = true;
+			$scope.btnCalcularPresup.enable = true;
+			$scope.btnCalcularPresup.cls = 'btn-success';
+			//$scope.btnCalcularDisable = true;
+			//$scope.btnSucces = true;
 		}
 		else
 		{
-			$scope.btnCalcularDisable = false;
-			$scope.btnSucces = false;	
+			$scope.btnCalcularPresup.enable = false;
+			$scope.btnCalcularPresup.cls = 'btn-default';
+			//$scope.btnCalcularDisable = false;
+			//$scope.btnSucces = false;	
 		};
 	};
 	//---------------------------------------------------------------------------------------
@@ -485,13 +502,17 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  	}
 	  	if (habilitarBtnPresup())
 		{
-			$scope.btnCalcularDisable = true;
-			$scope.btnSucces = true;
+			$scope.btnCalcularPresup.enable = true;
+			$scope.btnCalcularPresup.cls = 'btn-success';
+			//$scope.btnCalcularDisable = true;
+			//$scope.btnSucces = true;
 		}
 		else
 		{
-			$scope.btnCalcularDisable = false;
-			$scope.btnSucces = false;	
+			$scope.btnCalcularPresup.enable = false;
+			$scope.btnCalcularPresup.cls = 'btn-default';
+			//$scope.btnCalcularDisable = false;
+			//$scope.btnSucces = false;	
 		};
 	};
 	
@@ -597,8 +618,8 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					var fecha = fragmentarFecha(data.fechaPres);					
 					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
 					$scope.dt = fecha;					
-					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;	
-					$scope.btnAceptarDisable = true;				
+					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;
+					$scope.btnAceptarPresup.enable = true;						
 				};
 			});		
 	};
@@ -609,9 +630,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.MontoMO = 0;
 		$scope.MontoRep = 0;
 		$scope.MontoServ = 0;
-		$scope.totalPresup = 0;			
-		$scope.btnAceptarDisable = false;
-		$scope.btnCalcularDisable = false;
+		$scope.totalPresup = 0;	
+		$scope.btnAceptarPresup.enable = false;							
+		$scope.btnCalcularPresup.enable = false;		
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = [];
 
