@@ -49,7 +49,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	// cls: para cambiar el color del boton
 	// icono: para cambiar el icono del boton
 	$scope.btnConfirmar = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-ok'};
-	$scope.btnImprimir = {enable:true, cls:'btn-default', icono:'glyphicon glyphicon-print'};
+	$scope.btnImprimir = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-print'};
 	$scope.btnOkDet = {enable:false, cls:'btn-warning', icono:'glyphicon glyphicon-pencil'};	
 	$scope.btnAceptarPresup = {enable:false, cls:'btn-primary', icono:'glyphicon glyphicon-pencil'};		
 	$scope.btnCalcularPresup = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-pencil'};	
