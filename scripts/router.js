@@ -21,4 +21,4 @@ app.config(['$routeProvider', function($routeProvider)
 			controller: 'entregaCtrl'
 		})
 		.otherwise({redirecTo: '/'});  
-	}]);  
+	}]);   

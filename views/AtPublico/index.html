@@ -92,11 +92,11 @@
                 </div>
               </div><!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-              <div class="alert alert-success alert-dismissible" role="alert">
+              <div ng-show="msjOrden.show" class="{{msjOrden.cls}} alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>Informacion!</strong> {{msjOrden}}
+                <strong>Informacion:</strong> -{{msjOrden.msj}}
               </div>
-              <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->              
+              <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->              
               <h1 class="sub-header">Detalle del trabajo
                 <!-- Large modal -->
                 <div class="pull-right">
@@ -109,7 +109,7 @@
                     <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
                   </button>                   
 
-                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
+                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
                     <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
                   </a>
 
@@ -562,7 +562,7 @@
                     <div class="row">
                       <div class="col-md-3">0</div>
                       <div class="col-md-9">
-                          <input type="text" class="form-control" ng-change="verificarDatosOrden()" ng-model="telModal.codArea" placeholder="385">
+                          <input type="number" class="form-control" ng-change="verificarDatosOrden()" ng-model="telModal.codArea" placeholder="385">
                       </div>
                     </div>                                        
 
@@ -579,7 +579,8 @@
                     <div class="row">
                       <div class="col-md-1">15</div>
                       <div class="col-md-11">
-                          <input type="text" class="form-control" ng-change="verificarDatosOrden()" ng-model="telModal.numero" placeholder="0000000">
+                          <input type="number" name="numero" class="form-control" ng-maxlength="7" ng-change="verificarDatosOrden()" ng-model="telModal.numero" placeholder="0000000">
+                          <p ng-show="numero.$error.maxlength">ooooooooooooo</p>
                       </div>
                     </div>
 

@@ -27,7 +27,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.totalEq = 0;
 	$scope.totalAPagar = 0;
 
-	$scope.imeiModal = '00000-00000-000008888';   
+	$scope.imeiModal = '00000-00000-000008888';    
 	$scope.descripFallaModal = '';
 	$scope.imgMarcaModal = 'Marcas_logo.gif';
 	$scope.imgModeloModal = 'Marcas-Modelos.jpg'; 
@@ -41,8 +41,10 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 						anticipo:'',
 						observacion:''
 					 };
-	$scope.msjOrden = '';
 	$scope.telModal = {codArea:'',numero:'',btnTelModal:'btn-warning'};
+	
+	//----- DEFINICIONDE MENSAJES DE ERROR Y CONFIRMACION
+	$scope.msjOrden = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada
 
 	//------DEFINICION DE BOTONES-------
 	// enable : para activar o desactivar el boton
@@ -170,7 +172,9 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				{
 					//$scope.modelos = data.modelos;
 					// mando a imprimir la oreden de reparacion  
-					$scope.msjOrden = 'Datos guardados correctamente';					
+					$scope.msjOrden.show = true;
+					$scope.msjOrden.cls = 'alert alert-success';
+					$scope.msjOrden.msj = 'Datos guardados correctamente';					
 					// imprimir 
 					$scope.btnConfirmar.enable = false;
 					$scope.imprimirIdOrden = data.ultimoIdOrden;					
