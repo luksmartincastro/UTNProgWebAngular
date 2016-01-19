@@ -45,7 +45,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	
 	//----- DEFINICIONDE MENSAJES DE ERROR Y CONFIRMACION
 	$scope.msjOrden = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada
-	$scope.msjPresup = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada
+	$scope.msjPresup = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada 
 
 	//------DEFINICION DE BOTONES-------
 	// enable : para activar o desactivar el boton
@@ -55,7 +55,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.btnImprimir = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-print'};
 	$scope.btnOkDet = {enable:false, cls:'btn-warning', icono:'glyphicon glyphicon-pencil'};	
 	$scope.btnAceptarPresup = {enable:false, cls:'btn-primary', icono:'glyphicon glyphicon-pencil'};		
-	$scope.btnCalcularPresup = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-pencil'};	
+	//$scope.btnCalcularPresup = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-pencil'};	
 	$scope.btnEquipo = {enable:false, cls:'btn-primary', icono:'glyphicon glyphicon-plus-sign'};	
 
 	$scope.btnDetEquipo = {enable:true, cls:'btn-primary', icono:'glyphicon glyphicon-list-alt'};	
@@ -343,7 +343,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.MontoServ = 0;
 		$scope.totalPresup = 0;
 		$scope.btnAceptarPresup.enable = false;						
-		$scope.btnCalcularPresup.enable = false;		
+		//$scope.btnCalcularPresup.enable = false;		
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = []; 
 
@@ -432,7 +432,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				{
 					$scope.repuestos = data.repuestos;
 					$scope.arrayTablaRep = [];
-					if (habilitarBtnPresup())
+					/*if (habilitarBtnPresup())
 					{
 						$scope.btnCalcularPresup.enable = true;
 						$scope.btnCalcularPresup.cls = 'btn-success';
@@ -445,7 +445,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 						$scope.btnCalcularPresup.cls = 'btn-default';
 						//$scope.btnCalcularDisable = false;
 						//$scope.btnSucces = false;	
-					};
+					};*/
 				};
 			});		 
 	};
@@ -470,7 +470,19 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
 					$scope.dt = fecha;					
 					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;
-					$scope.btnAceptarPresup.enable = true;						
+					// para activar el btnAceptarPresup deben estar completos los datos del equipo
+					if (habilitarBtnPresup())
+					{
+						$scope.btnAceptarPresup.enable = true;						
+						$scope.btnAceptarPresup.cls = 'btn-success';
+						$scope.btnAceptarPresup.icono =	'glyphicon glyphicon-ok';					
+					}
+					else
+					{
+						$scope.btnAceptarPresup.enable = false;						
+						$scope.btnAceptarPresup.cls = 'btn-default';
+						$scope.btnAceptarPresup.icono =	'';						
+					};	
 				};
 			});		
 	};
@@ -515,7 +527,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  	{
 	   		$scope.arrayFallaGen.splice($scope.arrayFallaGen.indexOf(id), 1);
 	  	}
-	  	if (habilitarBtnPresup())
+	  	/*if (habilitarBtnPresup())
 		{
 			$scope.btnCalcularPresup.enable = true;
 			$scope.btnCalcularPresup.cls = 'btn-success';
@@ -528,7 +540,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.btnCalcularPresup.cls = 'btn-default';
 			//$scope.btnCalcularDisable = false;
 			//$scope.btnSucces = false;	
-		};
+		};*/
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -688,9 +700,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.MontoMO = 0;
 		$scope.MontoRep = 0;
 		$scope.MontoServ = 0;
-		$scope.totalPresup = 0;	
-		$scope.btnAceptarPresup.enable = false;							
-		$scope.btnCalcularPresup.enable = false;		
+		$scope.totalPresup = 0;			
+		$scope.btnAceptarPresup.enable = false;						
+		$scope.btnAceptarPresup.cls = 'btn-default';
+		$scope.btnAceptarPresup.icono =	'';						
+		//$scope.btnCalcularPresup.enable = false;		
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
 		$scope.arrayTablaRep = [];
 

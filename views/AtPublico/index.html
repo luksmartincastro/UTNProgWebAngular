@@ -109,7 +109,7 @@
                     <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
                   </button>                   
 
-                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
+                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
                     <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
                   </a>
 
@@ -497,34 +497,7 @@
 
                   </div>
                 </div>
-                <!-- /////////////////////////BOTONES DEL PRESUPUESTO////////////////////////////////////// -->          
-                <P></P>
-                <div class="row">
-                  <div class="col-md-2"></div>
-
-                  <div class="col-md-8">
-                    <p></p>        
-                    <!-- **************botonera de panel presupuesto************************* -->
-                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-
-                      <div class="btn-group" role="group">
-                        <button name="btnReset" type="button" ng-click="resetPresupuesto()" class="btn btn-danger">Reset</button>
-                      </div>
-                      
-                      <div class="btn-group" role="group">
-                        <button name="btnCalc" ng-disabled="!btnCalcularPresup.enable" ng-click="getPresupuesto()" type="button" class="btn {{btnCalcularPresup.cls}}">
-                          Calcular presupuesto 
-                        </button>
-                      </div>      
-                      
-                    </div>
-
-                  </div>
-                  
-                  <!-- **************botonera de panel presupuesto************************* -->
-                  <div class="col-md-2"></div> 
-              </div>
-              <!-- /////////////////////////BOTONES DEL PRESUPUESTO////////////////////////////////////// -->            
+                           
               </div>
             </div>
                        
@@ -533,6 +506,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" ng-click="resetPresupuesto()">Borrar todo</button>
             <button type="button" ng-disabled="!btnAceptarPresup.enable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn {{btnAceptarPresup.cls}}">Aceptar presupuesto</button>
           </div>
 
