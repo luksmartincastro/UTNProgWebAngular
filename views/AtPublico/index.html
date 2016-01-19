@@ -109,7 +109,7 @@
                     <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
                   </button>                   
 
-                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
+                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
                     <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
                   </a>
 
@@ -422,12 +422,13 @@
               </div><!-- //////////////////////////////////////////////////////////////////////////////////// -->   
             </div>            
             
-          <!-- /////////////////REFERENCIA A LA GAMA///////////////////// -->                    
-          <div class="alert alert-info" id="descripGamaScroll" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            {{DescripGama}}
+          <!-- /////////////////////////////REFERENCIA A LA GAMA/////////////////////////////////// -->                    
+          <!-- //////////////////////////////////////////////////////////////////////////////////// -->   
+          
+          <div ng-show="msjPresup.show" class="{{msjPresup.cls}} alert-dismissible" role="alert">            
+            <strong>Informacion:</strong> {{msjPresup.msj}}
           </div>
+
           <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
           <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
             <div class="panel panel-default">
@@ -512,7 +513,7 @@
                       
                       <div class="btn-group" role="group">
                         <button name="btnCalc" ng-disabled="!btnCalcularPresup.enable" ng-click="getPresupuesto()" type="button" class="btn {{btnCalcularPresup.cls}}">
-                          Calcular presupuesto
+                          Calcular presupuesto 
                         </button>
                       </div>      
                       

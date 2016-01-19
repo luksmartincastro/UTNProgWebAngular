@@ -45,6 +45,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	
 	//----- DEFINICIONDE MENSAJES DE ERROR Y CONFIRMACION
 	$scope.msjOrden = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada
+	$scope.msjPresup = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada
 
 	//------DEFINICION DE BOTONES-------
 	// enable : para activar o desactivar el boton
@@ -350,7 +351,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.SelModelo = {id:'',nombreModelo:'Marcas-Modelos'};
 		$scope.modelos = [];
 		$scope.SelGama = {id:'',nombreGama:'Gama', DescripGama:''};
-		$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
+		//$scope.DescripGama = " - Descripcion de las carateristicas de un equipo de una determinada gana";
+		$scope.msjPresup.show = true;
+		$scope.msjPresup.cls = 'alert alert-info';
+		$scope.msjPresup.msj = " - Descripcion de las carateristicas de un equipo de una determinada gana";
+
 		$scope.imgMarca = 'Marcas_logo.gif';
 		$scope.imgModelo = 'Marcas-Modelos.jpg';
 		$scope.SelRep = {id:'',nombreRep:''};	
@@ -389,7 +394,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			{
 				B= true;
 			};
-		};
+		}
+		else
+			{
+				//mensaje de completar los datos de un equipo 
+			};
 		return B;
 	};
 	//---------------------------------------------------------------------------------------
@@ -442,10 +451,42 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
+	$scope.getPresupuesto = function()
+	{
+		var resource = 
+			{ idGama: $scope.SelGama.id,
+			  vectorRep: $scope.arrayRep,
+			  vectorServ: $scope.arrayServ
+		 	}; 	
+
+		PresupServ.getPresupuesto(resource).$promise.then(function(data)
+			{
+				if (data.msg)
+				{
+					$scope.MontoMO = data.costoMO;
+					$scope.MontoRep = data.totalRep;
+					$scope.MontoServ = data.totalServ; 
+					var fecha = fragmentarFecha(data.fechaPres);					
+					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
+					$scope.dt = fecha;					
+					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;
+					$scope.btnAceptarPresup.enable = true;						
+				};
+			});		
+	};
+	//---------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------
 	$scope.mostrarDescripGama = function()
 	{
-		$scope.DescripGama = $scope.SelGama.descripcion;
-		if (habilitarBtnPresup())
+		$scope.msjPresup.show = true;
+		$scope.msjPresup.cls = 'alert alert-info';		
+		$scope.msjPresup.msj = $scope.SelGama.descripcion;
+		//$scope.DescripGama = $scope.SelGama.descripcion;
+		$scope.getPresupuesto();
+		//-------- mandar a calcular el presupuesto-----
+
+
+		/*if (habilitarBtnPresup())
 		{
 			$scope.btnCalcularPresup.enable = true;
 			$scope.btnCalcularPresup.cls = 'btn-success';
@@ -458,7 +499,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.btnCalcularPresup.cls = 'btn-default';
 			//$scope.btnCalcularDisable = false;
 			//$scope.btnSucces = false;	
-		};		
+		};*/		
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -498,13 +539,25 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  	if (action === 'add' && $scope.arrayServ.indexOf(id) === -1)
 	  	{
 	    	$scope.arrayServ.push(id);
+
+	    	var isGama = $scope.SelGama.nombreGama != "Gama";
+	    	if (isGama)
+	    	{
+	    		$scope.getPresupuesto();
+	    	} 
+	    	else
+	    	{
+	    		$scope.msjPresup.show = true;
+				$scope.msjPresup.cls = 'alert alert-warning';		
+				$scope.msjPresup.msj = 'Debe completar los datos del equipo';
+	    	};
 	  	}
 	  	if (action === 'remove' && $scope.arrayServ.indexOf(id) !== -1)
 	  	{
 	    	$scope.arrayServ.splice($scope.arrayServ.indexOf(id), 1);
 	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar 
 	  	}
-	  	if (habilitarBtnPresup())
+	  	/*if (habilitarBtnPresup())
 		{
 			$scope.btnCalcularPresup.enable = true;
 			$scope.btnCalcularPresup.cls = 'btn-success';
@@ -517,7 +570,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 			$scope.btnCalcularPresup.cls = 'btn-default';
 			//$scope.btnCalcularDisable = false;
 			//$scope.btnSucces = false;	
-		};
+		};*/
 	};
 	
 	//---------------------------------------------------------------------------------------
@@ -555,6 +608,18 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		{
 			$scope.arrayRep.push(filaRep.id);
 			$scope.arrayTablaRep.push(filaRep);
+			// mandar a calcular presupuesto
+			var isGama = $scope.SelGama.nombreGama != "Gama";
+	    	if (isGama)
+	    	{
+	    		$scope.getPresupuesto();
+	    	} 
+	    	else
+	    	{
+	    		$scope.msjPresup.show = true;
+				$scope.msjPresup.cls = 'alert alert-warning';		
+				$scope.msjPresup.msj = 'Debe completar los datos del equipo';
+	    	};
 			 // Obtenemos el total de columnas (tr) del id "tabla"
             var trs=$("#tablaRep tr").length;
             if(trs>1 && $scope.filaRepBlanca <= 3)
@@ -577,6 +642,19 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		{
 			$scope.arrayRep.splice(posArrayRep, 1);	
 			$scope.arrayTablaRep.splice(posArrayRep, 1);
+			//----------------------------------------------
+			var isGama = $scope.SelGama.nombreGama != "Gama";
+	    	if (isGama)
+	    	{
+	    		$scope.getPresupuesto();
+	    	} 
+	    	else
+	    	{
+	    		$scope.msjPresup.show = true;
+				$scope.msjPresup.cls = 'alert alert-warning';		
+				$scope.msjPresup.msj = 'Debe completar los datos del equipo';
+	    	};
+			//-------------------------------------------
 			if ($scope.filaRepBlanca !=0)
 			{
 				var nuevaFila = "<tr>"+
@@ -602,31 +680,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 
 		return fechaFrac;
 	};
-	//---------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------
-	$scope.getPresupuesto = function()
-	{
-		var resource = 
-			{ idGama: $scope.SelGama.id,
-			  vectorRep: $scope.arrayRep,
-			  vectorServ: $scope.arrayServ
-		 	}; 	
-
-		PresupServ.getPresupuesto(resource).$promise.then(function(data)
-			{
-				if (data.msg)
-				{
-					$scope.MontoMO = data.costoMO;
-					$scope.MontoRep = data.totalRep;
-					$scope.MontoServ = data.totalServ;
-					var fecha = fragmentarFecha(data.fechaPres);					
-					fecha = new Date(fecha.anio,fecha.mes,fecha.dia);
-					$scope.dt = fecha;					
-					$scope.totalPresup = $scope.MontoMO + $scope.MontoRep + $scope.MontoServ;
-					$scope.btnAceptarPresup.enable = true;						
-				};
-			});		
-	};
+	
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
 	$scope.resetPresupuesto = function()
