@@ -109,7 +109,7 @@
                     <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
                   </button>                   
 
-                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
+                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
                     <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
                   </a>
 
@@ -506,8 +506,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" ng-click="resetPresupuesto()">Borrar todo</button>
-            <button type="button" ng-disabled="!btnAceptarPresup.enable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn {{btnAceptarPresup.cls}}">Aceptar presupuesto</button>
+            <button type="button" class="btn btn-danger" ng-click="resetPresupuesto()">
+              <span class="glyphicon glyphicon-remove"></span> Borrar todo
+            </button>
+            <button type="button" ng-disabled="!btnAceptarPresup.enable" ng-click="$event.preventDefault(); agregarTablaEq()" class="btn {{btnAceptarPresup.cls}}">
+              <span class="{{btnAceptarPresup.icono}}"></span> Aceptar presupuesto
+            </button>
           </div>
 
         </div>

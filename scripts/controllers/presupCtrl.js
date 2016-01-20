@@ -44,7 +44,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.telModal = {codArea:'',numero:'',btnTelModal:'btn-warning'};
 	
 	//----- DEFINICIONDE MENSAJES DE ERROR Y CONFIRMACION
-	$scope.msjOrden = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada
+	$scope.msjOrden = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada 
 	$scope.msjPresup = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada 
 
 	//------DEFINICION DE BOTONES-------
@@ -154,7 +154,11 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 
 		$("#tablaEq").append(nuevaFila);
 		$scope.filaEqBlanca = 0;
-					
+		$scope.btnImprimir.enable = false;
+		$scope.btnImprimir.cls = 'btn-default';
+		$scope.btnConfirmar.enable = false;
+		$scope.btnConfirmar.cls = 'btn-default';
+		$scope.msjOrden.show = false;
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -495,23 +499,19 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.msjPresup.msj = $scope.SelGama.descripcion;
 		//$scope.DescripGama = $scope.SelGama.descripcion;
 		$scope.getPresupuesto();
-		//-------- mandar a calcular el presupuesto-----
-
-
-		/*if (habilitarBtnPresup())
+		// para activar el btnAceptarPresup deben estar completos los datos del equipo
+		if (habilitarBtnPresup())
 		{
-			$scope.btnCalcularPresup.enable = true;
-			$scope.btnCalcularPresup.cls = 'btn-success';
-			//$scope.btnCalcularDisable = true;
-			//$scope.btnSucces = true;
+			$scope.btnAceptarPresup.enable = true;						
+			$scope.btnAceptarPresup.cls = 'btn-success';
+			$scope.btnAceptarPresup.icono =	'glyphicon glyphicon-ok';					
 		}
 		else
 		{
-			$scope.btnCalcularPresup.enable = false;
-			$scope.btnCalcularPresup.cls = 'btn-default';
-			//$scope.btnCalcularDisable = false;
-			//$scope.btnSucces = false;	
-		};*/		
+			$scope.btnAceptarPresup.enable = false;						
+			$scope.btnAceptarPresup.cls = 'btn-default';
+			$scope.btnAceptarPresup.icono =	'';						
+		};			
 	};
 	//---------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------
@@ -567,6 +567,18 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	  	if (action === 'remove' && $scope.arrayServ.indexOf(id) !== -1)
 	  	{
 	    	$scope.arrayServ.splice($scope.arrayServ.indexOf(id), 1);
+
+	    	var isGama = $scope.SelGama.nombreGama != "Gama";
+	    	if (isGama)
+	    	{
+	    		$scope.getPresupuesto();
+	    	} 
+	    	else
+	    	{
+	    		$scope.msjPresup.show = true;
+				$scope.msjPresup.cls = 'alert alert-warning';		
+				$scope.msjPresup.msj = 'Debe completar los datos del equipo';
+	    	};
 	    	//splite(arg1,arg2); arg1: es la posicion a eliminar y arg2: la cantidad de elementos a eliminar 
 	  	}
 	  	/*if (habilitarBtnPresup())
@@ -654,6 +666,16 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		{
 			$scope.arrayRep.splice(posArrayRep, 1);	
 			$scope.arrayTablaRep.splice(posArrayRep, 1);
+			if ($scope.filaRepBlanca !=0)
+			{
+				var nuevaFila = "<tr>"+
+		                          "<td>#</td>"+                                        
+		                          "<td>-</td>"+                                            
+		                          "<td>-</td>"+
+		                        "</tr>";
+				$("#tablaRep").append(nuevaFila);
+				$scope.filaRepBlanca = $scope.filaRepBlanca -1;
+			};						
 			//----------------------------------------------
 			var isGama = $scope.SelGama.nombreGama != "Gama";
 	    	if (isGama)
@@ -667,16 +689,6 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 				$scope.msjPresup.msj = 'Debe completar los datos del equipo';
 	    	};
 			//-------------------------------------------
-			if ($scope.filaRepBlanca !=0)
-			{
-				var nuevaFila = "<tr>"+
-		                          "<td>#</td>"+                                        
-		                          "<td>-</td>"+                                            
-		                          "<td>-</td>"+
-		                        "</tr>";
-				$("#tablaRep").append(nuevaFila);
-				$scope.filaRepBlanca = $scope.filaRepBlanca -1;
-			};						
 		};
 	};
 	//---------------------------------------------------------------------------------------
@@ -706,6 +718,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 		$scope.btnAceptarPresup.icono =	'';						
 		//$scope.btnCalcularPresup.enable = false;		
 		$scope.arrayRep = []; // vector que contendra las id's de los repuestos que necesita la reparacion
+		$scope.repuestos = [];
 		$scope.arrayTablaRep = [];
 
 		$scope.SelMarca = {id:'',nombreMarca:''};
