@@ -103,10 +103,9 @@
                       <th>Modelo</th>
                       <th>Gama</th>
                       <th>IMEI</th>
-                      <th>Presup Est</th>
                       <th>Presup Final</th>
                       <th>Fecha Entrega</th>
-                      <td>-</td>
+                      <td>Detalle</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -116,7 +115,6 @@
                       <td>{{equipo.modelo}}</td>
                       <td>{{equipo.gama}}</td>                                            
                       <td>{{equipo.imei}}</td>
-                      <td>{{equipo.presupEstimado}}</td>
                       <td>{{equipo.presupFinal}}</td>
                       <td>{{equipo.fechaEntrega}}</td>                      
                       <td>
@@ -130,7 +128,6 @@
                     <!-- /////////////////////////////////////////////// -->
                     <tr>
                       <td>1</td>
-                      <td>-</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -140,8 +137,17 @@
                       <td>-</td>
                     </tr>
                     <tr>
-                      <td>2</i></td>
+                      <td>2</td>
                       <td>-</td> 
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>3</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -151,19 +157,7 @@
                       <td>-</td>
                     </tr>
                     <tr>
-                      <td>3</td>
-                      <td>-</td> 
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>-</td> 
+                      <td>4</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -174,7 +168,6 @@
                     </tr>
                     <tr>
                       <td>5</td>
-                      <td>-</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -192,11 +185,9 @@
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
-                      <td>-</td>
                     </tr>
                     <tr>
                       <td>7</td>
-                      <td>-</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -206,8 +197,7 @@
                       <td>-</td>
                     </tr>
                     <tr>
-                      <td>8</td>
-                      <td>-</td> 
+                      <td>8</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -279,17 +269,15 @@
                                   <tr>
                                       <td><strong>Gama:</strong></td>
                                       <td>{{detalleEQ.gama}}</td>                         
-                                  </tr>                                                
+                                  </tr> 
+                                  <tr>
+                                    <td><strong>Imei:</strong></td>
+                                    <td>{{detalleEQ.imei}} </td>
+                                  </tr>                                              
                               </tbody>
 
                             </table>
                           </div>
-
-                          <div class="form-group">
-                              <label > Numero de IMEI: </label>
-                              <input type="text" class="form-control clsImeiModal" ng-change="verificarDatosEq()" ng-model="detalleEQ.imei" placeholder="Numero de IMEI">                      
-                          </div>
-
                       </div>
                     </div>
                 
@@ -399,7 +387,7 @@
                     <div class="col-md-3">
                     
                       <div class="scrollTablaModal">
-                            <table class="table table-striped" id="tablaRepModalDet" name='tableRepModalDet'>
+                            <table class="table table-striped" id="tablaAccModalDet" name='tableAccModalDet'>
                                 <thead>
                                   <tr>
                                       <th>#</th>
@@ -407,9 +395,9 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="rep in arrayRepModal">
+                                    <tr ng-repeat="acc in arrayAccModal">
                                         <td>#</td>
-                                        <td>{{rep}}</td>                       
+                                        <td>{{acc}}</td>                       
                                     </tr>                                                       
                                 </tbody>
                             </table>

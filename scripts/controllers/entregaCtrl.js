@@ -59,14 +59,14 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 	{
 		//Borrar toda la tabla y volver a crearla...
 		$("#tablaEq").find("tr:gt(0)").remove();
-		var filaNuevas = "<tr><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>5</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>6</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>7</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> "+
-						"<tr><td>8</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr> ";
+		var filaNuevas = "<tr><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>5</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>6</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>7</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
+						"<tr><td>8</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> ";
 		$("#tablaEq").append(filaNuevas);
 						
 		var resource = { idOrden: $scope.OrdenNum};
@@ -124,58 +124,18 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 
 	$scope.btnDetalleEq = function(indice)
 	{
-		$scope.arrayServModal = [];
-		$scope.arrayRepModal = [];
-		$scope.arrayAccModal = [];
-		$scope.arrarFallaGenModal = [];
+		var filaEq = $scope.equipos[indice];
+
+
+		$scope.arrayServModal = filaEq.vectorServi;// carga servicios al seleccionar un equipo
+		$scope.arrayRepModal = filaEq.vectorRepu;
+		$scope.arrayAccModal = filaEq.vectorAcc;
+		$scope.arrayFallaGenModal = filaEq.vectorFalla;
 
 		$scope.detalleEQ = $scope.equipos[indice];
 		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
 		$scope.imgModeloModal = $scope.detalleEQ.marca +'-'+$scope.detalleEQ.modelo+'.jpg';
-
-		angular.forEach($scope.fallas, function(item)
-			{
-			if (item.id == vf)
-			{
-				$scope.arrarFallaGenModal.push(item.descripcionFallaGen);
-			};
-			// cargar servicios del equipo 
-		
-		});
 		
 
 	}
-/*	$scope.btnDetalleEq = function(indice)
-	{
-
-				
-		// cargar servicios del equipo --------------------------		
-		angular.forEach($scope.detalleEQ.vectorServ, function (vs)
-		{
-            angular.forEach($scope.servicios, function (item)
-			{
-				if (item.id == vs)
-				{
-					$scope.arrayServModal.push(item.nombreServicio);					
-				};				            
-	        });
-        });
-		// cargar repuestos del equipo --------------------------		
-		angular.forEach($scope.detalleEQ.vectorRep, function (r)
-		{
-			$scope.arrayRepModal.push(r.nombreRep);					            
-        });
-		// cargar accesorios del equipo --------------------------		
-		angular.forEach($scope.detalleEQ.vectorAcc, function (va)
-		{
-            angular.forEach($scope.accesorios, function (item)
-			{
-				if (item.id == va)
-				{					
-					$scope.arrayAccModal.push(item);					
-				};				            
-	        });
-        });
-		$('#ModalDetalle').modal('show'); 
-	};*/
 }]);
