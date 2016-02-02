@@ -45,7 +45,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	
 	//----- DEFINICIONDE MENSAJES DE ERROR Y CONFIRMACION
 	$scope.msjOrden = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada 
-	$scope.msjPresup = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada 
+	$scope.msjPresup = {show:false, cls:'' ,msj: ''};//mensaje de confirmaciuon de orden guardada  
 
 	//------DEFINICION DE BOTONES-------
 	// enable : para activar o desactivar el boton

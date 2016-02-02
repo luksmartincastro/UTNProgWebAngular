@@ -28,16 +28,10 @@ app.factory('PresupServ', function($resource)
 				  params: {datosOrden: "@datosOrden", arrayEq: "@arrayEq"},
 				  url: "http://localhost:8080/UTNProgWeb2015/public/GuardarPresupuesto"
 				}
-			//----------------------------------   
-			/*imprimirOrden: 
-				{ method:'GET',
-				  params: {idOrden: "@idOrden"},
-				  url: "http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep"
-				}*/
-			//----------------------------------   
+			//----------------------------------   			 
 		});	 		 
 	
-}); 
+});  
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 
