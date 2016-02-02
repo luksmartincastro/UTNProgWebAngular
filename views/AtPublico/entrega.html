@@ -78,7 +78,7 @@
                     </tr>
                     <tr>
                       <td><strong>Importe Total a Pagar:</strong></td>
-                      <td>she wolf</td>                                  
+                      <td>{{importeTotal}} </td>                                  
                     </tr>
                   </table>
 
@@ -105,7 +105,7 @@
                       <th>IMEI</th>
                       <th>Presup Final</th>
                       <th>Fecha Entrega</th>
-                      <td>Detalle</td>
+                      <th>Detalle</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -138,7 +138,7 @@
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td>-</td> 
+                      <td>-</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -178,8 +178,8 @@
                     </tr>
                     <tr>
                       <td>6</td>
-                      <td>-</td> 
                       <td>-</td>
+                      <td>-</td> 
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -213,7 +213,9 @@
 
               <div class="panel panel-default">
                 <div class="panel-body">
-                  Basic panel example
+                <a class="btn btn-lg {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{ordenEncontrada.id}}" role="button" target="_blank">
+                   <span class="{{btnImprimir.icono}}"></span> Imprimir Factura
+                </a>
                 </div>
               </div>
 
@@ -286,11 +288,13 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">Descripcion de la falla</div>
                   <div class="panel-body">
-                    
-                    <textarea id="textAreaModal" name="textAreaModal" ng-change="verificarDatosEq()" class="form-control clsDescripFallaModal" 
-                              placeholder="Ingrese el detalle de la falla"ng-model="detalleEQ.descripFalla" rows="2">
-                    </textarea>                  
-
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p ng-repeat="Infor in arrayInfModal">
+                            {{Infor}}
+                        </p>
+                    </div>
+                  </div>
                   </div>
                 </div>
                 
