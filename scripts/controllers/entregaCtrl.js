@@ -9,7 +9,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 	$scope.btnTraerOrden = false;
 	$scope.cantEquipo = 0; 
 	$scope.importeTotal = 0;
-	$scope.btnImprimir = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-print'};
+	$scope.btnImprimir = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-print', ref:''};
 
 	//---------------------------------------------------------------------
 	//---------------------------------------------------------------------
@@ -61,14 +61,14 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 	{
 		//Borrar toda la tabla y volver a crearla...
 		$("#tablaEq").find("tr:gt(0)").remove();
-		var filaNuevas = "<tr><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>5</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>6</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>7</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> "+
-						"<tr><td>8</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td> ";
+		var filaNuevas = "<tr><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>5</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>6</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>7</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"+
+						"<tr><td>8</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>"; 
 		$("#tablaEq").append(filaNuevas);
 						
 		var resource = { idOrden: $scope.OrdenNum};
@@ -77,17 +77,31 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 				if (data.msg)
 				{
 					$scope.ordenEncontrada = data.orden;
-					$scope.equipos = data.equipos;
+					$scope.equipook = data.equiposOK;
+					$scope.equipono = data.equiposNO;
 					// contar equipos para eliminar filas
 					// agregar 2 elementos a cada equipo clase para color e icono segu estado del equipo
-					var i = $scope.equipos.length;
-					$scope.cantEquipo = i;
-					while( i>0 )
+					var iok = $scope.equipook.length;
+					var ino = $scope.equipono.length;
+					$scope.cantEquipo = iok + ino;
+					while( $scope.cantEquipo > 0 )
 					{
 						$("#tablaEq tr:last").remove();//reueve la fila ultima
-						i--;
+						$scope.cantEquipo--;
 					};
-					angular.forEach($scope.equipos, function(equipo)
+
+					angular.forEach($scope.equipook, function(equipo)
+					{
+						//equipo.estadoReparacion;
+						equipo['clase'] = 'btn-success';
+				        equipo['icono'] = 'glyphicon glyphicon-ok';
+				        $scope.btnImprimir.enable = true;
+				        $scope.btnImprimir.cls = 'btn-success';
+				        $scope.btnImprimir.ref = 'http://localhost:8080/UTNProgWeb2015/public/imprimirFactura?idEquipo='+equipo['id'];						        
+				    	$scope.importeTotal = $scope.importeTotal + equipo.presupFinal;
+						
+					});
+					angular.forEach($scope.equipono, function(equipo)
 					{
 						//equipo.estadoReparacion;
 						switch(equipo.estadoReparacion)
@@ -95,14 +109,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 						    case 'PENDIENTE':
 						        equipo['clase'] = 'btn-warning';
 						        equipo['icono'] = 'glyphicon glyphicon-pencil';
-						        break;
-						    case 'LISTO':
-						    	equipo['clase'] = 'btn-success';
-						        equipo['icono'] = 'glyphicon glyphicon-ok';
-						        $scope.btnImprimir.enable = true;
-						        $scope.btnImprimir.cls = 'btn-success';
-						    	$scope.importeTotal = $scope.importeTotal + equipo.presupFinal;
-						        break;
+						        break;						    
 						    case 'IRREPARABLE':
 						    	equipo['clase'] = 'btn-danger';
 						        equipo['icono'] = 'glyphicon glyphicon-remove';
