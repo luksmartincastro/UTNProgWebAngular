@@ -106,10 +106,11 @@
                       <th>Presup Final</th>
                       <th>Fecha Entrega</th>
                       <th>Detalle</th>
+                      <th>Imprimir</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="equipo in equipos" directbtntablarep>
+                    <tr ng-repeat="equipo in equipook" directbtntablarep>
                       <td class="{{equipo.clase}}"><i class="{{equipo.icono}}"></i></td>
                       <td>{{equipo.marca}}</td>
                       <td>{{equipo.modelo}}</td>
@@ -123,7 +124,28 @@
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
-                      
+                      <td>
+                           <a  class="btn btn-xs btn-block {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="{{btnImprimir.ref}}" role="button" target="_blank">
+                             <span class="{{btnImprimir.icono}}"></span>
+                          </a>
+                      </td>                      
+                    </tr>
+                    <!-- /////////////////////////////////////////////// -->
+                    <tr ng-repeat="equipo in equipono" directbtntablarep>
+                      <td class="{{equipo.clase}}"><i class="{{equipo.icono}}"></i></td>
+                      <td>{{equipo.marca}}</td>
+                      <td>{{equipo.modelo}}</td>
+                      <td>{{equipo.gama}}</td>                                            
+                      <td>{{equipo.imei}}</td>
+                      <td>{{equipo.presupFinal}}</td>
+                      <td>{{equipo.fechaEntrega}}</td>                      
+                      <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle" ng-click="btnDetalleEq($index)">
+                        <i class="glyphicon glyphicon-list-alt"></i>                          
+                        </button>
+                      </td>
+                      <td>-</td>                      
                     </tr>
                     <!-- /////////////////////////////////////////////// -->
                     <tr>
@@ -213,9 +235,7 @@
 
               <div class="panel panel-default">
                 <div class="panel-body">
-                <a class="btn btn-lg {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{ordenEncontrada.id}}" role="button" target="_blank">
-                   <span class="{{btnImprimir.icono}}"></span> Imprimir Factura
-                </a>
+               
                 </div>
               </div>
 

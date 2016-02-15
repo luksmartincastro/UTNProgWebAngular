@@ -28,40 +28,34 @@ app.factory('PresupServ', function($resource)
 				  params: {datosOrden: "@datosOrden", arrayEq: "@arrayEq"},
 				  url: "http://localhost/UTNProgWeb2015/public/GuardarPresupuesto"
 				}
-			//----------------------------------   
-			/*imprimirOrden: 
-				{ method:'GET',
-				  params: {idOrden: "@idOrden"},
-				  url: "http://localhost:8080/UTNProgWeb2015/public/imprimirOrdenRep"
-				}*/
-			//----------------------------------   
+			//----------------------------------   			 
 		});	 		 
 	
-}); 
+});  
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 
 app.factory('EntregaServ', function($resource)
 { 
-	return $resource('http://localhost/UTNProgWeb2015/public/Entrega',{},
+	return $resource('http://localhost:8080/UTNProgWeb2015/public/Entrega',{},
 		{
 			getOrdenApeNom: 
 				{ method:'POST',
 				  params: {term: "@term"},
-				  url: "http://localhost/UTNProgWeb2015/public/getOrdenApeNom"
+				  url: "http://localhost:8080/UTNProgWeb2015/public/getOrdenApeNom"
 				},
 			//----------------------------------
 			getOrdenNum: 
 				{ method:'POST',
 				  params: {term: "@term"},
-				  url: "http://localhost/UTNProgWeb2015/public/getOrdenNumero"
+				  url: "http://localhost:8080/UTNProgWeb2015/public/getOrdenNumero"
 				},
 			//----------------------------------
 			getTraerOrden:
 			{
 				method:'GET',
 				params: {idOrden: "@idOrden"},
-				url: "http://localhost/UTNProgWeb2015/public/getTraerOrden"
+				url: "http://localhost:8080/UTNProgWeb2015/public/getTraerOrden"
 			}
 
 
