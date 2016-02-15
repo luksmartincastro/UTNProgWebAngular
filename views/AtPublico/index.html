@@ -31,7 +31,7 @@
                               </div>
 
                             </div>
-                            <!-- *************************************************************** --> 
+                            <!-- *************************************************************** -->  
                             <div class="col-md-2">
                             
                               <!-- Button trigger modal -->
@@ -101,18 +101,6 @@
                 <!-- Large modal -->
                 <div class="pull-right">
                   
-                  <button type="button" class="btn btn-danger" ng-click="borrarTodo()">
-                    <span class="glyphicon glyphicon-remove"></span> Borrar todo
-                  </button>                   
-
-                  <button type="button" ng-disabled="!btnConfirmar.enable" class="btn {{btnConfirmar.cls}}" ng-click="generarOrden()">
-                    <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
-                  </button>                   
-
-                  <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
-                    <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
-                  </a>
-
                   <button type="button" class="btn {{btnEquipo.cls}}" data-toggle="modal" ng-click="$event.preventDefault(); abrirModalPresup()">
                     <span class="{{btnEquipo.icono}}"></span> Equipo
                   </button>                   
@@ -272,6 +260,24 @@
                     <div class="col-md-1">{{totalEq}}</div>
                   </div>
                   
+                  </div>
+
+                  <p></p>
+
+                   <div class="pull-right">
+                  
+                    <button type="button" class="btn btn-danger" ng-click="borrarTodo()">
+                      <span class="glyphicon glyphicon-remove"></span> Borrar todo
+                    </button>                   
+
+                    <button type="button" ng-disabled="!btnConfirmar.enable" class="btn {{btnConfirmar.cls}}" ng-click="generarOrden()">
+                      <span class="{{btnConfirmar.icono}}"></span> Confirmar orden reperacion
+                    </button>                   
+
+                    <a class="btn {{btnImprimir.cls}}" ng-disabled="!btnImprimir.enable" href="http://localhost/UTNProgWeb2015/public/imprimirOrdenRep?idOrden={{imprimirIdOrden}}" role="button" target="_blank">
+                      <span class="{{btnImprimir.icono}}"></span> Imprimir orden reperacion
+                    </a>          
+
                   </div>
 
                 </div>

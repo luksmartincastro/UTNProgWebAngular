@@ -10,6 +10,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 	$scope.cantEquipo = 0; 
 	$scope.importeTotal = 0;
 	$scope.btnImprimir = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-print'};
+	$scope.pagEntregaActiva = 'active';
 
 	//---------------------------------------------------------------------
 	//---------------------------------------------------------------------

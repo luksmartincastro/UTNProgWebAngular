@@ -61,6 +61,7 @@ app.controller('presupCtrl', ['$scope', 'PresupServ', '$route', function($scope,
 	$scope.btnDetEquipo = {enable:true, cls:'btn-primary', icono:'glyphicon glyphicon-list-alt'};	
 	$scope.btnElimEquipo = {enable:true, cls:'btn-danger', icono:'glyphicon glyphicon-plus-sign'};	
 	$scope.imprimirIdOrden = 3;
+	$scope.pagPresupActiva = 'active';
 
 	//---------------------------------------------------------------------------------------
 	//------------------------------------metodos--------------------------------------------
