@@ -40,7 +40,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 		$scope.ApeNom = apeNom;
 		$scope.OrdenNum = ordenNum;
 		$scope.ordenes = [];
-		$scope.btnTraerOrden = true;
+		$scope.btnTraerOrden = true; 
 	};
 
 	//---------------------------------------------------------------------
@@ -100,7 +100,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 				        equipo['icono'] = 'glyphicon glyphicon-ok';
 				        $scope.btnImprimir.enable = true;
 				        $scope.btnImprimir.cls = 'btn-success';
-				        $scope.btnImprimir.ref = 'http://localhost:8080/UTNProgWeb2015/public/imprimirFactura?idEquipo='+equipo['id'];						        
+				        $scope.btnImprimir.ref = 'http://localhost/UTNProgWeb2015/public/imprimirFactura?idEquipo='+equipo['id'];						        
 				    	$scope.importeTotal = $scope.importeTotal + equipo.presupFinal;
 						
 					});
@@ -135,11 +135,12 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 		$scope.ApeNom = "";
 		$scope.OrdenNum = "";
 	};
-
-	$scope.btnDetalleEq = function(indice)
+	//---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	$scope.btnDetalleEqOK = function(indice)
 	{
-		var filaEq = $scope.equipos[indice];
-
+		var filaEq = $scope.equipook[indice];
 
 		$scope.arrayServModal = filaEq.vectorServi;// carga servicios al seleccionar un equipo
 		$scope.arrayRepModal = filaEq.vectorRepu;
@@ -147,10 +148,29 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 		$scope.arrayFallaGenModal = filaEq.vectorFalla;
 		$scope.arrayInfModal = filaEq.vectorInf;
 
-		$scope.detalleEQ = $scope.equipos[indice];
+		$scope.detalleEQ = $scope.equipook[indice];
 		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
 		$scope.imgModeloModal = $scope.detalleEQ.marca +'-'+$scope.detalleEQ.modelo+'.jpg';
 		
 
-	}
+	};
+	//---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	//---------------------------------------------------------------------
+	$scope.btnDetalleEqNO = function(indice)
+	{
+		var filaEq = $scope.equipono[indice];
+
+		$scope.arrayServModal = filaEq.vectorServi;// carga servicios al seleccionar un equipo
+		$scope.arrayRepModal = filaEq.vectorRepu;
+		$scope.arrayAccModal = filaEq.vectorAcc;
+		$scope.arrayFallaGenModal = filaEq.vectorFalla;
+		$scope.arrayInfModal = filaEq.vectorInf;
+
+		$scope.detalleEQ = $scope.equipono[indice];
+		$scope.imgMarcaModal = $scope.detalleEQ.marca+'_logo.gif';
+		$scope.imgModeloModal = $scope.detalleEQ.marca +'-'+$scope.detalleEQ.modelo+'.jpg';
+		
+
+	};
 }]);

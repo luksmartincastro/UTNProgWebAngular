@@ -110,7 +110,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="equipo in equipook" directbtntablarep>
+                    <tr ng-repeat="equipo in equipook" >
                       <td class="{{equipo.clase}}"><i class="{{equipo.icono}}"></i></td>
                       <td>{{equipo.marca}}</td>
                       <td>{{equipo.modelo}}</td>
@@ -120,7 +120,7 @@
                       <td>{{equipo.fechaEntrega}}</td>                      
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle" ng-click="btnDetalleEq($index)">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle" ng-click="btnDetalleEqOK($index)">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
@@ -131,7 +131,7 @@
                       </td>                      
                     </tr>
                     <!-- /////////////////////////////////////////////// -->
-                    <tr ng-repeat="equipo in equipono" directbtntablarep>
+                    <tr ng-repeat="equipo in equipono" >
                       <td class="{{equipo.clase}}"><i class="{{equipo.icono}}"></i></td>
                       <td>{{equipo.marca}}</td>
                       <td>{{equipo.modelo}}</td>
@@ -141,13 +141,13 @@
                       <td>{{equipo.fechaEntrega}}</td>                      
                       <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle" ng-click="btnDetalleEq($index)">
+                        <button type="button" class="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#ModalDetalle" ng-click="btnDetalleEqNO($index)">
                         <i class="glyphicon glyphicon-list-alt"></i>                          
                         </button>
                       </td>
                       <td>-</td>                      
                     </tr>
-                    <!-- /////////////////////////////////////////////// -->
+                    <!-- /////////////////////////////////////////////// --> 
                     <tr>
                       <td>1</td>
                       <td>-</td>
