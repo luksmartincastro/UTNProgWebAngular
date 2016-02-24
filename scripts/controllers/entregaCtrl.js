@@ -9,7 +9,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 	$scope.btnTraerOrden = false;
 	$scope.cantEquipo = 0; 
 	$scope.importeTotal = 0;
-
+	$scope.cantEquiMostrar = 0;
 	$scope.btnImprimir = {enable:false, cls:'btn-default', icono:'glyphicon glyphicon-print', ref:''};
 	$scope.pagEntregaActiva = 'active';
 
@@ -87,6 +87,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 					var iok = $scope.equipook.length;
 					var ino = $scope.equipono.length;
 					$scope.cantEquipo = iok + ino;
+					$scope.cantEquiMostrar = $scope.cantEquipo;
 					while( $scope.cantEquipo > 0 )
 					{
 						$("#tablaEq tr:last").remove();//reueve la fila ultima
@@ -100,7 +101,7 @@ app.controller('entregaCtrl', ['$scope', 'EntregaServ', '$route', function($scop
 				        equipo['icono'] = 'glyphicon glyphicon-ok';
 				        $scope.btnImprimir.enable = true;
 				        $scope.btnImprimir.cls = 'btn-success';
-				        $scope.btnImprimir.ref = 'http://localhost/UTNProgWeb2015/public/imprimirFactura?idEquipo='+equipo['id'];						        
+				        $scope.btnImprimir.ref = 'http://localhost:8080/UTNProgWeb2015/public/imprimirFactura?idEquipo='+equipo['id'];						        
 				    	$scope.importeTotal = $scope.importeTotal + equipo.presupFinal;
 						
 					});
